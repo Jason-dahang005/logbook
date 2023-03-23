@@ -38,7 +38,7 @@ class OrganizationController extends BaseController
             'org_name' => 'required',
             'description' => 'required'
         ]);
-    
+       
      $organization = Organization::create($request->all());
     return response()->json([
     "success" => true,

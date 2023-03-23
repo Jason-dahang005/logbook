@@ -13,23 +13,18 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('logbooks', function (Blueprint $table) {
+        Schema::create('users', function (Blueprint $table) {
+           
             $table->increments('id');
             $table->string('name');
-            $table->longText('description');
-            $table->timestamp("date");
-            $table->integer('org_id')->unsigned();
+            $table->string('email')->unique();
+            $table->timestamp('email_verified_at')->nullable();
+            $table->string('password');
+            $table->rememberToken();
             $table->timestamps();
-           
-
+            
         });
-        Schema::table('logbooks', function(Blueprint $table)
-{
-            $table->foreign('org_id')
-            ->references('id')->on('organizations')
-            ->onDelete('cascade');
-
-        });
+       
     }
 
     /**
@@ -39,6 +34,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('logbooks');
+        Schema::dropIfExists('users');
     }
 };

@@ -4,7 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 // Controllers
-use App\Http\Controllers\api\AuthenticationController;
+use App\Http\Controllers\guard\LogbookController;
 use App\Http\Controllers\guard\OrganizationController;
 
 
@@ -14,15 +14,13 @@ use App\Http\Controllers\guard\OrganizationController;
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
+
 });
 
-// Route::controller(AuthenticationController::class)->group(function() {
-//     Route::post('register', 'register');
-// });
-
-// Route::get('organizations', [OrganizationController::class,'index']);
-// Route::post('organizations', [OrganizationController::class,'store']);
-// Route::get('organizations/{id}', [OrganizationController::class,'show']);
-// Route::post('organizations/{id}', [OrganizationController::class,'update']);
-// Route::delete('organizations/{id}', [OrganizationController::class,'destroy']);
 Route::resource('organizations', OrganizationController::class);
+
+Route::get('logbooks', [LogbookController::class,'index']);
+Route::post('logbooks', [LogbookController::class,'store']);
+Route::get('logbooks/{id}', [LogbookController::class,'show']);
+Route::post('logbooks/{id}',[LogbookController::class,'update']);
+Route::post('logbooks/{id}', [LogbookController::class,'destroy']);

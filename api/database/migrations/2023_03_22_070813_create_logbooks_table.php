@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 return new class extends Migration
 {
@@ -13,12 +14,17 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('organizations', function (Blueprint $table) {
+        Schema::create('logbooks', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('org_name');
+            $table->string('fname');
+            $table->string('lname');
             $table->longText('description');
             $table->timestamps();
+            $table->integer('org_id')->unsigned();
+            $table->foreign('org_id')
+            ->references('id')->on('organizations')->onUpdate('cascade')->onDelete('cascade');
         });
+        
     }
 
     /**
@@ -28,6 +34,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('organizations');
+        Schema::dropIfExists('logbooks');
     }
 };
