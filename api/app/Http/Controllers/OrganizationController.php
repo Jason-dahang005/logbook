@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Organization;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class OrganizationController extends Controller
 {
@@ -115,10 +116,32 @@ class OrganizationController extends Controller
      * @param  \App\Models\Organization  $organization
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Organization $organization)
-    {
-        //
-    }
+    // public function update(Request $request, Organization $organization)
+    // {
+    //     $user = auth()->user();
+    //     $input = $request->all();
+     
+    //     $org = Organization::make($input, [
+    //         'name' => 'required',
+    //         'description' => 'required'
+    //     ]);
+        
+    //     $org->name = $input['name'];
+    //     $org->description = $input['description'];
+    
+    //     if($user->hasRole('admin')){
+    //         $org->user_id   = $request->user_id;
+    //     } else if($user->hasRole('user')){
+    //         $org->user_id   = $user->id;
+    //     }
+    //     $organization = $org->save();
+
+    //     return response()->json([
+    //            'data'=>$organization,
+    //            'message'=> "Organization updated successfully."
+    //         ]);
+        
+    // }
 
     /**
      * Remove the specified resource from storage.

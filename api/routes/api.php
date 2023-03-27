@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\LogbookController;
 use App\Http\Controllers\OrganizationController;
+use App\Http\Controllers\SearchController;
 use App\Http\Controllers\api\AuthenticationController;
 
 /*
@@ -47,11 +48,18 @@ Route::group(['middleware' => ['api', 'role:user', 'auth:api']], function () {
         Route::post('create-org', 'store');
         Route::get('org-list', 'index');
         Route::get('show-org/{id}', 'show');
+        Route::post('update-org/{id}', 'update');
+
     });
 
     Route::controller(LogbookController::class)->group(function() {
         Route::post('log-user/{id}', 'store');
         Route::get('logbook/{id}', 'index');
+    });
+
+    Route::controller(SearchController::class)->group(function(){
+        Route::get('search-org','searchOrg');
+        Route::get('search-log','searchLog');
     });
 
     Route::post('logout', [AuthenticationController::class, 'logout']);
