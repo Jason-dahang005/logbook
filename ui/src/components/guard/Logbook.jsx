@@ -14,7 +14,6 @@ const Logbook = () => {
   const [loading, setLoading] = useState(true)
   const [viewModal, setViewModal] = useState(false)
   const [char, setChar] = useState([])
-  
   const close = () => setViewModal(false)
 
 
@@ -22,6 +21,7 @@ const Logbook = () => {
     const x = setInterval(() => {
       axiosInstance.get(`logbook/${location.state.id}`)
       .then((res) => {
+        console.log(res.data)
         setLogbook(res.data.logs)
         setLoading(false)
       }).catch((error) => {
@@ -53,18 +53,17 @@ const Logbook = () => {
             <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
               <BiSearch className='text-slate-400'/>
             </div>
-            <input type="text" className='border border-slate-400 pl-8 pr-2 py-1 outline-none rounded text-slate-700' placeholder='Search' />
+            <input type="text" className='border border-slate-400 pl-8 pr-2 py-1 outline-none rounded text-slate-700' placeholder='Search'/>
           </div>
         </div>
         <div className="">
           <CreateLogBtn/>
         </div>
       </div>
-      <div className="px-5 pb-5 lg:h-[400px] overflow-y-scroll">
+      <div className="px-5 pb-5 lg:h-[400px] overflow-y-scroll bg-white">
         <table className="w-full px-3">
           <thead> 
             <tr className='sticky top-0 bg-white'>
-              <th scope="col" className="font-bold text-md text-gray-900 px-3 py-4 text-left">ID</th>
               <th scope="col" className="font-bold text-md text-gray-900 px-3 py-4 text-left">Last Name</th>
               <th scope="col" className="font-bold text-md text-gray-900 px-3 py-4 text-left">First Name</th>
               <th scope="col" className="font-bold text-md text-gray-900 px-3 py-4 text-left">Description</th>
@@ -77,7 +76,6 @@ const Logbook = () => {
               logbook.length > 0 ? logbook.map((item) => {
                 return (
                   <tr className="even:bg-slate-200" key={item.id}>
-                    <td className="text-slate-900 max-h-2 overflow-hidden font-light px-5 py-2 whitespace-pre max-w-[200px]">{ item.id }</td>
                     <td className="text-slate-900 max-h-2 overflow-hidden font-light px-5 py-2 whitespace-pre max-w-[200px]">{ item.lastname }</td>
                     <td className="text-slate-900 max-h-2 overflow-hidden font-light px-5 py-2 whitespace-pre max-w-[200px]">{ item.firstname }</td>
                     <td className="text-slate-900 max-h-2 overflow-hidden font-light px-5 py-2 whitespace-pre max-w-[200px] text-ellipsis">{ item.description }</td>

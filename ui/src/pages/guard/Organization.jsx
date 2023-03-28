@@ -44,7 +44,7 @@ const Organization = () => {
             </div>
           </div>
         </div>
-        <div className="col-span-12 md:col-span-9 lg:col-span-9">
+        <div className="col-span-12 md:col-span-9 lg:col-span-9 bg-slate-200">
           <Logbook/>
         </div>
       </div>

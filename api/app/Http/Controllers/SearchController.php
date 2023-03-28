@@ -13,8 +13,7 @@ class SearchController extends Controller
     {
         $result=Organization::when($request->filled('search'),function ($org)use($request)
         {
-           $org->where ('name','LIKE','%'.$request->search.'%')
-            ->orWhere ('description','LIKE','%'.$request->search.'%');
+           $org->where ('name','LIKE','%'.$request->search.'%')->orWhere ('description','LIKE','%'.$request->search.'%');
         })->paginate($request->per_page);
         if(count($result)){
             return response()->json($result);
@@ -31,18 +30,21 @@ class SearchController extends Controller
         $result=Logbook::when($request->filled('search'),function ($log)use($request)
         {
             $log->where ('firstname','LIKE','%'.$request->search.'%')
-            ->orWhere ('lastname','LIKE','%'.$request->search.'%') 
+            ->orWhere ('lastname','LIKE','%'.$request->search.'%')
             ->orWhere ('description','LIKE','%'.$request->search.'%');
-        })->paginate($request->per_page);
-        if(count($result)){
-            return response()->json($result);
+        })->get();
+
+        if($result){
+            return response()->json([
+                'result' => $result
+            ]);
         }
         else{
             return response()->json([
                 "Result"=> 'Data not found'
             ], 404);
         }
-        
+
     }
 
 }
