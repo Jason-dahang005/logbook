@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\Logbook;
 use App\Models\Organization;
 use Illuminate\Http\Request;
@@ -17,7 +18,7 @@ class LogbookController extends Controller
     {
         Organization::find($id);
 
-        $log = Logbook::orderBy('created_at', 'desc')->where('org_id', $id)->get();
+        $log = Logbook::whereDate('created_at', Carbon::today())->orderBy('created_at', 'desc')->where('org_id', $id)->get();
 
         if($log){
             return response()->json([

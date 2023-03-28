@@ -18,7 +18,7 @@ const Organization = () => {
 
   return (
     <div className='px-8 py-3'>
-      <div className="flex flex-col justify-start items-center md:flex-row  md:justify-between border py-3 px-4 mb-3">
+      <div className="flex flex-col justify-start items-center md:flex-row  md:justify-between border py-3 px-4 mb-3 bg-slate-200">
         <div className="">
           <BackBtn/>
         </div>
