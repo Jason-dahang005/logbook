@@ -3,7 +3,6 @@ import { useState, useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
 import axiosInstance from '../../api/axios'
 import { AiFillEye } from 'react-icons/ai'
-import { BiSearch } from 'react-icons/bi'
 import CreateLogBtn from '../../components/guard/CreateLogBtn'
 import ViewModal from './ViewModal'
 
@@ -46,29 +45,16 @@ const Logbook = () => {
   }
 
   return (
-    <div className='w-full border border-slate-200'>
-      <div className="flex justify-between items-center px-5 py-5 bg-slate-200">
-        <div className="">
-          <div className='relative'>
-            <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-              <BiSearch className='text-slate-400'/>
-            </div>
-            <input type="text" className='border border-slate-400 pl-8 pr-2 py-1 outline-none rounded text-slate-700' placeholder='Search'/>
-          </div>
-        </div>
-        <div className="">
-          <CreateLogBtn/>
-        </div>
-      </div>
-      <div className="px-5 pb-5 lg:h-[400px] overflow-y-scroll bg-white">
-        <table className="w-full px-3">
+    <div>
+      <div className="h-[400px] overflow-y-auto bg-white">
+        <table className="w-full">
           <thead> 
             <tr className='sticky top-0 bg-white'>
-              <th scope="col" className="font-bold text-md text-gray-900 px-3 py-4 text-left">Last Name</th>
-              <th scope="col" className="font-bold text-md text-gray-900 px-3 py-4 text-left">First Name</th>
-              <th scope="col" className="font-bold text-md text-gray-900 px-3 py-4 text-left">Description</th>
-              <th scope="col" className="font-bold text-md text-gray-900 px-3 py-4 text-left">Time</th>
-              <th scope="col" className="font-bold text-md text-gray-900 px-3 py-4 text-left">Action</th>
+              <th scope="col" className="font-bold text-md border border-slate-300 text-gray-900 py-4 text-start pl-5">Last Name</th>
+              <th scope="col" className="font-bold text-md border border-slate-300 text-gray-900 py-4 text-start pl-5">First Name</th>
+              <th scope="col" className="font-bold text-md border border-slate-300 text-gray-900 py-4 text-start pl-5 w-5/12">Description</th>
+              <th scope="col" className="font-bold text-md border border-slate-300 text-gray-900 py-4 w-1/12">Time</th>
+              <th scope="col" className="font-bold text-md border border-slate-300 text-gray-900 py-4 w-1/12">Action</th>
             </tr>
           </thead>
           <tbody className='border-y-2 border-slate-500'>
@@ -76,11 +62,11 @@ const Logbook = () => {
               logbook.length > 0 ? logbook.map((item) => {
                 return (
                   <tr className="even:bg-slate-200" key={item.id}>
-                    <td className="text-slate-900 max-h-2 overflow-hidden font-light px-5 py-2 whitespace-pre max-w-[200px]">{ item.lastname }</td>
-                    <td className="text-slate-900 max-h-2 overflow-hidden font-light px-5 py-2 whitespace-pre max-w-[200px]">{ item.firstname }</td>
-                    <td className="text-slate-900 max-h-2 overflow-hidden font-light px-5 py-2 whitespace-pre max-w-[200px] text-ellipsis">{ item.description }</td>
-                    <td className="text-slate-900 max-h-2 overflow-hidden font-light px-5 py-2 whitespace-pre max-w-[200px]">{new Date(item.created_at).toLocaleTimeString()}</td>
-                    <td className="text-slate-900 max-h-2 overflow-hidden font-light py-2 whitespace-pre">
+                    <td className="text-slate-900 max-h-2 border-x border-slate-300 overflow-hidden px-5 py-2 whitespace-pre max-w-[200px]">{ item.lastname }</td>
+                    <td className="text-slate-900 max-h-2 border-x border-slate-300 overflow-hidden px-5 py-2 whitespace-pre max-w-[200px]">{ item.firstname }</td>
+                    <td className="text-slate-900 max-h-2 border-x border-slate-300 overflow-hidden px-5 py-2 whitespace-pre max-w-[200px] text-ellipsis">{ item.description }</td>
+                    <td className="text-slate-900 max-h-2 border-x border-slate-300 overflow-hidden px-5 py-2 whitespace-pre max-w-[200px]">{new Date(item.created_at).toLocaleTimeString()}</td>
+                    <td className="text-slate-900 max-h-2 border-x border-slate-300 py-2 px-4">
                       <button onClick={() => onCheck(item)} className='flex items-center space-x-1 bg-[#009900] px-2 py-1 rounded text-white hover:bg-[#006600]'>
                         <AiFillEye/>
                         <span className='text-sm'>View</span>

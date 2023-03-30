@@ -59,7 +59,7 @@ Route::group(['middleware' => ['api', 'role:user', 'auth:api']], function () {
 
     Route::controller(SearchController::class)->group(function(){
         Route::get('search-org','searchOrg');
-        Route::get('search-log','searchLog');
+        Route::get('search-log/{id}','searchLog');
     });
 
     Route::post('logout', [AuthenticationController::class, 'logout']);

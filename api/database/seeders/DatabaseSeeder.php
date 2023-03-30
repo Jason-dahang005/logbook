@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\Logbook;
 
 class DatabaseSeeder extends Seeder
 {
@@ -14,14 +15,18 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
+        foreach(range(1,5) as $index){
+            Logbook::create([
+                'firstname' => fake()->firstName,
+                'org_id' => 5 ,
+                'lastname' => fake()->lastName,
+                'description' => fake()->paragraph()
+            ]);
+        }
+
+        // $this->call([
+        //     RoleSeeder::class
         // ]);
-        $this->call([
-            RoleSeeder::class
-        ]);
     }
 }
