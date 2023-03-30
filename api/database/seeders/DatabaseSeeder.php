@@ -16,12 +16,12 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
 
-        foreach(range(1,5) as $index){
+        foreach(range(1,15) as $index){
             Logbook::create([
-                'firstname' => fake()->firstName,
-                'org_id' => 5 ,
-                'lastname' => fake()->lastName,
-                'description' => fake()->paragraph()
+                'firstname'     => fake()->firstName,
+                'org_id'        => 6 ,
+                'lastname'      => fake()->lastName,
+                'description'   => fake()->paragraph()
             ]);
         }
 

@@ -17,7 +17,7 @@ const OrgName = () => {
 
   return (
     <div className=''>
-      <h1 className='text-[2rem] font-bold'>{ org.name } logbook</h1>
+      <h1 className='text-[2rem] font-bold'>{ org.name }</h1>
     </div>
   )
 }

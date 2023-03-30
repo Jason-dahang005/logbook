@@ -29,7 +29,7 @@ const Calendar = () => {
       <div className='flex justify-center items-center space-x-1'>
         <div className='bg-green-500 rounded-full full hover:bg-green-700 p-2'>
           <MdCalendarMonth className='hover:cursor-pointer text-white example-custom-input' size={30} onClick={handleClick}>
-            {format(startDate, "dd-MM-yyyy")}
+            { format(startDate, "dd-MM-yyyy") }
           </MdCalendarMonth>
         </div>
         <div className='fex flex-col'>
@@ -38,7 +38,7 @@ const Calendar = () => {
         </div>
       </div>
       {isOpen && (
-        <div className="absolute right-[50px] top-[160px] z-50">
+        <div className="absolute right-[32px] top-[160px] z-50">
           <DatePicker selected={startDate} onChange={handleChange} inline />
         </div>
       )}
