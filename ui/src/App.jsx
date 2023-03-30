@@ -2,7 +2,7 @@ import { useState } from 'react'
 import Dashboard from './pages/admin/Dashboard'
 import {BrowserRouter,Routes,Route} from 'react-router-dom'
 import Organization from './pages/admin/Organization'
-import Layout from './Layout'
+import Layout1 from './Layout'
 import Security from './pages/admin/Security'
 import Datepicker from './pages/admin/Datepicker'
 
@@ -12,7 +12,7 @@ const App = () => {
     <div>
       <BrowserRouter>
       <Routes>
-        <Route element={<Layout/>}>
+        <Route element={<Layout1/>}>
           <Route path="/" element={<Dashboard/> } />
           <Route path="/organization" element={<Organization/> } />
           <Route path="/security" element={<Security/> } />
