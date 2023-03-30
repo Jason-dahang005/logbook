@@ -17,8 +17,8 @@ const Sidebar = () => {
     return (
 <section className="flex gap-6">
       <div
-        className={`bg-slate-600 h-screen ${
-          open ? "w-50" : "w-16"
+        className={`bg-slate-800 h-screen ${
+          open ? "w-[250px]" : "w-16"
         } duration-500 text-gray-100 px-5`}
       >
         <div className="py-3 flex justify-end">

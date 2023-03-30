@@ -1,10 +1,10 @@
 import { useState } from 'react'
-import Dashboard from './pages/Dashboard'
+import Dashboard from './pages/admin/Dashboard'
 import {BrowserRouter,Routes,Route} from 'react-router-dom'
-import Organization from './pages/Organization'
+import Organization from './pages/admin/Organization'
 import Layout from './Layout'
-import Security from './pages/Security'
-import Datepicker from './pages/Datepicker'
+import Security from './pages/admin/Security'
+import Datepicker from './pages/admin/Datepicker'
 
 
 const App = () => {

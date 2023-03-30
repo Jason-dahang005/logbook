@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import Smodal from '../Smodal'
-import Vmodal from '../Vmodal'
+import Smodal from '../../Smodal'
+import Vmodal from '../../Vmodal'
 
 const Security = () => {
     return (

@@ -11,13 +11,13 @@ const Layout = () => {
             </div>
             <div className="grow">
                 <div className="flex flex-col">
-                <div>
-                    <Header/>
+                    <div>
+                        <Header/>
+                    </div>
+                    <div className="px-5">
+                        <Outlet/>
+                    </div>
                 </div>
-                
-                <Outlet/>
-            
-            </div>
             </div>
             
         </div>
