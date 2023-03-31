@@ -9,11 +9,13 @@ class Logbook extends Model
 {
     use HasFactory;
 
+
     protected $fillable = [
         'firstname',
         'lastname',
         'description',
-        'org_id'
+        'org_id',
+      
     ];
 
     public function organization(){

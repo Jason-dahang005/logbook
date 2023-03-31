@@ -6,16 +6,21 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Organization;
 use App\Models\Logbook;
+use App\Models\User;
 
 class SearchController extends Controller
 {
-    public function searchOrg(Request $request)
+    public function searchOrg(Request $request,$id)
     {
-        $result=Organization::when($request->filled('search'),function ($org)use($request)
-        {
-           $org->where ('name','LIKE','%'.$request->search.'%')
-            ->orWhere ('description','LIKE','%'.$request->search.'%');
-        })->paginate($request->per_page);
+        $search = $request->input('search');
+        User::find($id);
+        $result=Organization::where('user_id',$id)
+        ->where('name', 'LIKE', '%' . $search . '%')
+        ->orwhere ('description','LIKE','%' . $search . '%')  
+        ->orderBy('created_at', 'desc')
+        ->paginate(10)
+        ->withPath('?search=' . $search); 
+        
         if(count($result)){
             return response()->json($result);
         }
@@ -26,15 +31,19 @@ class SearchController extends Controller
         }
     }
 
-    public function searchLog(Request $request)
+    public function searchLog(Request $request,$id)
     {
-        $result=Logbook::when($request->filled('search'),function ($log)use($request)
-        {
-            $log->where ('firstname','LIKE','%'.$request->search.'%')
-            ->orWhere ('lastname','LIKE','%'.$request->search.'%') 
-            ->orWhere ('description','LIKE','%'.$request->search.'%');
-        })->paginate($request->per_page);
-        if(count($result)){
+        $search = $request->get('search');
+        Organization::find($id);
+        $result = Logbook::where('org_id',$id)
+        ->where('firstname', 'LIKE', '%' . $search . '%')
+        ->orWhere ('lastname','LIKE','%' . $search . '%') 
+        ->orWhere ('description','LIKE','%' . $search . '%')  
+        ->orderBy('created_at', 'desc')
+        ->paginate(10)
+        ->withPath('?search=' . $search); 
+             
+            if(count($result)){
             return response()->json($result);
         }
         else{

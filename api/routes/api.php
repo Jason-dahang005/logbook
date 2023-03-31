@@ -9,7 +9,7 @@ use App\Http\Controllers\LogbookController;
 use App\Http\Controllers\OrganizationController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\api\AuthenticationController;
-
+use App\Http\Controllers\HistoryController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -51,6 +51,11 @@ Route::group(['middleware' => ['api', 'role:user', 'auth:api']], function () {
         Route::post('update-org/{id}', 'update');
 
     });
+    Route::controller(HistoryController::class)->group(function(){
+        Route::get('logsearch/{id}', 'loghistory');
+        Route::get('search/{id}', 'date');
+    });
+   
 
     Route::controller(LogbookController::class)->group(function() {
         Route::post('log-user/{id}', 'store');
@@ -58,8 +63,8 @@ Route::group(['middleware' => ['api', 'role:user', 'auth:api']], function () {
     });
 
     Route::controller(SearchController::class)->group(function(){
-        Route::get('search-org','searchOrg');
-        Route::get('search-log','searchLog');
+        Route::get('search-org/{id}','searchOrg');
+        Route::get('search-log/{id}','searchLog');
     });
 
     Route::post('logout', [AuthenticationController::class, 'logout']);

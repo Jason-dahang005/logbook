@@ -111,7 +111,7 @@ class LogbookController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy(Logbook $logbook)
-    {
+    { 
         //
     }
 }
