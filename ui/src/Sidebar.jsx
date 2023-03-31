@@ -8,7 +8,7 @@ import { VscOrganization} from "react-icons/vsc";
 import { Link } from "react-router-dom";
 const Sidebar = () => {
     const menus = [
-        { name: "Home", link: "/", icon: MdOutlineDashboard },
+        { name: "Dashboard", link: "/", icon: MdOutlineDashboard },
         { name: "Organization", link: "/organization", icon: VscOrganization },
         { name: "Security ", link: "/security", icon: AiOutlineUser },
         { name: "Setting", link: "/datepicker", icon: RiSettings4Line },
@@ -56,7 +56,6 @@ const Sidebar = () => {
                 {menu?.name}
               </h2>
             </Link>
-            
           ))}
         </div>
       </div>
