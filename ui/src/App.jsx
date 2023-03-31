@@ -8,6 +8,7 @@ import Unauthenticated from './api/unauthenticated'
 import Authenticated from './api/authenticated'
 import Organization from './pages/guard/Organization'
 import LogHistory from './pages/guard/LogHistory'
+import LogSearch from './components/guard/LogSearch'
 
 function App() {
 
@@ -23,6 +24,7 @@ function App() {
             <Route path="/home" element={<Home/>} />
             <Route path="/organization" element={<Organization/>} />
             <Route path="/log-history" element={<LogHistory/>}/>
+            <Route path="/search" element={<LogSearch/>} />
           </Route>
         </Route>
       </Routes>

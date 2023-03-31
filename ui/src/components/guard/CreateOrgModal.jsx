@@ -31,9 +31,10 @@ const CreateOrgModal = ({ visible, onClose }) => {
 
   return (
     <div className='fixed inset-0 bg-black bg-opacity-60 flex justify-center items-center z-50'>
-      <div className="bg-white rounded drop-shadow-md w-[450px]">
-        <div className="flex justify-center items-center bg-slate-200 py-8 rounded-t">
+      <div className="bg-white rounded drop-shadow-md w-[450px] pb-3">
+        <div className="flex justify-center items-center relative bg-slate-200 py-8 rounded-t">
           <h3 className='font-bold text-2xl'>Create Organization</h3>
+          <GrFormClose className='absolute right-3 top-3 hover:cursor-pointer hover:bg-slate-300 rounded-full' size={30} onClick={onClose}/>
         </div>
         <div className="px-4">
           <form onSubmit={handleSubmit}>
@@ -53,8 +54,8 @@ const CreateOrgModal = ({ visible, onClose }) => {
               }
             </div>
             <div className="flex justify-end items-center space-x-3 py-2">
-              <button className='bg-blue-700 text-white px-2 py-1 rounded' type='submit'>Create</button>
-              <button className='bg-red-700 text-white px-2 py-1 rounded' onClick={onClose}>Cancel</button>
+              <button className='bg-blue-500 text-white px-2 py-1 rounded w-full' type='submit'>Create</button>
+              {/* <button className='bg-red-700 text-white px-2 py-1 rounded' onClick={onClose}>Cancel</button> */}
             </div>
           </form>
         </div>

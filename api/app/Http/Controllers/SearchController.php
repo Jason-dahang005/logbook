@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use App\Models\Organization;
-use App\Models\Logbook;
 use App\Models\User;
+use App\Models\Logbook;
+use App\Models\Organization;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+
 
 class SearchController extends Controller
 {
@@ -33,7 +34,7 @@ class SearchController extends Controller
 
     public function searchLog(Request $request,$id)
     {
-        $search = $request->get('search');
+        $search = $request->input('search');
         Organization::find($id);
         $result = Logbook::where('org_id',$id)
         ->where('firstname', 'LIKE', '%' . $search . '%')
@@ -51,7 +52,7 @@ class SearchController extends Controller
                 "Result"=> 'Data not found'
             ], 404);
         }
-        
+
     }
 
 }

@@ -9,21 +9,29 @@ const OrgList = () => {
 
   const nav = useNavigate()
   const [org, setOrg] = useState([])
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    setTimeout(() => {
-      getOrgList()
+    const getOrgList = setInterval(() => {
+      axiosInstance.get(`org-list`)
+      .then((res) => {
+        setOrg(res.data.organization)
+        setLoading(false)
+      }).catch((error) => {
+        console.log(error)
+      })
     }, 1000)
+    return () => clearInterval(getOrgList)
   }, [org])
 
-  const getOrgList = async () => {
-    try {
-      await axiosInstance.get('org-list').then((response) => {
-        setOrg(response.data.organization)
-      })
-    } catch(error) {
-      console.error(error)
-    }
+  
+  if(loading){
+    return (
+      <div className='flex justify-center items-center h-[200px]'>
+        <div style={{borderTopColor: 'transparent'}} className="w-16 h-16 border-4 border-red-400 border-double rounded-full animate-spin" />
+      </div>
+
+    )
   }
 
   return (
