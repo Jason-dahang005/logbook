@@ -16,8 +16,10 @@ class SearchController extends Controller
         $search = $request->input('search');
         User::find($id);
         $result=Organization::where('user_id',$id)
-        ->where('name', 'LIKE', '%' . $search . '%')
-        ->orwhere ('description','LIKE','%' . $search . '%')  
+        ->where(function ($q) use ($search) {
+            $q->where('name', 'LIKE', '%' . $search . '%')
+            ->orWhere ('description','LIKE','%' . $search . '%');  
+        })
         ->orderBy('created_at', 'desc')
         ->paginate(10)
         ->withPath('?search=' . $search); 
@@ -32,17 +34,21 @@ class SearchController extends Controller
         }
     }
 
-    public function searchLog(Request $request,$id)
+    public function searchLog($id,Request $request)
     {
+        
         $search = $request->input('search');
         Organization::find($id);
+       
         $result = Logbook::where('org_id',$id)
-        ->where('firstname', 'LIKE', '%' . $search . '%')
-        ->orWhere ('lastname','LIKE','%' . $search . '%') 
-        ->orWhere ('description','LIKE','%' . $search . '%')  
+        ->where(function ($q) use ($search) {
+            $q->where('firstname', 'LIKE', '%' . $search . '%')
+            ->orWhere('lastname','LIKE','%' . $search . '%') 
+            ->orWhere ('description','LIKE','%' . $search . '%');  
+        })
         ->orderBy('created_at', 'desc')
         ->paginate(10)
-        ->withPath('?search=' . $search); 
+        ->withPath('?search=' . $search);
              
             if(count($result)){
             return response()->json($result);

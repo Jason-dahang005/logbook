@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\HistoryController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -16,4 +16,4 @@ use App\Http\Controllers\HistoryController;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('logsearch',[HistoryController::class,'history']);
+

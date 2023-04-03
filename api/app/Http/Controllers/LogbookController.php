@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use App\Models\Logbook;
 use App\Models\Organization;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rules\Unique;
 
 class LogbookController extends Controller
 {
@@ -111,8 +112,12 @@ class LogbookController extends Controller
      * @param  \App\Models\Logbook  $logbook
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Logbook $logbook)
+    public function destroy($id)
     { 
-        //
+        $log = Logbook::find($id);
+        $log->delete();
+     
+        return response()->json([ 
+            'meassage'=>'Logs Deleted Successfully!']);
     }
 }

@@ -48,7 +48,8 @@ Route::group(['middleware' => ['api', 'role:user', 'auth:api']], function () {
         Route::post('create-org', 'store');
         Route::get('org-list', 'index');
         Route::get('show-org/{id}', 'show');
-        Route::post('update-org/{id}', 'update');
+        Route::put('update-org/{id}', 'update');
+        Route::delete('delete_org/{id}', 'destroy');
 
     });
     Route::controller(HistoryController::class)->group(function(){
@@ -60,6 +61,7 @@ Route::group(['middleware' => ['api', 'role:user', 'auth:api']], function () {
     Route::controller(LogbookController::class)->group(function() {
         Route::post('log-user/{id}', 'store');
         Route::get('logbook/{id}', 'index');
+        Route::delete('delete_log/{id}', 'destroy');
     });
 
     Route::controller(SearchController::class)->group(function(){

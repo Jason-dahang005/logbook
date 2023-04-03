@@ -117,31 +117,21 @@ class OrganizationController extends Controller
      * @param  \App\Models\Organization  $organization
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Organization $organization)
+    public function update(Request $request, $id)
     {
-        // $user = auth()->user();
-        // $input = $request->all();
-     
-        // $org = Organization::make($input, [
-        //     'name' => 'required',
-        //     'description' => 'required'
-        // ]);
-        
-        // $org->name = $input['name'];
-        // $org->description = $input['description'];
-    
-        // if($user->hasRole('admin')){
-        //     $org->user_id   = $request->user_id;
-        // } else if($user->hasRole('user')){
-        //     $org->user_id   = $user->id;
-        // }
-        // $organization = $org->save();
+        $request->validate([
+            'name'=>'required',
+            'description'=>'required',
+           
+        ]);
+        $org = Organization::find($id);
+        $org->name =  $request->input('name');
+        $org->description = $request->input('description');
+        $org->save();
 
-        // return response()->json([
-        //        'data'=>$organization,
-        //        'message'=> "Organization updated successfully."
-        //     ]);
-        
+        return response()->json([
+            'message'=> 'Organization Updated Successfully',
+        ]);
     }
 
     /**
@@ -150,8 +140,13 @@ class OrganizationController extends Controller
      * @param  \App\Models\Organization  $organization
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Organization $organization)
+    public function destroy($id)
     {
-        //
+        $organization = Organization::find($id);
+        $organization->delete();
+     
+        return response()->json([ 
+            'meassage'=>'Organization Deleted Successfully!']);
     }
 }
+

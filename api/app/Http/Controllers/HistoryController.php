@@ -42,7 +42,7 @@ class HistoryController extends Controller
       ->paginate(10)
       ->withPath('?search=' . $search);
 
-      if(count($results)){
+      if(count($results)){ 
         return response()->json([
             'data' => $results,
             
