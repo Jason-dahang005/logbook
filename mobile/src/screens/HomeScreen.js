@@ -1,77 +1,83 @@
-import { View, Text, ScrollView, TextInput, TouchableOpacity, StyleSheet, Modal} from 'react-native'
-import React, { useEffect, useState } from 'react'
+import { View, Text, ScrollView, TextInput, TouchableOpacity, StyleSheet, Modal } from 'react-native'
+import React, { useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { ImageBackground } from 'react-native'
-import Feather from 'react-native-vector-icons/Feather';
 import CustomSwitch from '../components/CustomSwitch';
 import ListItem from '../components/ListItem';
 import { Organization, People } from '../model/data';
 import { Title } from 'react-native-paper';
+import CustomSearch from '../components/CustomSearch';
 
 
 
 export default function HomeScreen({ navigation }) {
 
-  const [modalVisible,setModalVisible] = useState(false);
-  const [search,setSearch] = useState('');
+  const [modalVisible, setModalVisible] = useState(false);
+  const [search, setSearch] = useState('');
   const [buttonTab, setbuttonTab] = useState(1);
   const onSelectSwitch = value => {
     setbuttonTab(value);
   }
-  const searchFilter = () => {
-    return search ? Organization.filter((data) => data.title.toLocaleLowerCase() === search.toLocaleLowerCase() ) : Organization 
-  }
-  const filtered = searchFilter()
+
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: '#fff' }}>
       <ScrollView style={{ padding: 20 }}>
-          <View>
-            <Modal
-              animationType="fade"
-              transparent={true}
-              visible={modalVisible}>
-              <View style={styles.centeredView}>
-                <View style={styles.modalView}>
-                  <View style={{flexDirection: 'row'}}>
-                    <TouchableOpacity style={styles.button} onPress={()=>setModalVisible(false)}>
-                    <Text>X</Text> 
-                    </TouchableOpacity>
-                    <Title style={styles.modalText}>Organization</Title>
-                  </View>
-                  <View style={{
-                    flexDirection: 'row',
-                    borderColor: '#C6C6C6',
-                    borderWidth: 1,
-                    borderRadius: 8,
-                    paddingHorizontal: 10,
-                    paddingVertical: 8,
-                    margin:10
-                  }}>
-                  <TextInput placeholder='Organization Name'></TextInput>
-                  </View>
-                  <View style={{
-                    flexDirection: 'row',
-                    borderColor: '#C6C6C6',
-                    borderWidth: 1,
-                    borderRadius: 8,
-                    paddingHorizontal: 10,
-                    paddingVertical: 8,
-                    margin:10
-                  }}>
-                  <TextInput placeholder='Description'></TextInput>
-                  </View>
-                  <TouchableOpacity style={{ left: 220,}}><Text>ADD</Text></TouchableOpacity>
+        <View>
+          <Modal
+            animationType="fade"
+            transparent={true}
+            visible={modalVisible}>
+            <View style={styles.centeredView}>
+              <View style={styles.modalView}>
+                <View style={{ flexDirection: 'row' }}>
+                  <TouchableOpacity style={styles.button} onPress={() => setModalVisible(false)}>
+                    <Text style={{ fontWeight: 'bold', fontSize: 17 , color:'red' }}>X</Text>
+                  </TouchableOpacity>
+                  <Title style={styles.modalText}>Organization</Title>
                 </View>
+                <View style={{
+                  flexDirection: 'row',
+                  borderColor: '#C6C6C6',
+                  borderWidth: 1,
+                  borderRadius: 8,
+                  paddingHorizontal: 10,
+                  paddingVertical: 8,
+                  margin: 10
+                }}>
+                  <TextInput placeholder='Organization Name'></TextInput>
+                </View>
+                <View style={{
+                  flexDirection: 'row',
+                  borderColor: '#C6C6C6',
+                  borderWidth: 1,
+                  borderRadius: 8,
+                  paddingHorizontal: 10,
+                  paddingVertical: 8,
+                  margin: 10
+                }}>
+                  <TextInput placeholder='Description'></TextInput>
+                </View>
+                <TouchableOpacity style={{
+                  left: 190,
+                  backgroundColor: '#1B56D8',
+                  padding: 10,
+                  width: 60,
+                  borderRadius: 10,
+                  alignItems: 'center'
+                }}>
+                  <Text style={{ color: 'white' }}>ADD</Text></TouchableOpacity>
               </View>
-            </Modal>
-          </View>
+            </View>
+          </Modal>
+        </View>
         <View
           style={{
             flexDirection: 'row',
             justifyContent: 'space-between',
             marginBottom: 20
           }}>
-          <Text style={{ fontSize: 16 }}>Hello! Gwapo Salman</Text>
+          <Text style={{ fontSize: 25 }}>Hello!</Text>
+          <Text style={{ fontSize: 25, right: 65, fontWeight: 'bold', fontStyle: 'italic' }}>Salman</Text>
           <TouchableOpacity onPress={() => navigation.openDrawer()}>
             <ImageBackground
               source={require("../assets/images/Pic/Alberto_conversi_profile_pic.jpg")}
@@ -79,25 +85,9 @@ export default function HomeScreen({ navigation }) {
               imageStyle={{ borderRadius: 25 }} />
           </TouchableOpacity>
         </View>
-
-        {/* search bar */}
-        <View style={{
-          flexDirection: 'row',
-          borderColor: '#C6C6C6',
-          borderWidth: 1,
-          borderRadius: 8,
-          paddingHorizontal: 10,
-          paddingVertical: 8
-        }}>
-          <Feather
-            name="search"
-            size={20}
-            color="#C6C6C6"
-            style={{ marginRight: 5 }}
-          />
-          <TextInput value={search} onChangeText={setSearch} placeholder="Search" />
-        </View>
-
+        <CustomSearch
+          setSearch={setSearch}
+        />
         <View style={{ marginVertical: 20 }}>
           <CustomSwitch
             selectionMode={1}
@@ -106,7 +96,16 @@ export default function HomeScreen({ navigation }) {
             onSelectSwitch={onSelectSwitch}
           />
         </View>
-        {buttonTab == 1 && filtered.map(item => (
+        {buttonTab == 1 && Organization.filter((item) => {
+          if (search === "") {
+            return item;
+          } else if (item.title.toLowerCase().includes(search.toLocaleLowerCase())) {
+            return item;
+          } else if (item.subtitle.toLowerCase().includes(search.toLocaleLowerCase())) {
+            return item;
+          }
+          return false
+        }).map(item => (
           <ListItem
             key={item.id}
             photo={item.poster}
@@ -120,8 +119,14 @@ export default function HomeScreen({ navigation }) {
             }
           />
         ))}
-
-        {buttonTab == 2 && People.map(item => (
+        {buttonTab == 2 && People.filter((item) => {
+          if (search === "") {
+            return item;
+          } else if (item.title.toLowerCase().includes(search.toLocaleLowerCase())) {
+            return item;
+          }
+          return false
+        }).map(item => (
           <ListItem
             key={item.id}
             photo={item.poster}
@@ -135,16 +140,16 @@ export default function HomeScreen({ navigation }) {
             }
           />
         ))}
-        
+
       </ScrollView>
-        {buttonTab == 1 && (
-          <View>
-            <TouchableOpacity style={styles.addButton}
-              onPress={() => setModalVisible(true)}>
-              <Text style={styles.addButtontext}>+</Text>
-            </TouchableOpacity>
-          </View>
-        )}
+      {buttonTab == 1 && (
+        <View>
+          <TouchableOpacity style={styles.addButton}
+            onPress={() => setModalVisible(true)}>
+            <Text style={styles.addButtontext}>+</Text>
+          </TouchableOpacity>
+        </View>
+      )}
     </SafeAreaView>
   );
 }
@@ -187,13 +192,15 @@ const styles = StyleSheet.create({
     elevation: 5
   },
   button: {
-    borderRadius: 50,
     padding: 5,
     marginTop: 1,
     marginLeft: 1,
+    bottom: 15,
+    left: 250
   },
   modalText: {
-    marginLeft:50,
+    marginLeft: 50,
+    fontWeight: 'bold'
   }
 
 });

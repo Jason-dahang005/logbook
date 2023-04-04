@@ -1,13 +1,13 @@
 import React from 'react'
-import { SafeAreaView,Text} from 'react-native'
+import { View,Text} from 'react-native'
 
 
 
 const SettingsScreen = () => {
   return (
-    <SafeAreaView style={{flex:1}}>
-    <Text>hahaha</Text>
-    </SafeAreaView>
+    <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
+      <Text>Setting Screen</Text>
+    </View>
   )
 }
 export default SettingsScreen

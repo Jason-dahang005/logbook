@@ -10,7 +10,7 @@ import SettingsScreen from '../screens/SettingsScreen';
 import MessagesScreen from '../screens/MessagesScreen';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import CustomDrawer from '../components/CustomDrawer';
-import OrganizationList from '../components/OrganizationList';
+import OrganizationList from '../screens/OrganizationScreen';
 
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();

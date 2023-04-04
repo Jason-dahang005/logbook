@@ -1,10 +1,10 @@
 import {Text, TouchableOpacity} from 'react-native';
 import React from 'react';
 
-export default function CustomButton({label, onPress}) {
+const CustomButton = (props) => {
   return (
     <TouchableOpacity
-      onPress={onPress}
+      onPress={props.onPress}
       style={{
         backgroundColor: '#105be2',
         padding: 20,
@@ -18,8 +18,9 @@ export default function CustomButton({label, onPress}) {
           fontSize: 16,
           color: '#fff',
         }}>
-        {label}
+        {props.label}
       </Text>
     </TouchableOpacity>
-  );
-}
+  )
+} 
+export default CustomButton

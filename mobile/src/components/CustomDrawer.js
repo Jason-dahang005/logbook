@@ -14,12 +14,13 @@ import {
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import LoginScreen from '../screens/LoginScreen';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-
+import Date from './CustomDate';
 
 const CustomDrawer = props => {
   return (
     <View style={{ flex: 1 }} >
       <DrawerContentScrollView {...props}>
+        
         <ImageBackground
           source={require('../assets/images/Pic/blue.jpg')}
           style={{ padding: 20 }}>

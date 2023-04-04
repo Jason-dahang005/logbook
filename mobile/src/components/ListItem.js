@@ -43,34 +43,47 @@ export default function ListItem(props) {
           </Text>
         </View>
       </View>
-      <TouchableOpacity onPress={onPress} style={{
-        backgroundColor: '#0aada8',
-        padding: 10,
-        width: 35,
-        borderRadius: 50,
-        alignSelf: 'center'
-      }}>
-        <FontAwesome5 name="eye" size={12} color="black" />
-      </TouchableOpacity>
       {buttonTab == 1 && (
-        <TouchableOpacity style={{
-          backgroundColor: '#F9210B',
+        <View style={{ flexDirection: 'row' }}>
+          <TouchableOpacity style={{
+            padding: 5,
+            width: 35,
+            borderRadius: 50,
+            alignItems: 'center'
+          }}>
+            <FontAwesome5 name="pen" size={15} color="black" />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={onPress} style={{
+            padding: 5,
+            width: 35,
+            borderRadius: 50,
+            alignContent: 'center'
+          }}>
+            <FontAwesome5 name="eye" size={20} color="#0aada8" />
+          </TouchableOpacity>
+          <TouchableOpacity style={{
+            padding: 5,
+            width: 35,
+            borderRadius: 50,
+            alignItems: 'center'
+          }}>
+            <FontAwesome5 name="trash" size={20} color="#F9210B" />
+          </TouchableOpacity>
+        </View>)}
+      {buttonTab == 2 && (
+        <TouchableOpacity onPress={onPress} style={{
+          backgroundColor: '#0aada8',
           padding: 10,
-          width: 35,
-          borderRadius: 50,
+          width: 60,
+          borderRadius: 10,
           alignItems: 'center'
         }}>
-          <FontAwesome5 name="trash" size={12} color="#fff" />
-        </TouchableOpacity>)}
-      {buttonTab == 1 && (
-        <TouchableOpacity style={{
-          padding: 10,
-          width: 35,
-          borderRadius: 50,
-          alignItems: 'center'
-        }}>
-          <FontAwesome5 name="feather" size={10} color="black" />
-        </TouchableOpacity>)}
+          <Text style={{
+            fontWeight: 'bold',
+            color:'white'
+          }}>View</Text>
+        </TouchableOpacity>
+      )}
     </View>
   );
 }
