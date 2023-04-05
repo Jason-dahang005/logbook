@@ -19,9 +19,19 @@ const Login = () => {
     axiosInstance.post('login', JSON.stringify({
       email, password
     })).then((response) => {
+      
       localStorage.setItem('token', response.data.token)
-      console.log(response.data)
-      nav('home')
+      localStorage.setItem('user', JSON.stringify(response.data.user))
+      localStorage.setItem('role', response.data.user.roles[0].name)
+
+      const role = localStorage.getItem('role')
+
+      if (role === 'user') {
+        nav('/home')
+      } else if (role === 'admin') {
+        nav('/dashboard')
+      }
+
     }).catch(error => {
       if(error.response.status === 422){
         setError(error.response.data.errors)

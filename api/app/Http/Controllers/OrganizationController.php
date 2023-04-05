@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Organization;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -120,15 +121,15 @@ class OrganizationController extends Controller
     // {
     //     $user = auth()->user();
     //     $input = $request->all();
-     
+
     //     $org = Organization::make($input, [
     //         'name' => 'required',
     //         'description' => 'required'
     //     ]);
-        
+
     //     $org->name = $input['name'];
     //     $org->description = $input['description'];
-    
+
     //     if($user->hasRole('admin')){
     //         $org->user_id   = $request->user_id;
     //     } else if($user->hasRole('user')){
@@ -140,7 +141,7 @@ class OrganizationController extends Controller
     //            'data'=>$organization,
     //            'message'=> "Organization updated successfully."
     //         ]);
-        
+
     // }
 
     /**

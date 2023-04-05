@@ -9,6 +9,7 @@ use App\Http\Controllers\LogbookController;
 use App\Http\Controllers\OrganizationController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\api\AuthenticationController;
+use App\Http\Controllers\GuardListController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,9 +34,10 @@ Route::controller(AuthenticationController::class)->group(function() {
 
 // Admin Routes
 Route::group(['middleware' => ['api', 'role:admin', 'auth:api']], function () {
-    Route::get('auth-user', [UserController::class, 'index']);
-    Route::controller(OrganizationController::class)->group(function() {
-        Route::post('create-org', 'store');
+    Route::get('admin-user', [UserController::class, 'index']);
+
+    Route::controller(GuardListController::class)->group(function() {
+        Route::get('guard-list', 'index');
     });
 
     Route::post('logout', [AuthenticationController::class, 'logout']);
@@ -44,6 +46,7 @@ Route::group(['middleware' => ['api', 'role:admin', 'auth:api']], function () {
 // Users Routes
 Route::group(['middleware' => ['api', 'role:user', 'auth:api']], function () {
     Route::get('auth-user', [UserController::class, 'index']);
+
     Route::controller(OrganizationController::class)->group(function() {
         Route::post('create-org', 'store');
         Route::get('org-list', 'index');
