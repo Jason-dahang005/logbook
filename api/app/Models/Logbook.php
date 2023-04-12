@@ -9,14 +9,16 @@ class Logbook extends Model
 {
     use HasFactory;
 
+
     protected $fillable = [
         'firstname',
         'lastname',
         'description',
-        'org_id'
+        'org_id',
+      
     ];
 
     public function organization(){
-        return $this->belongsTo(Organization::class);
+        return $this->belongsTo(Organization::class,'org_id');
     }
 }

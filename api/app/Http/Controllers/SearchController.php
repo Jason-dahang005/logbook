@@ -2,21 +2,28 @@
 
 namespace App\Http\Controllers;
 
-use Carbon\Carbon;
+use App\Models\User;
 use App\Models\Logbook;
 use App\Models\Organization;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
+
 class SearchController extends Controller
 {
-    public function searchOrg(Request $request)
+    public function searchOrg(Request $request,$id)
     {
-        $result = Organization::when($request->filled('search'),function ($org)use($request)
-        {
-           $org->where('name','LIKE','%'.$request->search.'%')->orWhere('description','LIKE','%'.$request->search.'%');
-        })->get();
-
+        $search = $request->input('search');
+        User::find($id);
+        $result=Organization::where('user_id',$id)
+        ->where(function ($q) use ($search) {
+            $q->where('name', 'LIKE', '%' . $search . '%')
+            ->orWhere ('description','LIKE','%' . $search . '%');  
+        })
+        ->orderBy('created_at', 'desc')
+        ->paginate(10)
+        ->withPath('?search=' . $search); 
+        
         if(count($result)){
             return response()->json($result);
         }
@@ -27,22 +34,26 @@ class SearchController extends Controller
         }
     }
 
-    public function searchLog(Request $request, $id)
+    public function searchLog($id,Request $request)
     {
+        
+        $search = $request->input('search');
         Organization::find($id);
-
-        $result=Logbook::when($request->filled('search'),function ($log)use($request)
-        {
-            $log->where('firstname','LIKE','%'.$request->search.'%')
-            ->orWhere('lastname','LIKE','%'.$request->search.'%')
-            ->orWhere ('description','LIKE','%'.$request->search.'%');
-        })->whereDate('created_at', Carbon::today())->where('org_id', $id)->get();
-
-        if($result){
-            return response()->json([
-                'result' => $result
-            ], 200);
-        }else{
+       
+        $result = Logbook::where('org_id',$id)
+        ->where(function ($q) use ($search) {
+            $q->where('firstname', 'LIKE', '%' . $search . '%')
+            ->orWhere('lastname','LIKE','%' . $search . '%') 
+            ->orWhere ('description','LIKE','%' . $search . '%');  
+        })
+        ->orderBy('created_at', 'desc')
+        ->paginate(10)
+        ->withPath('?search=' . $search);
+             
+            if(count($result)){
+            return response()->json($result);
+        }
+        else{
             return response()->json([
                 "Result"=> 'Data not found'
             ], 404);

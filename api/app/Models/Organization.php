@@ -5,10 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Logbook;
+
 class Organization extends Model
 {
     use HasFactory;
 
+   
+    
     protected $fillable = [
         'name',
         'user_id',
@@ -16,7 +19,7 @@ class Organization extends Model
     ];
 
     public function user(){
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class,'user_id');
     }
     
     public function logbook(){

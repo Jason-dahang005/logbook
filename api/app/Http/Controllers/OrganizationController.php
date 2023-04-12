@@ -6,6 +6,7 @@ use App\Models\Organization;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Spatie\Permission\PermissionServiceProvider;
 
 class OrganizationController extends Controller
 {
@@ -117,32 +118,22 @@ class OrganizationController extends Controller
      * @param  \App\Models\Organization  $organization
      * @return \Illuminate\Http\Response
      */
-    // public function update(Request $request, Organization $organization)
-    // {
-    //     $user = auth()->user();
-    //     $input = $request->all();
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'name'=>'required',
+            'description'=>'required',
 
-    //     $org = Organization::make($input, [
-    //         'name' => 'required',
-    //         'description' => 'required'
-    //     ]);
+        ]);
+        $org = Organization::find($id);
+        $org->name =  $request->input('name');
+        $org->description = $request->input('description');
+        $org->save();
 
-    //     $org->name = $input['name'];
-    //     $org->description = $input['description'];
-
-    //     if($user->hasRole('admin')){
-    //         $org->user_id   = $request->user_id;
-    //     } else if($user->hasRole('user')){
-    //         $org->user_id   = $user->id;
-    //     }
-    //     $organization = $org->save();
-
-    //     return response()->json([
-    //            'data'=>$organization,
-    //            'message'=> "Organization updated successfully."
-    //         ]);
-
-    // }
+        return response()->json([
+            'message'=> 'Organization Updated Successfully',
+        ]);
+    }
 
     /**
      * Remove the specified resource from storage.
@@ -150,8 +141,13 @@ class OrganizationController extends Controller
      * @param  \App\Models\Organization  $organization
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Organization $organization)
+    public function destroy($id)
     {
-        //
+        $organization = Organization::find($id);
+        $organization->delete();
+
+        return response()->json([
+            'meassage'=>'Organization Deleted Successfully!']);
     }
 }
+
