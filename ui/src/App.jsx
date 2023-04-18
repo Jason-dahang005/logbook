@@ -1,17 +1,24 @@
-import { useState } from 'react'
+import React, { useState, useEffect } from 'react';
 import reactLogo from './assets/react.svg'
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState(0);
+
+  // Similar to componentDidMount and componentDidUpdate:
+  useEffect(() => {
+    // Update the document title using the browser API
+    document.title = `You clicked ${count} times`;
+  });
 
   return (
-    <div className="App">
-      <h1 className="text-3xl font-bold underline">
-      Hello world!
-    </h1>
+    <div>
+      <p>You clicked {count} times</p>
+      <button onClick={() => setCount(count + 1)}>
+        Click me
+      </button>
     </div>
-  )
+  );
 }
 
 export default App
