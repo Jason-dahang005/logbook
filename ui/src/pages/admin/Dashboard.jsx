@@ -1,9 +1,10 @@
 import React from 'react'
+import Boxes from '../../components/admin/Boxes'
 
 const Dashboard = () => {
   return (
     <div>
-      this is the dashboard
+      <Boxes/>
     </div>
   )
 }

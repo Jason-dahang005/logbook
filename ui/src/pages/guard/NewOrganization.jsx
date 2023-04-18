@@ -16,8 +16,8 @@ import ViewModal from '../../components/guard/ViewModal'
 import { MdCalendarMonth } from 'react-icons/md'
 import format from "date-fns/format"
 
+const NewOrganization = () => {
 
-const Organization = () => {
   const location = useLocation()
 
   const [selectedDate, setSelectedDate] = useState(new Date());
@@ -35,6 +35,7 @@ const Organization = () => {
       .then((res) => {
         setData(res.data)
         setLoading(false)
+        console.log(res.data)
       })
       .catch((err) => {
         console.log(err)
@@ -56,7 +57,7 @@ const Organization = () => {
 
   const handleChange = (e) => {
     setIsOpen(!isOpen);
-    setSelectedDate(e);
+    setStartDate(e);
   }
 
   if(loading){
@@ -74,21 +75,7 @@ const Organization = () => {
         <BackBtn/>
         <OrgName/>
         <div className='flex justify-center items-center space-x-2'>
-          <div>
-            <MdCalendarMonth
-              className='bg-green-500 p-2 rounded-full fill-white hover:bg-green-800 hover:cursor-pointer'
-              size={50}
-              onClick={handleClick}
-              >
-              { format(selectedDate, "dd-MM-yyyy") }
-            </MdCalendarMonth>
-            {isOpen && (
-              <div className="absolute right-[32px] top-[160px] z-50">
-                <DatePicker selected={selectedDate} onChange={handleChange} inline />
-              </div>
-            )}
-          </div>
-          <DatePicker selected={selectedDate} onChange={(date) => setSelectedDate(date)} disabled dateFormat="MMMM dd, yyyy" className='bg-white text-xl w-[140px] font-bold hover:cursor-pointer'/>
+          <DatePicker selected={selectedDate} onChange={date => setSelectedDate(date)}  className='bg-white text-xl w-[120px] font-bold hover:cursor-pointer'/>
         </div>
       </div>
       <div className='flex flex-col'>
@@ -112,13 +99,13 @@ const Organization = () => {
               data.length > 0 ? data.map((item) => {
                 return (
                  <tr className="even:bg-slate-200" key={item.id}>
-                  <td className="text-slate-900 max-h-2 border border-slate-300 overflow-hidden px-5 py-2 whitespace-pre max-w-[200px]">{item.firstname}</td>
-                  <td className="text-slate-900 max-h-2 border border-slate-300 overflow-hidden px-5 py-2 whitespace-pre max-w-[200px]">{item.lastname}</td>
-                  <td className="text-slate-900 max-h-2 border border-slate-300 overflow-hidden px-5 py-2 whitespace-pre max-w-[200px] text-ellipsis">{item.description}</td>
-                  <td className="text-slate-900 max-h-2 border border-slate-300 overflow-hidden px-5 py-2 whitespace-pre max-w-[200px]">
+                  <td className="text-slate-900 max-h-2 border-x border-slate-300 overflow-hidden px-5 py-2 whitespace-pre max-w-[200px]">{item.firstname}</td>
+                  <td className="text-slate-900 max-h-2 border-x border-slate-300 overflow-hidden px-5 py-2 whitespace-pre max-w-[200px]">{item.lastname}</td>
+                  <td className="text-slate-900 max-h-2 border-x border-slate-300 overflow-hidden px-5 py-2 whitespace-pre max-w-[200px] text-ellipsis">{item.description}</td>
+                  <td className="text-slate-900 max-h-2 border-x border-slate-300 overflow-hidden px-5 py-2 whitespace-pre max-w-[200px]">
                     {new Date(item.created_at).toLocaleTimeString()}
                   </td>
-                  <td className="text-slate-900 max-h-2 border border-slate-300 overflow-hidden px-5 py-2 whitespace-pre max-w-[30px]">
+                  <td className="text-slate-900 max-h-2 border-x border-slate-300 overflow-hidden px-5 py-2 whitespace-pre max-w-[200px]">
                     <button onClick={() => onCheck(item)} className='flex items-center space-x-1 bg-[#009900] px-2 py-1 rounded text-white hover:bg-[#006600]'>
                       <AiFillEye/>
                       <span className='text-sm'>View</span>
@@ -128,7 +115,9 @@ const Organization = () => {
                 )
               }) : (
                 <tr>
-                  <td className='text-center py-4 border' colSpan={5}>Table is empty</td>
+                  <td>
+                    <h1>no data</h1>
+                  </td>
                 </tr>
               )
             }
@@ -141,4 +130,4 @@ const Organization = () => {
   )
 }
 
-export default Organization
+export default NewOrganization

@@ -15,6 +15,7 @@ const SecurityListTable = () => {
       axiosInstance.get(`guard-list`)
       .then((res) => {
         setGuard(res.data.guards)
+        setLoading(false)
         console.log(res.data.guards)
       })
       .catch((error) => {
@@ -23,6 +24,15 @@ const SecurityListTable = () => {
     }, 1000)
     return () => clearInterval(getGuardData)
   }, [guard])
+
+  if(loading){
+    return (
+      <div className="flex items-center justify-center h-60">
+        <div style={{borderTopColor: 'transparent'}} className="w-8 h-8 border-4 border-blue-200 rounded-full animate-spin" />
+        <p className="ml-2">Loading...</p>
+      </div>
+    )
+  }
 
   return (
     <div className="w-full mb-12 xl:mb-0 px-4 mx-auto py-5">

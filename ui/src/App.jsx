@@ -14,6 +14,7 @@ import Dashboard from './pages/admin/Dashboard'
 import Auth from './api/adminAuth'
 import OrganizationList from './pages/admin/OrganizationList'
 import SecurityList from './pages/admin/SecurityList'
+import NewOrganization from './pages/guard/NewOrganization'
 
 function App() {
 
@@ -30,6 +31,8 @@ function App() {
             <Route path="/organization" element={<Organization/>} />
             <Route path="/log-history" element={<LogHistory/>}/>
             <Route path="/search" element={<LogSearch/>} />
+            <Route path="/history" element={<LogHistory/>} />
+            <Route path='/new-organization' element={<NewOrganization/>} />
           </Route>
         </Route>
         <Route element={<Auth/>}>

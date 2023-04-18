@@ -1,9 +1,10 @@
 import React from 'react'
+import OrganizationListTable from '../../components/admin/OrganizationListTable'
 
 const OrganizationList = () => {
   return (
     <div>
-      thi is the organization list
+      <OrganizationListTable/>
     </div>
   )
 }

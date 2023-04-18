@@ -5,7 +5,7 @@ import { useEffect, useRef } from 'react'
 import Webcam from 'react-webcam'
 
 const videoConstraints = {
-  width: 540,
+  width: 100,
   facingMode:'environment'
 }
 
@@ -27,25 +27,26 @@ const Camera = () => {
 
   return (
     <div>
-      <div className="">
-        <Webcam
-          ref={webcamRef}
-          audio={true}
-          screenshotFormat={videoConstraints}
-          onUserMedia={onUserMedia}
-          mirrored={true}
-          className='border-8 border-red-500'
-        />
-      </div>
+      <Webcam
+        ref={webcamRef}
+        audio={false}
+        screenshotFormat={videoConstraints}
+        onUserMedia={onUserMedia}
+        mirrored={true}
+        minScreenshotHeight={100}
+        minScreenshotWidth={100}
+      />
 
       <button onClick={capturePhoto}>capture</button>
       <button onClick={() => setUrl(null)}>refresh</button>
 
-      {url && (
-        <div>
-          <img src={url} alt="Screenshot" />
+      {
+        url && (
+          <div>
+            <img src={url} alt="Screenshot" />
           </div>
-      )}
+        )
+      }
     </div>
   )
 }

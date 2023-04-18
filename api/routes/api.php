@@ -11,6 +11,9 @@ use App\Http\Controllers\SearchController;
 use App\Http\Controllers\api\AuthenticationController;
 use App\Http\Controllers\GuardListController;
 use App\Http\Controllers\HistoryController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\AdminOrganizationController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -40,7 +43,15 @@ Route::group(['middleware' => ['api', 'role:admin', 'auth:api']], function () {
         Route::get('guard-list', 'index');
     });
 
-    Route::post('logout', [AuthenticationController::class, 'logout']);
+    Route::controller(DashboardController::class)->group(function () {
+        Route::get('dashboard', 'index');
+    });
+
+    Route::controller(AdminOrganizationController::class)->group(function () {
+        Route::get('admin-org-list', 'index');
+    });
+
+    Route::post('admin-logout', [AuthenticationController::class, 'logout']);
 });
 
 // Users Routes
@@ -63,7 +74,7 @@ Route::group(['middleware' => ['api', 'role:user', 'auth:api']], function () {
 
     Route::controller(LogbookController::class)->group(function() {
         Route::post('log-user/{id}', 'store');
-        Route::get('logbook/{id}', 'index');
+        Route::get('logbook/{id}/{date}', 'index');
         Route::delete('delete_log/{id}', 'destroy');
     });
 
@@ -72,5 +83,5 @@ Route::group(['middleware' => ['api', 'role:user', 'auth:api']], function () {
         Route::get('search-log/{id}','searchLog');
     });
 
-    Route::post('logout', [AuthenticationController::class, 'logout']);
+    Route::post('user-logout', [AuthenticationController::class, 'logout']);
 });

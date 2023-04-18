@@ -26,7 +26,7 @@ const Boxes = () => {
   }, [dataCount])
 
   return (
-    <div className='grid sm:grid-cols-12 xl:grid-cols-4 gap-4'>
+    <div className='grid sm:grid-cols-12 xl:grid-cols-4 gap-4 p-4'>
 
       <div className="w-full shadow-xl h-32 rounded-md flex flex-col">
         <div className="flex justify-between items-center h-full p-4">
