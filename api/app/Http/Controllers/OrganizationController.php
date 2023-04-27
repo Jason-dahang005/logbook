@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Organization;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Spatie\Permission\PermissionServiceProvider;
@@ -111,7 +112,7 @@ class OrganizationController extends Controller
         $request->validate([
             'name'=>'required',
             'description'=>'required',
-           
+
         ]);
         $org = Organization::find($id);
         $org->name =  $request->input('name');
@@ -152,8 +153,8 @@ class OrganizationController extends Controller
     {
         $organization = Organization::find($id);
         $organization->delete();
-     
-        return response()->json([ 
+
+        return response()->json([
             'meassage'=>'Organization Deleted Successfully!']);
     }
 }

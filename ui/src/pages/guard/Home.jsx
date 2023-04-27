@@ -4,6 +4,7 @@ import LowerHeader from '../../components/guard/LowerHeader'
 import OrgList from '../../components/guard/OrgList'
 
 const Home = () => {
+
   return (
     <div className='px-8 py-4'>
       <LowerHeader/>

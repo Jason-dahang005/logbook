@@ -15,17 +15,14 @@ class LogbookController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($id)
+    public function index($id, $date)
     {
         Organization::find($id);
 
-        $log = Logbook::whereDate('created_at', Carbon::today())->orderBy('created_at', 'desc')->where('org_id', $id)->get();
+        $log = Logbook::where('org_id', $id)->whereDate('created_at', $date)->orderBy('created_at', 'desc')->get();
 
         if($log){
-            return response()->json([
-                'status'    => 'success',
-                'logs'      => $log
-            ]);
+            return response()->json($log);
         } else {
             return response()->json([
                 'message' => 'no current logs'
@@ -51,13 +48,22 @@ class LogbookController extends Controller
      */
     public function store(Request $request, $id)
     {
+        $request->validate([
+            'firstname'     => 'required',
+            'lastname'      => 'required',
+            'description'   => 'required',
+        ]);
+
         $org = Organization::find($id);
 
+      
+
         $log = Logbook::create([
-            'firstname'     => $request->firstname,
-            'lastname'      => $request->lastname,
-            'description'   => $request->description,
-            'org_id'        => $id
+            'firstname'     => ucwords($request->firstname),
+            'lastname'      => ucwords($request->lastname),
+            'description'   => ucwords($request->description),
+            'org_id'        => $id,
+            // 'image'         => $path
         ]);
 
         if($log){
@@ -113,11 +119,11 @@ class LogbookController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
-    { 
+    {
         $log = Logbook::find($id);
         $log->delete();
-     
-        return response()->json([ 
+
+        return response()->json([
             'meassage'=>'Logs Deleted Successfully!']);
     }
 }

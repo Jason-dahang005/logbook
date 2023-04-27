@@ -9,7 +9,11 @@ use App\Http\Controllers\LogbookController;
 use App\Http\Controllers\OrganizationController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\api\AuthenticationController;
+use App\Http\Controllers\GuardListController;
 use App\Http\Controllers\HistoryController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\AdminOrganizationController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -34,18 +38,34 @@ Route::controller(AuthenticationController::class)->group(function() {
 
 // Admin Routes
 Route::group(['middleware' => ['api', 'role:admin', 'auth:api']], function () {
+<<<<<<< HEAD
     Route::get('auth-user', [UserController::class, 'index']);
     Route::controller(OrganizationController::class)->group(function() {
         Route::post('create-org', 'store');
         Route::get('status-update/{id}', 'status_update');
+=======
+    Route::get('admin-user', [UserController::class, 'index']);
+
+    Route::controller(GuardListController::class)->group(function() {
+        Route::get('guard-list', 'index');
+>>>>>>> e366f6550cd3f7a2b5dba4f12068644452698932
     });
 
-    Route::post('logout', [AuthenticationController::class, 'logout']);
+    Route::controller(DashboardController::class)->group(function () {
+        Route::get('dashboard', 'index');
+    });
+
+    Route::controller(AdminOrganizationController::class)->group(function () {
+        Route::get('admin-org-list', 'index');
+    });
+
+    Route::post('admin-logout', [AuthenticationController::class, 'logout']);
 });
 
 // Users Routes
 Route::group(['middleware' => ['api', 'role:user', 'auth:api']], function () {
     Route::get('auth-user', [UserController::class, 'index']);
+
     Route::controller(OrganizationController::class)->group(function() {
         Route::post('create-org', 'store');
         Route::get('org-list', 'index');
@@ -59,11 +79,11 @@ Route::group(['middleware' => ['api', 'role:user', 'auth:api']], function () {
         Route::get('logsearch/{id}', 'loghistory');
         Route::get('show-logdate/{id}', 'date_list');
     });
-   
+
 
     Route::controller(LogbookController::class)->group(function() {
         Route::post('log-user/{id}', 'store');
-        Route::get('logbook/{id}', 'index');
+        Route::get('logbook/{id}/{date}', 'index');
         Route::delete('delete_log/{id}', 'destroy');
     });
 
@@ -72,5 +92,5 @@ Route::group(['middleware' => ['api', 'role:user', 'auth:api']], function () {
         Route::get('search-log/{id}','searchLog');
     });
 
-    Route::post('logout', [AuthenticationController::class, 'logout']);
+    Route::post('user-logout', [AuthenticationController::class, 'logout']);
 });

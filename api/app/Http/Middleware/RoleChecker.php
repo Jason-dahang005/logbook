@@ -4,9 +4,8 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
-class CheckRole
+class RoleChecker
 {
     /**
      * Handle an incoming request.
@@ -17,14 +16,6 @@ class CheckRole
      */
     public function handle(Request $request, Closure $next)
     {
-        if(Auth::guest()){
-            return response('Unauthorized. ', 401);
-        }
-
-        if(! $request->user()->hasAnyRole($roles)){
-            return response('Forbidden. ', 403);
-        }
-
         return $next($request);
     }
 }

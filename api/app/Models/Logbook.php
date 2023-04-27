@@ -15,7 +15,7 @@ class Logbook extends Model
         'lastname',
         'description',
         'org_id',
-      
+
     ];
 
     public function organization(){

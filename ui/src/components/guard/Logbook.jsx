@@ -20,7 +20,6 @@ const Logbook = () => {
     const x = setInterval(() => {
       axiosInstance.get(`logbook/${location.state.id}`)
       .then((res) => {
-        console.log(res.data)
         setLogbook(res.data.logs)
         setLoading(false)
       }).catch((error) => {

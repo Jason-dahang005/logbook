@@ -15,26 +15,37 @@ const Calendar = () => {
 
   const [startDate, setStartDate] = useState(new Date());
   const [isOpen, setIsOpen] = useState(false);
+
   const handleChange = (e) => {
-    setIsOpen(!isOpen);
-    setStartDate(e);
+    setIsOpen(!isOpen)
+    setStartDate(e)
   };
+  
   const handleClick = (e) => {
-    e.preventDefault();
-    setIsOpen(!isOpen);
+    e.preventDefault()
+    setIsOpen(!isOpen)
   };
 
   return (
     <>
-      <div className='flex justify-center items-center space-x-1'>
-        <div className='bg-green-500 rounded-full full hover:bg-green-700 p-2'>
-          <MdCalendarMonth className='hover:cursor-pointer text-white example-custom-input' size={30} onClick={handleClick}>
+      <div className='flex justify-center items-center space-x-2'>
+        <div className=''>
+          <MdCalendarMonth
+            className='bg-green-500 rounded-full full hover:bg-green-700 p-2 hover:cursor-pointer text-white example-custom-input'
+            size={50}
+            onClick={handleClick}>
             { format(startDate, "dd-MM-yyyy") }
           </MdCalendarMonth>
         </div>
-        <div className='fex flex-col'>
-          <h1 className='font-bold'>{formattedDate}</h1>
-          <h4 className='text-sm'>{currentDay}</h4>
+        <div className=''>
+          <h1>
+            <DatePicker
+              selected={startDate}
+              onChange={(date) => setStartDate(date)}
+              dateFormat="MMMM d, yyyy"
+              disabled
+              className='bg-white text-xl w-36 font-bold'/>
+          </h1>
         </div>
       </div>
       {isOpen && (

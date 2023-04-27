@@ -49,7 +49,7 @@ const OrgList = () => {
                 </div>
               </div>
               <div className="p-2">
-                <button onClick={() => nav('/organization', {state: {id: item.id }})} className='hover:underline text-slate-500 text-sm'>View Organization</button>
+                <button onClick={() => nav('/organization', {state: {id: item.id }})} className='text-white text-sm bg-slate-500 w-full hover:bg-slate-700 rounded-sm'>View Organization</button>
               </div>
             </div>
           )
