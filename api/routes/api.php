@@ -29,6 +29,7 @@ use App\Http\Controllers\HistoryController;
 Route::controller(AuthenticationController::class)->group(function() {
     Route::post('register', 'register');
     Route::post('login', 'login');
+    Route::post('change-password/{id}', 'change_password');
 });
 
 // Admin Routes
@@ -36,6 +37,7 @@ Route::group(['middleware' => ['api', 'role:admin', 'auth:api']], function () {
     Route::get('auth-user', [UserController::class, 'index']);
     Route::controller(OrganizationController::class)->group(function() {
         Route::post('create-org', 'store');
+        Route::get('status-update/{id}', 'status_update');
     });
 
     Route::post('logout', [AuthenticationController::class, 'logout']);
@@ -49,12 +51,13 @@ Route::group(['middleware' => ['api', 'role:user', 'auth:api']], function () {
         Route::get('org-list', 'index');
         Route::get('show-org/{id}', 'show');
         Route::put('update-org/{id}', 'update');
+        Route::get('status-update/{id}', 'status_update');
         Route::delete('delete_org/{id}', 'destroy');
 
     });
     Route::controller(HistoryController::class)->group(function(){
         Route::get('logsearch/{id}', 'loghistory');
-        Route::get('search/{id}', 'date');
+        Route::get('show-logdate/{id}', 'date_list');
     });
    
 

@@ -101,9 +101,9 @@ class LogbookController extends Controller
      * @param  \App\Models\Logbook  $logbook
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Logbook $logbook)
+    public function update(Request $request,$id)
     {
-        //
+       //
     }
 
     /**

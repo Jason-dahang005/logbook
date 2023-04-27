@@ -61,4 +61,28 @@ class SearchController extends Controller
 
     }
 
+    public function date(Request $request,$id)
+    {
+        
+        $search = $request->input('search');
+
+        Organization::find($id);
+         $results = Logbook::where('org_id',$id)->where('created_at', 'like', '%' . $search . '%')
+      ->orderBy("created_at", 'desc')
+      ->paginate(10)
+      ->withPath('?search=' . $search);
+
+      if(count($results)){ 
+        return response()->json([
+            'data' => $results,
+            
+        ]);
+         }
+         else {
+        return response()->json([
+            'message' => 'Search not found'
+        ]);
+    }
+        
+    }
 }

@@ -16,7 +16,7 @@ class UserController extends Controller
     public function index()
     {
         $user = Auth::user();
-
+ 
         return response()->json([
             'user' => $user
         ], 200);
@@ -27,6 +27,8 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+     
     public function create()
     {
         //
@@ -51,7 +53,7 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        //
+        
     }
 
     /**
