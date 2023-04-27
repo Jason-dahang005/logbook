@@ -53,7 +53,7 @@ const Login = () => {
               </div>
               <input id="email" type="email" name="email" value={email} onChange={(e) => setEmail(e.target.value)}  placeholder="e-mail address" className="w-full rounded border border-slate-400 focus:border-slate-600 pl-8 pr-2 py-2 outline-none" />
             </div>
-            { error.email && <div className='text-red-500'>{ error.email[0] }</div> }
+            { error.email && <div className='text-red-400 text-sm'>{ error.email[0] }</div> }
 
             <label htmlFor="password" className="block mt-2 text-xs text-start mb-1 font-semibold text-gray-600 uppercase">Password</label>
             <div className="relative">
@@ -62,7 +62,7 @@ const Login = () => {
               </div>
               <input id="password" type="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)}  placeholder="password" className="w-full rounded border border-slate-400 focus:border-slate-600 pl-8 pr-2 py-2 outline-none" />
             </div>
-            { error.password && <div className='text-red-500'>{ error.password[0] }</div> }
+            { error.password && <div className='text-red-400 text-sm'>{ error.password[0] }</div> }
 
             <button type="submit" className="w-full py-3 mt-10 bg-gray-800 rounded-smfont-medium text-white uppercase focus:outline-none hover:bg-gray-700 hover:shadow-none">Login</button>
             

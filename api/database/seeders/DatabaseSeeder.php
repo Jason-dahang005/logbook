@@ -21,7 +21,8 @@ class DatabaseSeeder extends Seeder
                 'firstname'     => fake()->firstName,
                 'org_id'        => 5 ,
                 'lastname'      => fake()->lastName,
-                'description'   => fake()->paragraph()
+                'description'   => fake()->paragraph(),
+                'image'         => fake()->imageUrl()
             ]);
         }
 

@@ -15,7 +15,7 @@ const Boxes = () => {
     const countData = setInterval(() => {
       axiosInstance.get(`dashboard`)
       .then((res) => {
-        console.log(res.data)
+        //console.log(res.data)
         setDataCount(res.data)
       })
       .catch((err) => {
