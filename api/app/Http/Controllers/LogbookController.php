@@ -48,18 +48,22 @@ class LogbookController extends Controller
      */
     public function store(Request $request, $id)
     {
+        $request->validate([
+            'firstname'     => 'required',
+            'lastname'      => 'required',
+            'description'   => 'required',
+        ]);
+
         $org = Organization::find($id);
 
-        // $imageName = time().'.'.$request->signature->extension();
-
-        // $request->signature->move(public_path('signature_img'), $imageName);
+      
 
         $log = Logbook::create([
             'firstname'     => ucwords($request->firstname),
             'lastname'      => ucwords($request->lastname),
             'description'   => ucwords($request->description),
             'org_id'        => $id,
-            // 'signature'     => 'public/signature_img/'.$imageName
+            // 'image'         => $path
         ]);
 
         if($log){
@@ -103,9 +107,9 @@ class LogbookController extends Controller
      * @param  \App\Models\Logbook  $logbook
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Logbook $logbook)
+    public function update(Request $request,$id)
     {
-        //
+       //
     }
 
     /**

@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('logbooks', function (Blueprint $table) {
-            $table->string('signature')->after('description');
+            $table->string('image')->after('description');
         });
     }
 
