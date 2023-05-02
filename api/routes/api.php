@@ -33,22 +33,15 @@ use App\Http\Controllers\AdminOrganizationController;
 Route::controller(AuthenticationController::class)->group(function() {
     Route::post('register', 'register');
     Route::post('login', 'login');
-    Route::post('change-password/{id}', 'change_password');
+    Route::put('change-password/{id}', 'change_password');
 });
 
 // Admin Routes
 Route::group(['middleware' => ['api', 'role:admin', 'auth:api']], function () {
-<<<<<<< HEAD
-    Route::get('auth-user', [UserController::class, 'index']);
-    Route::controller(OrganizationController::class)->group(function() {
-        Route::post('create-org', 'store');
-        Route::get('status-update/{id}', 'status_update');
-=======
     Route::get('admin-user', [UserController::class, 'index']);
 
     Route::controller(GuardListController::class)->group(function() {
         Route::get('guard-list', 'index');
->>>>>>> e366f6550cd3f7a2b5dba4f12068644452698932
     });
 
     Route::controller(DashboardController::class)->group(function () {
@@ -71,7 +64,7 @@ Route::group(['middleware' => ['api', 'role:user', 'auth:api']], function () {
         Route::get('org-list', 'index');
         Route::get('show-org/{id}', 'show');
         Route::put('update-org/{id}', 'update');
-        Route::get('status-update/{id}', 'status_update');
+        Route::put('status-update/{id}', 'status_update');
         Route::delete('delete_org/{id}', 'destroy');
 
     });
