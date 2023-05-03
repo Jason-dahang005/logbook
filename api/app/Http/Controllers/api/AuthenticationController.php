@@ -71,19 +71,18 @@ class AuthenticationController extends Controller
 { 
     $user = User::find($id);
     $request->validate([
-        'old_password'=>'required|',
-        'new_password'=>'required|unique:users,password|min:5',
-       ' password'=>'required|same:new_password'
-       
-    ]);
-    User::whereId(auth()->user()->id)->update([
-        'password' => Hash::make($request->new_password)
-    ]);
-    $user->password = bcrypt($request['password']);
+        'current_password' => ['required', function ($attribute, $value, $fail) use ($user) {
+            if (!Hash::check($value, $user->password)) {
+                return $fail(('The current password is incorrect!'));
+            }
+        }],
+        'new_password'=>'required|min:5',
+       'confirm_password'=>'required|same:new_password'
+       ]);
+    $user->password = bcrypt($request['confirm_password']);
     $user->save();
-
     return response()->json([
-        'message'=> 'Password Updated Successfully',
+        'message'=> 'Password Change Successfully!',
     ]);
      }
   

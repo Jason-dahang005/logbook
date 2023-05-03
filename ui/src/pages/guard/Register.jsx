@@ -9,7 +9,8 @@ import { AiFillLock } from 'react-icons/ai'
 const Register = () => {
 
   const nav = useNavigate()
-  const [name, setName] = useState('')
+  const [firstname, setFirstname] = useState('')
+  const [lastname, setLastname] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState([])
@@ -18,7 +19,7 @@ const Register = () => {
     e.preventDefault()
 
     axiosInstance.post('register', JSON.stringify({
-      name, email, password
+      firstname, lastname, email, password
     })).then((response) => {
       console.log(response.data)
       nav('/')
@@ -38,16 +39,48 @@ const Register = () => {
             <form className="mt-10" onSubmit={handleSubmit}>
               <div className="flex flex-col space-y-2">
                 <div className="registration-page-form-group">
-                  <label htmlFor="email" className="registration-page-form-label">Name</label>
-                  <div className="relative">
-                    <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                      <FaUser className='text-slate-500'/>
+                  <div className="grid grid-cols-2 gap-x-3">
+                    <div>
+                      <label htmlFor="email" className="registration-page-form-label">First Name</label>
+                      <div className="relative">
+                        <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                          <FaUser className='text-slate-500'/>
+                        </div>
+                        <input
+                          id="firstname"
+                          type="text"
+                          name="firstname"
+                          value={firstname}
+                          onChange={(e) => setFirstname(e.target.value)}
+                          placeholder="First Name"
+                          className={`w-full rounded border ${error.name? 'border-red-400' : 'border-slate-400'} focus:border-slate-600 pl-8 pr-2 py-2 outline-none`} />
+                      </div>
+                      {
+                        error.firstname &&
+                        <div className='text-red-400 text-sm'>{ error.firstname[0] }</div>
+                      }
                     </div>
-                    <input  id="name" type="text" name="name" value={name} onChange={(e) => setName(e.target.value)} placeholder="name" className={`w-full rounded border ${error.name? 'border-red-400' : 'border-slate-400'} focus:border-slate-600 pl-8 pr-2 py-2 outline-none`} />
+                    <div>
+                      <label htmlFor="email" className="registration-page-form-label">Last Name</label>
+                      <div className="relative">
+                        <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                          <FaUser className='text-slate-500'/>
+                        </div>
+                        <input 
+                          id="lastname"
+                          type="text"
+                          name="lastname"
+                          value={lastname}
+                          onChange={(e) => setLastname(e.target.value)}
+                          placeholder="Last Name"
+                          className={`w-full rounded border ${error.name? 'border-red-400' : 'border-slate-400'} focus:border-slate-600 pl-8 pr-2 py-2 outline-none`} />
+                      </div>
+                      {
+                        error.lastname &&
+                        <div className='text-red-400 text-sm'>{ error.lastname[0] }</div>
+                      }
+                    </div>
                   </div>
-                  {
-                    error.name && <div className='text-red-400 text-sm'>{ error.name[0] }</div>
-                  }
                 </div>
 
                 <div className="registration-page-form-group">
@@ -56,10 +89,18 @@ const Register = () => {
                     <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                       <MdEmail className='text-slate-500'/>
                     </div>
-                    <input id="email" type="email" name="email" value={email} onChange={(e) => setEmail(e.target.value)}  placeholder="e-mail address" className={`w-full rounded border ${error.name? 'border-red-400' : 'border-slate-400'} focus:border-slate-600 pl-8 pr-2 py-2 outline-none`} />
+                    <input
+                      id="email"
+                      type="email"
+                      name="email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      placeholder="E-mail address"
+                      className={`w-full rounded border ${error.email? 'border-red-400' : 'border-slate-400'} focus:border-slate-600 pl-8 pr-2 py-2 outline-none`} />
                   </div>
                   {
-                    error.email && <div className='text-red-400 text-sm'>{ error.email[0] }</div>
+                    error.email &&
+                    <div className='text-red-400 text-sm'>{ error.email[0] }</div>
                   }
                 </div>
 
@@ -69,10 +110,18 @@ const Register = () => {
                     <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                       <AiFillLock className='text-slate-500'/>
                     </div>
-                    <input id="password" type="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)}  placeholder="password" className={`w-full rounded border ${error.name? 'border-red-400' : 'border-slate-400'} focus:border-slate-600 pl-8 pr-2 py-2 outline-none`} />
+                    <input
+                      id="password"
+                      type="password"
+                      name="password"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      placeholder="Password"
+                      className={`w-full rounded border ${error.password? 'border-red-400' : 'border-slate-400'} focus:border-slate-600 pl-8 pr-2 py-2 outline-none`} />
                   </div>
                   {
-                    error.password && <div className='text-red-400 text-sm'>{ error.password[0] }</div>
+                    error.password &&
+                    <div className='text-red-400 text-sm'>{ error.password[0] }</div>
                   }
                 </div>
 

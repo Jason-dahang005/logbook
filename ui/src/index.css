@@ -5,7 +5,6 @@
 @layer components {
 
   /* REGISTRATION PAGE STYLE */
-
   .registration-page {
     @apply flex flex-col h-screen
   }
@@ -56,7 +55,7 @@
   }
 
   .create-log-modal-form-input {
-    @apply border w-full py-2 px-4 outline-none focus:border-slate-400 rounded
+    @apply border w-full py-2 px-4 outline-none focus:border-slate-400 rounded text-slate-700 text-sm
   }
 
   .create-log-modal-footer {
@@ -74,11 +73,11 @@
   }
 
   .logbook-table table thead {
-    @apply sticky top-0 bg-white
+    @apply sticky top-0 bg-slate-700
   }
 
   .logbook-table table thead tr th {
-    @apply font-bold border py-4 text-start pl-5 border-slate-300 text-gray-600;
+    @apply font-bold py-3 text-start pl-5 border-slate-300 text-white;
   }
 
   .logbook-table table tbody tr {
@@ -86,7 +85,7 @@
   }
 
   .logbook-table table tbody tr td {
-    @apply text-slate-600 max-h-2 border border-slate-300 overflow-hidden px-5 py-2 whitespace-pre max-w-[200px] text-ellipsis
+    @apply text-slate-600 max-h-2 overflow-hidden px-5 py-2 whitespace-pre max-w-[200px] text-ellipsis
   } 
 
   .logbook-table table tbody tr td button {
@@ -97,5 +96,37 @@
     @apply text-sm
   }
   
+  /* FORM STYLE */
+  .form-group {
+    @apply
+      flex
+      flex-col
+      space-y-1
+      my-2
+  }
+
+  .form-label {
+    @apply
+      font-semibold
+      text-sm
+      text-slate-800
+  }
+
+  .form-input {
+    @apply
+      border
+      outline-none
+      p-3
+      rounded-md
+      text-sm
+      text-slate-700
+  }
+
+  .btn {
+    @apply
+      rounded-sm
+      py-1
+      font-semibold
+  }
 }
 

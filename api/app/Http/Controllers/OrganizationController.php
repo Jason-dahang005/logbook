@@ -52,7 +52,7 @@ class OrganizationController extends Controller
 
         $request->validate([
             'name'          => 'required|string',
-            'description'   => 'required',
+            'description'   => 'required',  
         ]);
 
         $org = new  Organization();
@@ -130,7 +130,7 @@ class OrganizationController extends Controller
      * @param  \App\Models\Organization  $organization
      * @return \Illuminate\Http\Response
      */
-    public function status_update($id)
+    public function status_update(Request $request,$id)
     {
         $org = Organization::find($id)
                     ->select('status')
@@ -144,12 +144,13 @@ class OrganizationController extends Controller
         }//update organization status
         $values = array('status' => $status );
         Organization::where('organizations')->where('id')->update($values);
-    
+
         return response()->json('Organization status has been updated successfully.');
-        
+
     }
 
     public function destroy($id)
+
     {
         $organization = Organization::find($id);
         $organization->delete();
