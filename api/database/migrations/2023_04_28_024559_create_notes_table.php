@@ -13,8 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('logbooks', function (Blueprint $table) {
-            $table->string('image')->after('description');
+        Schema::create('notes', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('org_id');
+            $table->foreign('org_id')->references('id')->on('organizations');
+            $table->text('description');
+            $table->timestamps();
         });
     }
 
@@ -25,8 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('logbook', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('notes');
     }
 };

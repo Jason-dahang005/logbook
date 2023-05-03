@@ -52,7 +52,7 @@ class OrganizationController extends Controller
 
         $request->validate([
             'name'          => 'required|string',
-            'description'   => 'required',
+            'description'   => 'required',  
         ]);
 
         $org = new  Organization();
@@ -132,15 +132,25 @@ class OrganizationController extends Controller
      */
     public function status_update(Request $request,$id)
     {
-        $org = Organization::find($id); 
-        $org->status = $request->input('status'); 
-        $org->save(); 
-        return response()->json(['success'=>'Status change successfully.']); 
-        
+        $org = Organization::find($id)
+                    ->select('status')
+                    ->where('id')
+                    ->first();
+    //Check organization status
+        if($org->status == '1'){
+            $status = '2';
+        }else{
+            $status = '1';
+        }//update organization status
+        $values = array('status' => $status );
+        Organization::where('organizations')->where('id')->update($values);
+
+        return response()->json('Organization status has been updated successfully.');
+
     }
 
     public function destroy($id)
-    
+
     {
         $organization = Organization::find($id);
         $organization->delete();

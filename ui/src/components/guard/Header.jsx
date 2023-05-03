@@ -40,9 +40,7 @@ const Header = () => {
         <div className="flex justify-between items-center mx-auto">
           <div className="">
             <h5 className='text-2xl'>
-              Joven 
-              "<span className='text-green-300 font-bold'>GWAPO</span>" 
-              Ople
+              
             </h5>
             
           </div>

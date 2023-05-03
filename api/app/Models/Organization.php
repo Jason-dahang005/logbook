@@ -10,8 +10,8 @@ class Organization extends Model
 {
     use HasFactory;
 
-   
-    
+
+
     protected $fillable = [
         'name',
         'user_id',
@@ -21,8 +21,16 @@ class Organization extends Model
     public function user(){
         return $this->belongsTo(User::class,'user_id');
     }
-    
+
     public function logbook(){
         return $this->hasOne(Logbook::class);
+    }
+
+    public function attendance(){
+        return $this->hasMany(Attendance::class);
+    }
+
+    public function note(){
+        return $this->hasMany(Note::class);
     }
 }
