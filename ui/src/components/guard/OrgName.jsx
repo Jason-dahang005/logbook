@@ -11,14 +11,13 @@ const OrgName = () => {
   useEffect(() => {
     axiosInstance.get(`show-org/${location.state.id}`)
     .then((response) => {
-      setOrg(response.data.organization)
-      console.log(response.data)
+      setOrg(response.data.org)
     })
   }, [])
 
   return (
     <div className=''>
-      <h1 className='text-[2rem] font-bold'></h1>
+      <h1 className='text-2xl font-bold text-slate-800'>{org.name}</h1>
     </div>
   )
 }

@@ -52,7 +52,7 @@ class OrganizationController extends Controller
 
         $request->validate([
             'name'          => 'required|string',
-            'description'   => 'required',  
+            'description'   => 'required',
         ]);
 
         $org = new  Organization();
@@ -86,7 +86,11 @@ class OrganizationController extends Controller
      */
     public function show(Organization $organization, $id)
     {
-        //    $org= Organization::
+         $org = Organization::find($id);
+
+         return response()->json([
+            'org' => $org
+        ]);
     }
 
     /**

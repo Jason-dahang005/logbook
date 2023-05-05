@@ -8,6 +8,11 @@ import DatePicker from 'react-datepicker'
 import format from "date-fns/format"
 import 'react-datepicker/dist/react-datepicker.css'
 import { MdCalendarMonth } from 'react-icons/md'
+import { AiFillEye } from 'react-icons/ai'
+import { BiSearch } from 'react-icons/bi'
+import { GrFormClose } from 'react-icons/gr'
+import CreateNewAttendance from './CreateNewAttendance'
+import ViewModal from '../../components/guard/ViewModal'
 
 const AttendanceTable = () => {
   const location = useLocation()
@@ -15,22 +20,29 @@ const AttendanceTable = () => {
   const [loading, setLoading] = useState(true)
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [isOpen, setIsOpen] = useState(false)
+  const [viewModal, setViewModal] = useState(false)
+  const [modalContent, setModalContent] = useState([])
+  const [searchQuery, setSearchQuery] = useState('')
+
+  const close = () => setViewModal(false)
 
   useEffect(() => {
-    const attendance = setInterval(() => {
+    const fetchAttendance = () => {
       const formattedDate = selectedDate.toISOString().slice(0,10)
       axiosInstance.get(`list-attendance-logbook/${location.state.id}/${formattedDate}`)
       .then((response) => {
-        //console.log(response.data.Attendance)
         setData(response.data.Attendance)
         setLoading(false)
       })
       .catch((error) => {
         console.log(error)
       })
-    }, 1000)
-    return () => clearInterval(attendance)
-  }, [data])
+    }
+
+    const fetchInterval = setTimeout(fetchAttendance, 1000)
+
+    return () => clearTimeout(fetchInterval)
+  }, [selectedDate])
 
   const handleClick = (e) => {
     e.preventDefault();
@@ -42,47 +54,75 @@ const AttendanceTable = () => {
     setSelectedDate(e);
   }
 
+  const onCheck = (id) => {
+    console.log(id)
+    setViewModal(true)
+    setModalContent(id)
+  }
+
+  const handleSearch = (e) => {
+    setSearchQuery(e.target.value)
+  }
+
+  const filteredData = data.filter((item) => {
+    return item.firstname.toLowerCase().includes(searchQuery.toLowerCase()) || item.lastname.toLowerCase().includes(searchQuery.toLowerCase()) || item.description.toLowerCase().includes(searchQuery.toLowerCase())
+  })
+
+  const clearSearch = () => {
+    setSearchQuery('')
+  }
+
   return (
     <div className='flex items-center justify-center'>
-      <div className="rounded-xl border p-5 shadow-md w-full bg-white">
+      <div className="rounded-xl p-5 shadow-[1px_1px_6px_2px_#00000024] w-full bg-white">
         <div className="flex w-full items-center justify-between border-b pb-3">
           <div className="flex items-center space-x-3">
             <div className="text-lg font-bold text-slate-700">Attendance Logbook</div>
           </div>
           <div className="flex items-center space-x-2">
-            <CreateLogBtn/>
+            <div className='relative'>
+              <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                <BiSearch className='text-slate-700'/>
+              </div>
+              <input type="text" value={searchQuery} onChange={handleSearch} className='border border-gray-400 pl-8 p-2 outline-none focus:border-gray-700 filter-item' placeholder='Search'/>
+              <div className="absolute inset-y-0 right-0 flex items-center pr-3">
+                <GrFormClose size={20} onClick={clearSearch} className='text-slate-700 hover:cursor-pointer z-50'/>
+              </div>
+            </div>
             <div className=''>
-              <MdCalendarMonth onClick={handleClick} className='bg-green-500 p-2 rounded-full fill-white hover:bg-green-800 hover:cursor-pointer' size={40}>
-                { format(selectedDate, "dd-MM-yyyy") }
-              </MdCalendarMonth>
+              <button onClick={handleClick} className='flex items-center space-x-1 hover:cursor-pointer filter-item'>
+                <MdCalendarMonth size={20}/>
+                <div>
+                  <h1 className='font-semibold text-sm'>{ format(selectedDate, "MM-dd-yyyy") }</h1>
+                </div>
+              </button>
               {
               isOpen && (
-                <div className="absolute right-[32px] top-[240px] z-50">
+                <div className="absolute right-[212px] top-[240px] z-50">
                   <DatePicker selected={selectedDate} onChange={handleChange} inline />
                 </div>
                 )
               }
             </div>
-            <div>
-              <DatePicker selected={selectedDate} onChange={(date) => setSelectedDate(date)} disabled dateFormat="MMMM dd, yyyy" className='bg-white text-slate-800 text-xl w-[130px] font-bold hover:cursor-pointer'/>
-            </div>
+            <CreateNewAttendance/>
           </div>
         </div>
         <div className="logbook-table">
           <table>
             <thead>
               <tr>
-                <th scope="col">Firstname</th>
-                <th scope="col">Lastname</th>
-                <th scope="col">Description</th>
-                <th scope="col">Time</th>
+                <th scope="col" className='w-2/12 border-x'>Firstname</th>
+                <th scope="col" className='w-2/12 border-x'>Lastname</th>
+                <th scope="col" className='w-6/12 border-x'>Description</th>
+                <th scope="col" className='w-1/12 border-x'>Time</th>
+                <th scope="col" className='w-1/12 border-x'>Action</th>
               </tr>
             </thead>
             <tbody>
               {
                 loading ? (
                   <tr>
-                    <td className='text-center py-5 border' colSpan={4}>
+                    <td className='text-center py-5 border' colSpan={5}>
                       <div className='flex justify-center items-center space-x-2 py-5'>
                         <div style={{borderTopColor: 'transparent'}} className="w-6 h-6 border-4 border-slate-700 border-double rounded-full animate-spin" />
                         <h1 className='font-bold text-sm text-slate-700'>Loading</h1>
@@ -90,18 +130,24 @@ const AttendanceTable = () => {
                     </td>
                   </tr>
                 ) : (
-                  data.length > 0 ? data.map((item) => {
+                  data.length > 0 ? filteredData.map((item) => {
                     return (
                       <tr key={item.id}>
-                        <td>{item.firstname}</td>
-                        <td>{item.lastname}</td>
-                        <td>{item.description}</td>
-                        <td>{new Date(item.created_at).toLocaleTimeString()}</td>
+                        <td className='w-2/12 border'>{item.firstname}</td>
+                        <td className='w-2/12 border'>{item.lastname}</td>
+                        <td className='w-6/12 border'>{item.description}</td>
+                        <td className='w-1/12 border'>{new Date(item.created_at).toLocaleTimeString()}</td>
+                        <td className='w-1/12 border'>
+                          <button type='button' onClick={() => onCheck(item)} >
+                            <AiFillEye/>
+                            <span>View</span>
+                          </button>
+                        </td>
                       </tr>
                     )
                   }) : (
                     <tr>
-                      <td colSpan={4}>
+                      <td colSpan={5}>
                         <div className='flex flex-col justify-center items-center pt-4'>
                           <ImFileEmpty size={30}/>
                           <h1 className='font-bold text-sm text-slate-700 py-5'>Table is empty</h1>
@@ -115,6 +161,7 @@ const AttendanceTable = () => {
           </table>
         </div>
       </div>
+      <ViewModal open={viewModal} onClose={close} content={modalContent}/>
     </div>
   )
 }

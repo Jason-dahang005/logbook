@@ -34,8 +34,8 @@ const CreateNewNote = () => {
 
   return (
     <>
-      <button type='button' onClick={openModal} className='flex items-center bg-slate-700 text-white px-8 py-2 rounded-full hover:bg-slate-800 text-sm font-semibold'>
-        <HiPlus/>
+      <button type='button' onClick={openModal} className='flex items-center filter-item'>
+        <HiPlus />
         <span>Create New Note</span>
       </button>
 

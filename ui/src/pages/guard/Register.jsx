@@ -53,7 +53,7 @@ const Register = () => {
                           value={firstname}
                           onChange={(e) => setFirstname(e.target.value)}
                           placeholder="First Name"
-                          className={`w-full rounded border ${error.name? 'border-red-400' : 'border-slate-400'} focus:border-slate-600 pl-8 pr-2 py-2 outline-none`} />
+                          className={`w-full rounded border ${error.firstname? 'border-red-400' : 'border-slate-400'} focus:border-slate-600 pl-8 pr-2 py-2 outline-none`} />
                       </div>
                       {
                         error.firstname &&
@@ -73,7 +73,7 @@ const Register = () => {
                           value={lastname}
                           onChange={(e) => setLastname(e.target.value)}
                           placeholder="Last Name"
-                          className={`w-full rounded border ${error.name? 'border-red-400' : 'border-slate-400'} focus:border-slate-600 pl-8 pr-2 py-2 outline-none`} />
+                          className={`w-full rounded border ${error.lastname? 'border-red-400' : 'border-slate-400'} focus:border-slate-600 pl-8 pr-2 py-2 outline-none`} />
                       </div>
                       {
                         error.lastname &&
