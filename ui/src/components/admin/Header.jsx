@@ -49,7 +49,7 @@ const Header = () => {
       
       <div className={`w-[200px] text-slate-700 absolute bg-white right-5 top-14 rounded-md drop-shadow-md px-6 py-4 z-50 ${open ? 'opacity-100 visible translate-y-0 ease-in' : 'opacity-0 hidden translate-y-6 ease-in'}`} >
         <div className="text-center pb-2">
-          Hi, { user.name }
+          Hi, { user.firstname } { user.lastname }
         </div>
         <div className="">
           <ul>
