@@ -15,7 +15,9 @@ class GuardListController extends Controller
      */
     public function index()
     {
-        $guard = User::role('user')->doesntHave('organization')->get();
+        $guard = User::role('user')
+        
+        ->get();
 
         return response()->json([
             'guards' => $guard

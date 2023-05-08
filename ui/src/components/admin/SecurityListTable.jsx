@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { useEffect } from 'react'
 import axiosInstance from '../../api/axios'
 import { AiFillEye } from 'react-icons/ai'
+import { Link } from 'react-router-dom'
 
 const SecurityListTable = () => {
 
@@ -30,6 +31,7 @@ const SecurityListTable = () => {
       <div className="flex items-center justify-center h-60">
         <div style={{borderTopColor: 'transparent'}} className="w-8 h-8 border-4 border-blue-200 rounded-full animate-spin" />
         <p className="ml-2">Loading...</p>
+        
       </div>
     )
   }
@@ -47,7 +49,9 @@ const SecurityListTable = () => {
             <thead>
               <tr>
                 <th className='px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left'>Name</th>
+                <th className='px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left'>Organization</th>
                 <th className='px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left'>Action</th>
+                <th className='px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left'>Status</th>
               </tr>
             </thead>
             <tbody>
@@ -57,12 +61,26 @@ const SecurityListTable = () => {
                     <tr key={item.id}>
                       <td className='border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4'>{item.name}</td>
                       <td className='border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4'>
-                        <button className='flex items-center space-x-1 bg-green-500 text-white p-1 rounded-sm'>
-                          <AiFillEye/>
-                          <span className='text-sm'>View</span>
-                        </button>
+                        
                       </td>
+                      <td >
+                      <Link to="/Osecurity" className='flex items-center w-20 space-x- bg-green-500 text-white py-1 px-2 rounded-sm'>
+                          <AiFillEye size={20} />
+                          <span className='text-sm'>View</span>
+                        </Link>
+                        </td>
+                        <td><label for="Toggle1" className="inline-flex items-center space-x-4 cursor-pointer dark:text-gray-100">
+	
+	<span className="relative">
+		<input id="Toggle1" type="checkbox" className="hidden peer" />
+		<div className="w-10 h-6 rounded-full shadow-inner dark:bg-blue-400 peer-checked:dark:bg-gray-400"></div>
+		<div className="absolute inset-y-0 left-0 w-4 h-4 m-1 rounded-full shadow peer-checked:right-0 peer-checked:left-auto dark:bg-gray-800"></div>
+	</span>
+	
+</label>
+</td>
                     </tr>
+                    
                   )
                 })
               }

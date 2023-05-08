@@ -5,7 +5,7 @@ import axiosInstance from '../../api/axios'
 import { AiFillEye } from 'react-icons/ai'
 import { Link } from 'react-router-dom'
 
-const OrganizationListTable = () => {
+const Inactive = () => {
 
   const [org, setOrg] = useState([])
   const [loading, setLoading] = useState(true)
@@ -49,13 +49,16 @@ const OrganizationListTable = () => {
     placeholder="search"/>
   <br/>
   <div className='justy flex col-auto space-x-3'>
-  <Link to="/status"  class="bg-gray-500 hover:bg-gray-400 text-white font-bold py-2 px-4 border-b-4 border-gray-700 hover:border-gray-500 rounded w-40">
+    
+  <Link to="/status"  class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded w-40">
   In-Active
 </Link> 
-<Link to="/organization-list"  class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded w-40">
+
+<Link to="/organization-list"  class="bg-gray-500 hover:bg-gray-400 text-white font-bold py-2 px-4 border-b-4 border-gray-700 hover:border-gray-500 rounded w-40">
   Active
 </Link> 
-</div> <br/>      <div className='w-full h-[500px] overflow-y-auto'>
+</div> <br/>  
+        <div className='w-full h-[500px] overflow-y-auto'>
           <table className=''>
             <thead className='bg-slate-300 sticky top-0'>
               <tr>
@@ -84,7 +87,7 @@ const OrganizationListTable = () => {
 	
 	<span className="relative">
 		<input id="Toggle1" type="checkbox" className="hidden peer" />
-		<div className="w-10 h-6 rounded-full shadow-inner dark:bg-blue-400 peer-checked:dark:bg-gray-400"></div>
+		<div className="w-10 h-6 rounded-full shadow-inner dark:bg-gray-400 peer-checked:dark:bg-blue-400"></div>
 		<div className="absolute inset-y-0 left-0 w-4 h-4 m-1 rounded-full shadow peer-checked:right-0 peer-checked:left-auto dark:bg-gray-800"></div>
 	</span>
 	
@@ -107,4 +110,4 @@ const OrganizationListTable = () => {
   )
 }
 
-export default OrganizationListTable
+export default Inactive

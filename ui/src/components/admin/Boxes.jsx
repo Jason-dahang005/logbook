@@ -26,11 +26,11 @@ const Boxes = () => {
   }, [dataCount])
 
   return (
-    <div className='grid sm:grid-cols-12 xl:grid-cols-4 gap-4 p-4'>
+    <div className='grid sm:grid-cols-2 xl:grid-cols-4 gap-1 p-1'>
 
-      <div className="w-full shadow-xl h-32 rounded-md flex flex-col">
+      <div className="w-full shadow-xl h-52 rounded-md flex flex-col">
         <div className="flex justify-between items-center h-full p-4">
-          <FaRegUser size={50} className='fill-blue-700'/>
+          <FaRegUser size={50} className='animate-pulse fill-blue-700'/>
           <div className="">
             <h1 className='text-xs text-slate-700 font-bold'>
               No. of Security Guard
@@ -42,18 +42,23 @@ const Boxes = () => {
             </h1>
           </div>
         </div>
-        <div className="">
+        <div className="  ">
           <Link to="/security-list" className='group flex items-center font-medium text-sm justify-center border py-1 gap-x-1 bg-blue-700 hover:bg-blue-900 text-white'>
             More Info
-            <FaInfoCircle/>
+            <FaInfoCircle />
           </Link>
         </div>
       </div>
-
-      <div className="w-full shadow-lg h-32 rounded-md flex flex-col">
+ 
+      <div className="w-full shadow-xl h-52 rounded-md flex flex-col">
+        
         <div className="flex justify-between items-center h-full p-4">
-          <VscOrganization size={50} className='fill-green-700 text-green-500'/>
+       
+
+          <VscOrganization size={50} className='animate-bounce fill-green-700 text-green-500'/>
+        
           <div className="">
+            
             <h1 className='text-xs text-slate-700 font-bold'>
               No. of Organization
             </h1>
@@ -72,17 +77,6 @@ const Boxes = () => {
         </div>
       </div>
 
-      <div className="border-l-8 border-purple-500 w-full shadow-lg h-32 rounded-md">
-        <div className="p-4">
-          asdasdasd
-        </div>
-      </div>
-
-      <div className="border-l-8 border-red-500 w-full shadow-lg h-32 rounded-md">
-        <div className="p-4">
-          asdasdasd
-        </div>
-      </div>
     </div>
   )
 }

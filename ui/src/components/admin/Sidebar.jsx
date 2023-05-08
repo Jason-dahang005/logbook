@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { HiMenuAlt3 } from "react-icons/hi";
 import { MdOutlineDashboard } from "react-icons/md";
-import { RiSettings4Line } from "react-icons/ri";
+
 
 import { AiOutlineUser } from "react-icons/ai";
 import { VscOrganization} from "react-icons/vsc";
@@ -11,7 +11,7 @@ const Sidebar = () => {
         { name: "Dashboard", link: "/dashboard", icon: MdOutlineDashboard },
         { name: "Organization", link: "/organization-list", icon: VscOrganization },
         { name: "Security ", link: "/security-list", icon: AiOutlineUser },
-        { name: "Setting", link: "/datepicker", icon: RiSettings4Line },
+        
       ];
       const [open, setOpen] = useState(true);
     return (

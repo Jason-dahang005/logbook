@@ -53,8 +53,8 @@ const Header = () => {
         </div>
         <div className="">
           <ul>
-            <li><Link className='flex items-center rounded hover:bg-slate-300 p-2'><FaUserAlt/>&nbsp;Profile</Link></li>
-            <li><Link className='flex items-center rounded hover:bg-slate-300 p-2'><FaCog/>&nbsp;Setting</Link></li>
+            <li><Link to="/profile" className=' flex items-center rounded hover:bg-slate-300 p-2'><FaUserAlt/>&nbsp;Profile</Link></li>
+           
           </ul>
         </div>
         <div className="border-t border-[1px] border-gray-300 my-2"></div>
