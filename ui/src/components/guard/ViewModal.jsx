@@ -7,7 +7,7 @@ const ViewModal = ({ open, onClose, content }) => {
   if(!open) return null
 
   useEffect(() => {
-    console.log(content)
+    
   }, [content])
   
   return (

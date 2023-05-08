@@ -18,9 +18,12 @@ const NoteTable = () => {
   const [loading, setLoading] = useState(true)
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [isOpen, setIsOpen] = useState(false)
+  const [viewModal, setViewModal] = useState(false)
+  const [modalContent, setModalContent] = useState([])
+  const [searchQuery, setSearchQuery] = useState('')
 
   useEffect(() => {
-    const fetchNote = setTimeout(() => {
+    const fetchNote = () => {
       const formattedDate = selectedDate.toISOString().slice(0,10)
       axiosInstance.get(`list-note-logbook/${location.state.id}/${formattedDate}`)
       .then((response) => {
@@ -30,9 +33,12 @@ const NoteTable = () => {
       .catch((error) => {
         console.log(error)
       })
-    }, 1000)
-    return () => clearTimeout(fetchNote)
-  }, [note])
+    }
+
+    const displayNote = setTimeout(fetchNote, 1000)
+
+    return () => clearTimeout(displayNote)
+  }, [selectedDate])
 
   const handleClick = (e) => {
     e.preventDefault();
@@ -42,6 +48,18 @@ const NoteTable = () => {
   const handleChange = (e) => {
     setIsOpen(!isOpen);
     setSelectedDate(e);
+  }
+
+  const handleSearch = (e) => {
+    setSearchQuery(e.target.value)
+  }
+
+  const filteredData = note.filter((item) => {
+    return item.description.toLowerCase().includes(searchQuery.toLowerCase())
+  })
+
+  const clearSearch = () => {
+    setSearchQuery('')
   }
 
   return (
@@ -56,7 +74,7 @@ const NoteTable = () => {
               <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                 <BiSearch className='text-slate-700'/>
               </div>
-              <input type="text" className='border border-gray-400 pl-8 p-2 outline-none rounded-lg text-sm font-semibold focus:border-gray-700 text-gray-700' placeholder='Search'/>
+              <input type="text" value={searchQuery} onChange={handleSearch} className='border border-gray-400 pl-8 p-2 outline-none rounded-lg text-sm font-semibold focus:border-gray-700 text-gray-700' placeholder='Search'/>
               <div className="absolute inset-y-0 right-0 flex items-center pr-3">
                 <GrFormClose size={20} className='text-slate-700 hover:cursor-pointer z-50'/>
               </div>
@@ -100,12 +118,12 @@ const NoteTable = () => {
                     </td>
                   </tr>
                 ) : (
-                  note.length > 0 ? note.map((item) => {
+                  note.length > 0 ? filteredData.map((item) => {
                     return (
                       <tr key={item.id}>
-                        <td className='w-9/12'>{ item.description }</td>
-                        <td className='w-2/12'>{ new Date(item.created_at).toLocaleTimeString() }</td>
-                        <td className='w-1/12'>
+                        <td>{ item.description }</td>
+                        <td>{ new Date(item.created_at).toLocaleTimeString() }</td>
+                        <td>
                           <button type="button">
                             <AiFillEye/>
                             <span>View</span>

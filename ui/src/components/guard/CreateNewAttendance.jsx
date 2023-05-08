@@ -5,7 +5,7 @@ import { useLocation } from 'react-router-dom'
 import { IoMdClose } from 'react-icons/io'
 import axiosInstance from '../../api/axios'
 
-const CreateNewAttendance = () => {
+const CreateNewAttendance = (props) => {
 
   const location = useLocation()
   const [open, setOpen] = useState(false)
@@ -40,6 +40,7 @@ const CreateNewAttendance = () => {
       setLastname('')
       setDescription('')
       setOpen(false)
+      props.fetchAttendance()
     })
     .catch((error) => {
       if(error.response.status === 422){

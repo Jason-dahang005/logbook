@@ -27,8 +27,13 @@ const AttendanceTable = () => {
   const close = () => setViewModal(false)
 
   useEffect(() => {
-    const fetchAttendance = () => {
-      const formattedDate = selectedDate.toISOString().slice(0,10)
+    fetchAttendance()
+  }, [selectedDate])
+
+  const formattedDate = selectedDate.toISOString().slice(0,10)
+
+  const fetchAttendance = () => {
+    setLoading(true)
       axiosInstance.get(`list-attendance-logbook/${location.state.id}/${formattedDate}`)
       .then((response) => {
         setData(response.data.Attendance)
@@ -38,11 +43,6 @@ const AttendanceTable = () => {
         console.log(error)
       })
     }
-
-    const fetchInterval = setTimeout(fetchAttendance, 1000)
-
-    return () => clearTimeout(fetchInterval)
-  }, [selectedDate])
 
   const handleClick = (e) => {
     e.preventDefault();
@@ -104,7 +104,7 @@ const AttendanceTable = () => {
                 )
               }
             </div>
-            <CreateNewAttendance/>
+            <CreateNewAttendance fetchAttendance={fetchAttendance}/>
           </div>
         </div>
         <div className="logbook-table">
@@ -133,11 +133,11 @@ const AttendanceTable = () => {
                   data.length > 0 ? filteredData.map((item) => {
                     return (
                       <tr key={item.id}>
-                        <td className='w-2/12 border'>{item.firstname}</td>
-                        <td className='w-2/12 border'>{item.lastname}</td>
-                        <td className='w-6/12 border'>{item.description}</td>
-                        <td className='w-1/12 border'>{new Date(item.created_at).toLocaleTimeString()}</td>
-                        <td className='w-1/12 border'>
+                        <td className='border'>{item.firstname}</td>
+                        <td className='border'>{item.lastname}</td>
+                        <td className='border'>{item.description}</td>
+                        <td className='border'>{new Date(item.created_at).toLocaleTimeString()}</td>
+                        <td className='border'>
                           <button type='button' onClick={() => onCheck(item)} >
                             <AiFillEye/>
                             <span>View</span>
