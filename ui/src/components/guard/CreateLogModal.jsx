@@ -1,8 +1,9 @@
 import React from 'react'
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { useLocation } from 'react-router-dom'
 import axiosInstance from '../../api/axios'
 import { IoMdClose } from 'react-icons/io'
+import Webcam from 'react-webcam'
 
 const CreateLogModal = ({ visible, onClose }) => {
 
@@ -11,12 +12,16 @@ const CreateLogModal = ({ visible, onClose }) => {
   const [lastname, setLastname] = useState('')
   const [description, setDescription] = useState('')
 
+  const webcamRef = useRef(null)
+
   const handleSubmit = (e) => {
     e.preventDefault()
 
-    axiosInstance.post(`log-user/${location.state.id}`,
+    axiosInstance.post(`create-attendance-logbook/${location.state.id}`,
     JSON.stringify({
-      firstname, lastname, description
+      firstname,
+      lastname,
+      description
     }))
     .then((response) => {
       console.log(response.data)
@@ -34,33 +39,64 @@ const CreateLogModal = ({ visible, onClose }) => {
   if(!visible) return null
 
   return (
-    <div className='fixed inset-0 bg-black bg-opacity-60 flex justify-center items-center z-50'>
-      <div className="bg-white rounded drop-shadow-md w-[450px]">
-        <div className="flex justify-center items-center relative border-b px-4 py-3 rounded-t-md">
-          <h3 className='font-bold text-slate-700 text-2xl'>Add Log</h3>
-          <IoMdClose className='absolute right-3 hover:cursor-pointer fill-slate-700 hover:fill-slate-900' size={30} onClick={handleClose}/> 
-        </div>
-        <div className="px-5 py-3">
-          <form onSubmit={handleSubmit}>
-            <div className="pt-3">
-              <label className='font-bold text-slate-600 text-xs' htmlFor="name">First Name</label>
-              <input type="text" id='firstname' name='firstname' value={firstname} onChange={(e) => setFirstname(e.target.value)} className='border w-full py-2 px-4 outline-none focus:border-slate-400 rounded' placeholder='Enter first name'/>
-            </div>
+    <div className="create-log-modal">
+      <div className='create-log-modal-wrapper'>
+        <div className="create-log-modal-container">
+          <div className="create-log-modal-header">
+            <h3 className='create-log-modal-title'>Add Log</h3>
+            <IoMdClose
+              className='create-log-modal-header-icon'
+              size={20}
+              onClick={handleClose}/>
+          </div>
+          <div className="create-log-modal-body">
+            <form onSubmit={handleSubmit}>
+              <div className="">
+                <div className="pt-3">
+                  <label  className='create-log-modal-form-label' htmlFor="name">First Name</label>
 
-            <div className="pt-3">
-              <label className='font-bold text-slate-600 text-xs' htmlFor="name">Last Name</label>
-              <input type="text" id='lastname' name='lastname' value={lastname} onChange={(e) => setLastname(e.target.value)} className='border w-full py-2 px-4 outline-none focus:border-slate-400 rounded' placeholder='Enter last name'/>
-            </div>
+                  <input
+                    type="text"
+                    id='firstname'
+                    name='firstname'
+                    value={firstname}
+                    onChange={(e) => setFirstname(e.target.value)}
+                    className='create-log-modal-form-input'
+                    placeholder='Enter first name'/>
+                </div>
 
-            <div className="pt-3">
-              <label className='font-bold text-slate-600 text-xs' htmlFor="description">Description</label>
-              <textarea name="description" id="description" cols="30" rows="5" value={description} onChange={(e) => setDescription(e.target.value)} className='border w-full py-2 px-4 outline-none focus:border-slate-400 rounded' placeholder='Enter description'></textarea>
-            </div>
-            <div className="flex justify-end items-center space-x-3 py-2">
-              <button className='bg-blue-500 text-white px-2 py-1 w-full rounded' type='submit'>Submit</button>
-              {/* <button className='bg-red-700 text-white px-2 py-1 rounded' onClick={onClose}>Cancel</button> */}
-            </div>
-          </form>
+                <div className="pt-3">
+                  <label className='create-log-modal-form-label' htmlFor="name">Last Name</label>
+
+                  <input
+                    type="text"
+                    id='lastname'
+                    name='lastname'
+                    value={lastname}
+                    onChange={(e) => setLastname(e.target.value)}
+                    className='create-log-modal-form-input'
+                    placeholder='Enter last name'/>
+                </div>
+
+                <div className="pt-3">
+                  <label className='create-log-modal-form-label' htmlFor="description">Description</label>
+
+                  <textarea
+                    name="description"
+                    id="description"
+                    cols="30"
+                    rows="3"
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
+                    className='create-log-modal-form-input'
+                    placeholder='Enter description'></textarea>
+                </div>
+                <div className="create-log-modal-footer">
+                  <button className='create-log-modal-btn-submit' type='submit'>Submit</button>
+                </div>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
     </div>

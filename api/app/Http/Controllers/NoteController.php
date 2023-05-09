@@ -2,24 +2,26 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
+use App\Models\Note;
+use App\Models\Organization;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
-class UserController extends Controller
+class NoteController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($id, $date)
     {
-        $user = Auth::user();
- 
+        Organization::find($id);
+
+        $note = Note::where('org_id', $id)->whereDate('created_at', $date)->orderBy('created_at', 'desc')->get();
+
         return response()->json([
-            'user' => $user
-        ], 200);
+            'note'  => $note
+        ]);
     }
 
     /**
@@ -27,8 +29,6 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-
-     
     public function create()
     {
         //
@@ -40,29 +40,44 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $id)
     {
-        //
+        $request->validate([
+            'description' => 'required'
+        ]);
+
+        Organization::find($id);
+
+        $note = Note::create([
+            'description'   => $request->description,
+            'org_id'        => $id
+        ]);
+
+        return response()->json([
+            'Status'    => 'Success',
+            'Note'      => $note,
+            'Message'   => "Note Logged Successfully!"
+        ]);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\User  $user
+     * @param  \App\Models\Note  $note
      * @return \Illuminate\Http\Response
      */
-    public function show(User $user)
+    public function show(Note $note)
     {
-        
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\User  $user
+     * @param  \App\Models\Note  $note
      * @return \Illuminate\Http\Response
      */
-    public function edit(User $user)
+    public function edit(Note $note)
     {
         //
     }
@@ -71,10 +86,10 @@ class UserController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\User  $user
+     * @param  \App\Models\Note  $note
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(Request $request, Note $note)
     {
         //
     }
@@ -82,10 +97,10 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\User  $user
+     * @param  \App\Models\Note  $note
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user)
+    public function destroy(Note $note)
     {
         //
     }

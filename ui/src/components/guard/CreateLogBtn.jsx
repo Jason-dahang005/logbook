@@ -11,9 +11,9 @@ const CreateLogBtn = () => {
 
   return (
     <div>
-      <button onClick={() => setCreateLogBtn(true)} className='flex items-center bg-slate-700 text-white px-8 py-1 rounded hover:bg-slate-800'>
+      <button onClick={() => setCreateLogBtn(true)} className='flex items-center filter-item'>
         <HiPlus/>
-        <span>Add Log</span>
+        <span>Add New Attendance</span>
       </button>
 
       <CreateLogModal onClose={close} visible={createLogBtn} />

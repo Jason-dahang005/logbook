@@ -6,15 +6,20 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Exeption;
 
 class AuthenticationController extends Controller
 {
     public function register(Request $request)
     {
         $request->validate([
-            'name'      => 'required|string',
+            'firstname'      => 'required|string',
+            'lastname'      => 'required|string',
             'email'     => 'required|email|unique:users,email',
-            'password'  => 'required|min:5'
+            'password'  => 'required|min:5',
+            'confirm_password'=> 'required|same:password'
         ]);
 
         $input = $request->all();
@@ -39,7 +44,8 @@ class AuthenticationController extends Controller
         $request->validate([ 
             
             'email'     => 'required|email',
-            'password'  => 'required|min:5'
+            'password'  => 'required|min:5',
+            
         ]);
 
         $credential = $request->only('email', 'password');
@@ -62,6 +68,26 @@ class AuthenticationController extends Controller
             ], 401);
         }
     }
+    public function change_password(Request $request,$id)
+{ 
+    $user = User::find($id);
+    $request->validate([
+        'current_password' => ['required', function ($attribute, $value, $fail) use ($user) {
+            if (!Hash::check($value, $user->password)) {
+                return $fail(('The current password is incorrect!'));
+            }
+        }],
+        'new_password'=>'required|min:5',
+       'confirm_password'=>'required|same:new_password'
+       ]);
+    $user->password = bcrypt($request['confirm_password']);
+    $user->save();
+    return response()->json([
+        'message'=> 'Password Change Successfully!',
+    ]);
+     }
+  
+
 
     public function logout(Request $request)
     {

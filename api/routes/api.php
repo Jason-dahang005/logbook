@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 
 // Controllers
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\AttendanceController;
+use App\Http\Controllers\NoteController;
 use App\Http\Controllers\LogbookController;
 use App\Http\Controllers\OrganizationController;
 use App\Http\Controllers\SearchController;
@@ -33,6 +35,7 @@ use App\Http\Controllers\AdminOrganizationController;
 Route::controller(AuthenticationController::class)->group(function() {
     Route::post('register', 'register');
     Route::post('login', 'login');
+    Route::put('change-password/{id}', 'change_password');
 });
 
 // Admin Routes
@@ -63,14 +66,24 @@ Route::group(['middleware' => ['api', 'role:user', 'auth:api']], function () {
         Route::get('org-list', 'index');
         Route::get('show-org/{id}', 'show');
         Route::put('update-org/{id}', 'update');
+        Route::put('status-update/{id}', 'status_update');
         Route::delete('delete_org/{id}', 'destroy');
-
     });
+
     Route::controller(HistoryController::class)->group(function(){
         Route::get('logsearch/{id}', 'loghistory');
-        Route::get('search/{id}', 'date');
+        Route::get('show-logdate/{id}', 'date_list');
     });
 
+    Route::controller(AttendanceController::class)->group(function () {
+        Route::post('create-attendance-logbook/{id}', 'store');
+        Route::get('list-attendance-logbook/{id}/{date}', 'index');
+    });
+
+    Route::controller(NoteController::class)->group(function () {
+        Route::post('create-note-logbook/{id}', 'store');
+        Route::get('list-note-logbook/{id}/{date}', 'index');
+    });
 
     Route::controller(LogbookController::class)->group(function() {
         Route::post('log-user/{id}', 'store');

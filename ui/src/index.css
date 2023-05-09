@@ -2,3 +2,145 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer components {
+
+  /* REGISTRATION PAGE STYLE */
+  .registration-page {
+    @apply flex flex-col h-screen
+  }
+
+  .registration-page-container {
+    @apply grid place-items-center mx-2 my-20 sm:my-auto
+  }
+
+  .registration-page-wrapper {
+    @apply w-11/12 p-12 sm:w-8/12 md:w-6/12 lg:w-5/12 2xl:w-4/12 px-6 py-10 sm:px-10 sm:py-6 bg-white rounded-lg shadow-md lg:shadow-lg
+  }
+
+  .registration-page-header-text {
+    @apply text-center font-semibold text-3xl lg:text-4xl text-gray-800
+  }
+
+  .registration-page-form-label {
+    @apply block text-xs text-start mb-1 font-semibold text-gray-600 uppercase
+  }
+
+  /* CREATE LOG MODAL STYLE */
+  .create-log-modal .create-log-modal-wrapper {
+    @apply fixed inset-0 bg-black bg-opacity-60 flex justify-center items-center z-50
+  }
+
+  .create-log-modal-container {
+    @apply bg-white rounded drop-shadow-md w-[450px]
+  }
+
+  .create-log-modal-header {
+    @apply flex justify-center items-center relative border-b px-4 py-3 rounded-t-md
+  }
+
+  .create-log-modal-title {
+    @apply font-bold text-slate-700 text-2xl
+  }
+
+  .create-log-modal-header-icon {
+    @apply absolute right-3 hover:cursor-pointer fill-slate-700 hover:fill-slate-900
+  }
+
+  .create-log-modal-body {
+    @apply px-5 py-3
+  }
+
+  .create-log-modal-form-label {
+    @apply font-bold text-slate-600 text-xs
+  }
+
+  .create-log-modal-form-input {
+    @apply border w-full py-2 px-4 outline-none focus:border-slate-400 rounded text-slate-700 text-sm
+  }
+
+  .create-log-modal-footer {
+    @apply flex justify-end items-center space-x-3 py-2
+  }
+
+  .create-log-modal-btn-submit {
+    @apply bg-slate-700 text-white px-2 py-1 w-full rounded hover:bg-slate-800
+  }
+
+
+  /* LOGBOOK TABLE STYLE */
+  .logbook-table table {
+    @apply w-full
+  }
+
+  .logbook-table table thead {
+    @apply sticky top-0 bg-slate-700
+  }
+
+  .logbook-table table thead tr th {
+    @apply font-bold py-3 text-start pl-5 border-slate-300 text-white;
+  }
+
+  .logbook-table table tbody tr {
+    @apply even:bg-slate-200
+  }
+
+  .logbook-table table tbody tr td {
+    @apply text-slate-600 max-h-2 overflow-hidden px-5 py-2 whitespace-pre text-ellipsis
+  } 
+
+  .logbook-table table tbody tr td button {
+    @apply flex items-center space-x-1 bg-[#009900] px-2 py-1 rounded text-white hover:bg-[#006600]
+  }
+
+  .logbook-table table tbody tr td button {
+    @apply text-sm
+  }
+  
+  /* FORM STYLE */
+  .form-group {
+    @apply
+      flex
+      flex-col
+      space-y-1
+      my-2
+  }
+
+  .form-label {
+    @apply
+      font-semibold
+      text-sm
+      text-slate-800
+  }
+
+  .form-input {
+    @apply
+      border
+      outline-none
+      p-3
+      rounded-md
+      text-sm
+      text-slate-700
+  }
+
+  .btn {
+    @apply
+      rounded-sm
+      py-1
+      font-semibold
+  }
+
+  .filter-item {
+    @apply
+      p-2
+      text-sm
+      font-semibold
+      rounded-md
+      border
+      border-gray-400
+      bg-white
+      text-gray-700
+      hover:border-gray-700
+      
+  }
+}
+

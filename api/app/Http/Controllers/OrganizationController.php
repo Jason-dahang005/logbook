@@ -86,18 +86,11 @@ class OrganizationController extends Controller
      */
     public function show(Organization $organization, $id)
     {
-        $organization =  Organization::find($id);
+         $org = Organization::find($id);
 
-        if($organization){
-            return response()->json([
-                'status'        => 'success',
-                'organization'  => $organization
-            ]);
-        } else {
-            return response()->json([
-                'message' => 'no organization found'
-            ]);
-        }
+         return response()->json([
+            'org' => $org
+        ]);
     }
 
     /**
@@ -141,7 +134,27 @@ class OrganizationController extends Controller
      * @param  \App\Models\Organization  $organization
      * @return \Illuminate\Http\Response
      */
+    public function status_update(Request $request,$id)
+    {
+        $org = Organization::find($id)
+                    ->select('status')
+                    ->where('id')
+                    ->first();
+    //Check organization status
+        if($org->status == '1'){
+            $status = '2';
+        }else{
+            $status = '1';
+        }//update organization status
+        $values = array('status' => $status );
+        Organization::where('organizations')->where('id')->update($values);
+
+        return response()->json('Organization status has been updated successfully.');
+
+    }
+
     public function destroy($id)
+
     {
         $organization = Organization::find($id);
         $organization->delete();

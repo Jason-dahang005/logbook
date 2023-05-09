@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react'
 import user_img from '../../assets/img/user-img.png'
 
 // React Router Dom Imports
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 
 // React Icons Imports
 import { IoMdArrowDropdown } from 'react-icons/io'
@@ -12,9 +12,10 @@ import { BiLogOut } from 'react-icons/bi'
 import { FaCog, FaUserAlt } from 'react-icons/fa'
 import axiosInstance from '../../api/axios'
 import Dropwdown from '../Dropwdown'
+import OrgName from './OrgName'
 
 const Header = () => {
-
+  const locatoion = useLocation()
   const nav = useNavigate()
   const [open, setOpen] = useState(false)
   const [user, setUser] = useState([])
@@ -36,15 +37,11 @@ const Header = () => {
 
   return (
     <header>
-      <nav className='py-5 bg-slate-800 text-white px-4 lg:px-6'>
+      <nav className='py-5 bg-slate-800 px-4 lg:px-6'>
         <div className="flex justify-between items-center mx-auto">
           <div className="">
             <h5 className='text-2xl'>
-              Joven 
-              "<span className='text-green-300 font-bold'>GWAPO</span>" 
-              Ople
             </h5>
-            <h4>tagay scheduling management system</h4>
             
           </div>
           <div className="flex items-center space-x-2 hover:cursor-pointer"  onClick={() => {setOpen(!open)}}>
@@ -52,8 +49,8 @@ const Header = () => {
               <img src={user_img} className="w-8 rounded-full" alt="" />
             </div>
             <span className='flex items-center'>
-              <span>{ user.name }</span>
-              <IoMdArrowDropdown/>
+              <span className='text-white'>{ user.name }</span>
+              <IoMdArrowDropdown className='fill-white'/>
             </span>
           </div>
           
@@ -63,8 +60,12 @@ const Header = () => {
             </div>
             <div className="">
               <ul>
-                <li><Link className='flex items-center rounded hover:bg-slate-300 p-2'><FaUserAlt/>&nbsp;Profile</Link></li>
-                <li><Link className='flex items-center rounded hover:bg-slate-300 p-2'><FaCog/>&nbsp;Setting</Link></li>
+                <li>
+                  <Link className='flex items-center space-x-3 rounded hover:bg-slate-300 p-2'>
+                    <FaUserAlt/>
+                    <span>Profile</span>
+                  </Link>
+                </li>
               </ul>
             </div>
             <div className="border-t border-[1px] border-gray-300 my-2"></div>
