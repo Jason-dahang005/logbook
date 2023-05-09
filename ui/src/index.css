@@ -77,15 +77,15 @@
   }
 
   .logbook-table table thead tr th {
-    @apply font-bold py-3 text-start pl-5 border-slate-300 text-white;
+    @apply font-bold py-3 text-start pl-5 text-white text-sm;
   }
 
   .logbook-table table tbody tr {
-    @apply even:bg-slate-200
+    @apply odd:bg-slate-100
   }
 
   .logbook-table table tbody tr td {
-    @apply text-slate-600 max-h-2 overflow-hidden px-5 py-2 whitespace-pre text-ellipsis
+    @apply text-slate-600 max-h-2 overflow-hidden px-5 py-2 whitespace-pre text-ellipsis text-sm
   } 
 
   .logbook-table table tbody tr td button {
@@ -140,6 +140,7 @@
       bg-white
       text-gray-700
       hover:border-gray-700
+      h-[40px]
       
   }
 }

@@ -1,6 +1,6 @@
 import React from 'react'
 import { useState } from 'react'
-import { HiPlus } from 'react-icons/hi'
+import { AiOutlinePlusCircle } from 'react-icons/ai'
 import { useLocation } from 'react-router-dom'
 import { IoMdClose } from 'react-icons/io'
 import axiosInstance from '../../api/axios'
@@ -53,9 +53,9 @@ const CreateNewAttendance = (props) => {
 
   return (
     <>
-      <button type='button' onClick={openModal} className='flex items-center filter-item'>
-        <HiPlus/>
-        <span>Add New Attendance</span>
+      <button type='button' onClick={openModal} className='flex items-center filter-item space-x-1'>
+        <AiOutlinePlusCircle size={20}/>
+        <span className='text-xs'>Add New Attendance</span>
       </button>
 
       {
