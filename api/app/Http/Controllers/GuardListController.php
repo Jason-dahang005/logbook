@@ -15,12 +15,14 @@ class GuardListController extends Controller
      */
     public function index()
     {
-        $guard = User::role('user')->doesntHave('organization')->get();
+        $guard = User::role('user')->get();
 
         return response()->json([
             'guards' => $guard
         ]);
     }
+
+
 
     /**
      * Show the form for creating a new resource.
@@ -49,11 +51,19 @@ class GuardListController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function show(User $user)
+    public function show($id)
     {
-        //
+        $guard = User::find($id);
+        return response()->json($guard);
     }
 
+
+    //     $user = User::find($id);
+    //     if(!$user) {
+    //         return response()->json(['message'=> 'user not exist'], 404);
+    //     }
+    //     return response()->json(['data' => $user], 200);
+    // }
     /**
      * Show the form for editing the specified resource.
      *

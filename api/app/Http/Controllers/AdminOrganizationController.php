@@ -16,7 +16,7 @@ class AdminOrganizationController extends Controller
      */
     public function index()
     {
-        $organization = Organization::all();
+        $organization = Organization::with('user')->get();
 
         return response()->json([
             'status' => 200,
@@ -51,9 +51,13 @@ class AdminOrganizationController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function show(User $user)
+    public function show($id)
     {
-        //
+        $organization = Organization::find($id);
+        if(!$organization) {
+            return response()->json(['message'=> 'dont have organization'], 404);
+        }
+        return response()->json(['data' => $organization], 200);
     }
 
     /**

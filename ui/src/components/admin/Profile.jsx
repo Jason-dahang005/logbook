@@ -2,49 +2,55 @@ import React, { useEffect, useState }  from "react"
 import user_img from '../../assets/img/user-img.png'
 import axiosInstance from '../../api/axios'
 import { AiOutlineArrowLeft } from 'react-icons/ai'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 
 
 
 
 const Profile = () => {
 
-   
-
+    const location = useLocation()
+ 
 
     return (
         <> 
-            <div class="bg-gray-100">
+            <div className="bg-gray-100">
             <h1 className="text-5xl font-bold mb-4 pl-5 pt-5 flex flex-row"><Link to="/security-list"><AiOutlineArrowLeft className='rounded-full hover:bg-slate-300 p-1 mt-3'size={30}/></Link>Profile</h1>
-                <div class="container mx-auto py-8">
-                    <div class="grid grid-cols-4 sm:grid-cols-12 gap-6 px-4">
-                        <div class="col-span-4 sm:col-span-3">
-                            <div class="bg-white shadow rounded-lg p-6">
-                                <div class="flex flex-col items-center">
-                                    <img src={user_img} class="w-32 h-32 bg-gray-300 rounded-full mb-4 shrink-0" />
+                <div className="container mx-auto py-8">
+                    <div className="grid grid-cols-4 sm:grid-cols-12 gap-6 px-4">
+                        <div className="col-span-4 sm:col-span-3">
+                            <div className="bg-white shadow rounded-lg p-6">
+                                <div className="flex flex-col items-center">
+                                    <img src={user_img} className="w-32 h-32 bg-gray-300 rounded-full mb-4 shrink-0" />
                                 </div>
-                                <hr class="my-6 border-t border-gray-300" />
-                                <div class="flex flex-col">
-                                    <ul>
-                                        <li class="mb-2">Name :  <span></span></li>
-                                       
-                                    </ul>
+                                <hr className="my-6 border-t border-gray-300" />
+                                <div className="flex flex-col">
+                                    
+                                                <ul> 
+                                                    <li className="mb-2">Name :<span></span></li>
+                                                </ul>
+                                    
+
+                                    {
+                                        location.state.id
+                                    }
+                               
                                 </div>
                             </div>
                         </div>
-                        <div class="col-span-4 sm:col-span-9">
-                            <div class="bg-white shadow rounded-lg p-6">
-                                <h2 class="text-xl font-bold mb-4">Organization List</h2>
-                                <table class="table-auto border-separate border-spacing-2">
+                        <div className="col-span-4 sm:col-span-9">
+                            <div className="bg-white shadow rounded-lg p-6">
+                                <h2 className="text-xl font-bold mb-4">Organization List</h2>
+                                <table className="table-auto border-separate border-spacing-2">
                                     <thead > 
                                         <tr>
-                                            <th>Organization Name</th>
-                                            <th></th>
-                                            <th>description</th>
+                                        <th className='text-left p-3 '>Name</th>
+                                        <th className='text-left p-3 '>Description</th>
+                                        <th className='text-left p-3 '>Status</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                       
+                              
                                     </tbody>
                                 </table>
 

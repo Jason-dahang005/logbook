@@ -16,8 +16,8 @@ const Organization = () => {
 
   return (
     <div className='p-4'>
-      <div className="flex flex-col space-y-3">
-        <div className='p-2 flex justify-between'>
+      <div className="flex flex-col">
+        <div className='p-2 flex justify-between items-center rounded-lg shadow-[1px_1px_6px_2px_#00000024]'>
           <BackBtn/>
           <OrgName/>
           <div className="flex space-x-2">

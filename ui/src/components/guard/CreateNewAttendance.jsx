@@ -2,14 +2,17 @@ import React from 'react'
 import { useState } from 'react'
 import { HiPlus } from 'react-icons/hi'
 import { useLocation } from 'react-router-dom'
+import { IoMdClose } from 'react-icons/io'
+import axiosInstance from '../../api/axios'
 
-const CreateNewAttendance = () => {
+const CreateNewAttendance = (props) => {
 
   const location = useLocation()
   const [open, setOpen] = useState(false)
   const [firstname, setFirstname] = useState('')
   const [lastname, setLastname] = useState('')
   const [description, setDescription] = useState('')
+  const [error, setError] = useState([])
 
   const openModal = () => {
     setOpen(true)
@@ -17,6 +20,9 @@ const CreateNewAttendance = () => {
 
   const closeModal = () => {
     setOpen(false)
+    setFirstname('')
+    setLastname('')
+    setDescription('')
   }
 
   const handleSubmit = (e) => {
@@ -33,14 +39,21 @@ const CreateNewAttendance = () => {
       setFirstname('')
       setLastname('')
       setDescription('')
-      open(false)
+      setOpen(false)
+      props.fetchAttendance()
+    })
+    .catch((error) => {
+      if(error.response.status === 422){
+        setError(error.response.data.errors)
+      }
     })
   }
 
 
+
   return (
     <>
-      <button type='button' onClick={openModal} className='flex items-center bg-slate-700 text-white px-8 py-1 rounded-full hover:bg-slate-800 text-sm font-semibold'>
+      <button type='button' onClick={openModal} className='flex items-center filter-item'>
         <HiPlus/>
         <span>Add New Attendance</span>
       </button>
@@ -61,28 +74,46 @@ const CreateNewAttendance = () => {
                 <div className="create-log-modal-body">
                   <form onSubmit={handleSubmit}>
                     <div className="input-group">
-                      <label  className='create-log-modal-form-label' htmlFor="name">First Name</label>
+                      <label  className='create-log-modal-form-label' htmlFor="firstname">First Name</label>
                       <input
                         type="text"
                         id='firstname'
                         name='firstname'
                         value={firstname}
                         onChange={(e) => setFirstname(e.target.value)}
-                        className='create-log-modal-form-input'
+                        className={`create-log-modal-form-input ${ error.firstname ? 'border-red-500' : 'border'}`}
                         placeholder='Enter first name'
                       />
+                      {
+                        error.firstname && (
+                          <span className="text-red-500 text-sm">
+                            {
+                              error.firstname[0]
+                            }
+                          </span>
+                        )
+                      }
                     </div>
                     <div className="input-group">
-                      <label className='create-log-modal-form-label' htmlFor="name">Last Name</label>
+                      <label className='create-log-modal-form-label' htmlFor="lastname">Last Name</label>
                       <input
                         type="text"
                         id='lastname'
                         name='lastname'
                         value={lastname}
                         onChange={(e) => setLastname(e.target.value)}
-                        className='create-log-modal-form-input'
+                        className={`create-log-modal-form-input ${ error.lastname ? 'border-red-500' : 'border'}`}
                         placeholder='Enter last name'
                       />
+                      {
+                        error.lastname && (
+                          <span className="text-red-500 text-sm">
+                            {
+                              error.lastname[0]
+                            }
+                          </span>
+                        )
+                      }
                     </div>
                     <div className="input-group">
                       <label className='create-log-modal-form-label' htmlFor="description">Description</label>
@@ -90,12 +121,21 @@ const CreateNewAttendance = () => {
                         name="description"
                         id="description"
                         cols="30"
-                        rows="3"
+                        rows="4"
                         value={description}
                         onChange={(e) => setDescription(e.target.value)}
-                        className='create-log-modal-form-input'
+                        className={`create-log-modal-form-input ${ error.description ? 'border-red-500' : 'border'}`}
                         placeholder='Enter description'>
                       </textarea>
+                      {
+                        error.description && (
+                          <span className="text-red-500 text-sm">
+                            {
+                              error.description[0]
+                            }
+                          </span>
+                        )
+                      }
                     </div>
                     <div className="create-log-modal-footer">
                       <button className='create-log-modal-btn-submit' type='submit'>Submit</button>

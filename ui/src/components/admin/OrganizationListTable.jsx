@@ -63,7 +63,7 @@ const OrganizationListTable = () => {
                     <tr key={item.id} className='even:bg-slate-200'>
                       <td className='text-sm p-3 w-2/12'>{item.user.firstname} {item.user.lastname}</td>
                       <td className='text-sm p-3 w-3/12'>{item.name}</td>
-                      <td className='text-sm p-3 w-5/12'>{item.description}</td>
+                      <td className='text-sm p-3 w-5/12'oi>{item.description}</td>
                       <td className='text-sm p-3 w-1/12'>
                         {
                           item.status === 1 ?  (

@@ -6,6 +6,9 @@ use Illuminate\Support\Facades\Route;
 // Controllers
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AttendanceController;
+use App\Http\Controllers\AdminAttendanceController;
+use App\Http\Controllers\Admin_AttendanceController;
+use App\Http\Controllers\AdminListAttendanceController;
 use App\Http\Controllers\NoteController;
 use App\Http\Controllers\LogbookController;
 use App\Http\Controllers\OrganizationController;
@@ -15,6 +18,7 @@ use App\Http\Controllers\GuardListController;
 use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\AdminOrganizationController;
+use App\Http\Controllers\GuardProfileConrtoller;
 
 /*
 |--------------------------------------------------------------------------
@@ -44,17 +48,33 @@ Route::group(['middleware' => ['api', 'role:admin', 'auth:api']], function () {
 
     Route::controller(GuardListController::class)->group(function() {
         Route::get('guard-list', 'index');
+        Route::get('guard-list/{id}', 'show');
     });
 
     Route::controller(DashboardController::class)->group(function () {
         Route::get('dashboard', 'index');
+       
     });
 
     Route::controller(AdminOrganizationController::class)->group(function () {
         Route::get('admin-org-list', 'index');
+        Route::get('admin-org-list/{id}', 'show');
     });
 
+
+    Route::controller(AdminListAttendanceController::class)->group(function () {
+        Route::get('adminlistattendance/{id}/{date}', 'index');
+    });
+
+    Route::controller(GuardProfileConrtoller::class)->group(function () {
+        Route::get('guardprofile', 'index');
+    });
+
+   
+
     Route::post('admin-logout', [AuthenticationController::class, 'logout']);
+
+   
 });
 
 // Users Routes

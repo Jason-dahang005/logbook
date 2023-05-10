@@ -16,11 +16,13 @@ class AdminController extends Controller
     public function index()
     {
         $user = Auth::user();
-
+    
         return response()->json([
             'user' => $user
         ], 200);
     }
+
+    
 
     /**
      * Show the form for creating a new resource.
