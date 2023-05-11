@@ -1,11 +1,11 @@
 import React from 'react'
 import { useState } from 'react'
-import { HiPlus } from 'react-icons/hi'
+import { AiOutlinePlusCircle } from 'react-icons/ai'
 import { IoMdClose } from 'react-icons/io'
 import axiosInstance from '../../api/axios'
 import { useLocation } from 'react-router-dom'
 
-const CreateNewNote = () => {
+const CreateNewNote = (props) => {
   const location = useLocation()
   const [open, setOpen] = useState(false)
   const [description, setDescription] = useState('')
@@ -29,14 +29,15 @@ const CreateNewNote = () => {
       console.log(response.data)
       setDescription('')
       setOpen(false)
+      props.fetchNote()
     })
   }
 
   return (
     <>
-      <button type='button' onClick={openModal} className='flex items-center filter-item'>
-        <HiPlus />
-        <span>Create New Note</span>
+      <button type='button' onClick={openModal} className='flex items-center filter-item space-x-1'>
+        <AiOutlinePlusCircle size={20}/>
+        <span className='text-xs'>Create New Note</span>
       </button>
 
       {
