@@ -15,11 +15,11 @@ class AuthenticationController extends Controller
     public function register(Request $request)
     {
         $request->validate([
-            'firstname'      => 'required|string',
+            'firstname'     => 'required|string',
             'lastname'      => 'required|string',
-            'email'     => 'required|email|unique:users,email',
-            'password'  => 'required|min:5',
-            
+            'email'         => 'required|email|unique:users,email',
+            'password'      => 'required|min:5',
+
         ]);
 
         $input = $request->all();

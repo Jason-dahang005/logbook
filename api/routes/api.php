@@ -53,7 +53,7 @@ Route::group(['middleware' => ['api', 'role:admin', 'auth:api']], function () {
 
     Route::controller(DashboardController::class)->group(function () {
         Route::get('dashboard', 'index');
-       
+
     });
 
     Route::controller(AdminOrganizationController::class)->group(function () {
@@ -70,11 +70,7 @@ Route::group(['middleware' => ['api', 'role:admin', 'auth:api']], function () {
         Route::get('guardprofile', 'index');
     });
 
-   
-
     Route::post('admin-logout', [AuthenticationController::class, 'logout']);
-
-   
 });
 
 // Users Routes

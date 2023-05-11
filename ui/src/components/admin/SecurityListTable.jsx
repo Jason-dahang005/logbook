@@ -18,7 +18,6 @@ const SecurityListTable = () => {
       .then((res) => {
         setGuard(res.data.guards)
         setLoading(false)
-        console.log(res.data.guards)
       })
       .catch((error) => {
         console.log(error)
@@ -26,15 +25,6 @@ const SecurityListTable = () => {
     }, 1000)
     return () => clearInterval(getGuardData)
   }, [guard])
-
-  if(loading){
-    return (
-      <div className="flex items-center justify-center h-60">
-        <div style={{borderTopColor: 'transparent'}} className="w-8 h-8 border-4 border-blue-200 rounded-full animate-spin" />
-        <p className="ml-2">Loading...</p>
-      </div>
-    )
-  }
 
   return (
     <>
@@ -49,30 +39,45 @@ const SecurityListTable = () => {
           <table className='items-center bg-transparent w-full border-collapse'>
             <thead>
               <tr>
-                <th className='px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left'>First Name</th>
-                <th className='px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left'>Last Name</th>
-                <th className='px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left'>Status</th>
-                <th className='px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left'>Action</th>
+                <th className='px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left w-5/12'>First Name</th>
+                <th className='px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left w-5/12'>Last Name</th>
+                <th className='px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-center w-1/12'>Status</th>
+                <th className='px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-center w-1/12'>Action</th>
               </tr>
             </thead>
             <tbody>
               {
-                guard.map((item) => {
-                  return (
-                    <tr key={item.id}>
-                      <td className='border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4'>{item.firstname}</td>
-                      <td className='border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4'>{item.lastname}</td>
-                      
-                      <td className='border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4'></td>
-                      <td className='border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4'>
-                        <button onClick={() => nav('/profile', {state: {id: item.id }})} className='flex items-center space-x-1 bg-green-500 text-white py-1 px-2 rounded-sm'>
-                          <AiFillEye size={20} />
-                          <span className='text-sm'>View</span>
-                        </button>
-                      </td>
+                loading ? (
+                  <tr>
+                    <td className='' colSpan={5}>
+                      <div className="flex items-center justify-center h-32">
+                        <div style={{borderTopColor: 'transparent'}} className="w-8 h-8 border-4 border-blue-200 rounded-full animate-spin" />
+                        <p className="ml-2">Loading...</p>
+                      </div>
+                    </td>
+                  </tr>
+                ) : (
+                  guard.length > 0 ? guard.map((item) => {
+                    return (
+                      <tr key={item.id}>
+                        <td className='border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4'>{item.firstname}</td>
+                        <td className='border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4'>{item.lastname}</td>
+                        
+                        <td className='border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4'></td>
+                        <td className='border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4'>
+                          <button onClick={() => nav('/profile', {state: {id: item.id }})} className='flex items-center space-x-1 bg-green-500 text-white py-1 px-2 rounded-sm'>
+                            <AiFillEye size={20} />
+                            <span className='text-sm'>Details</span>
+                          </button>
+                        </td>
+                      </tr>
+                    )
+                  }) : (
+                    <tr colSpan={5}>
+                      <td>Table is empty</td>
                     </tr>
                   )
-                })
+                )
               }
             </tbody>
           </table>

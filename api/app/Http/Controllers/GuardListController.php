@@ -54,16 +54,12 @@ class GuardListController extends Controller
     public function show($id)
     {
         $guard = User::find($id);
-        return response()->json($guard);
+
+        return response()->json([
+            'guard' => $guard
+        ]);
     }
 
-
-    //     $user = User::find($id);
-    //     if(!$user) {
-    //         return response()->json(['message'=> 'user not exist'], 404);
-    //     }
-    //     return response()->json(['data' => $user], 200);
-    // }
     /**
      * Show the form for editing the specified resource.
      *

@@ -11,7 +11,7 @@ const Sidebar = () => {
         { name: "Dashboard", link: "/dashboard", icon: MdOutlineDashboard },
         { name: "Organization", link: "/organization-list", icon: VscOrganization },
         { name: "Security ", link: "/security-list", icon: AiOutlineUser },
-        { name: "Setting", link: "/datepicker", icon: RiSettings4Line },
+        // { name: "Setting", link: "/datepicker", icon: RiSettings4Line },
       ];
       const [open, setOpen] = useState(true);
     return (
@@ -25,8 +25,8 @@ const Sidebar = () => {
               <Link
                 to={menu?.link}
                 key={i}
-                className={` ${ menu?.margin && "mt-5" } group flex items-center gap-3.5 text-lg font-medium px-1 py-2 z-50 hover:bg-slate-900 rounded-md`}>
-                <div className="">{React.createElement(menu?.icon, { size: "25" })}</div>
+                className={` ${ menu?.margin && "mt-5" } group flex items-center gap-3.5 text-sm font-medium px-1 py-2 z-50 hover:bg-slate-900 rounded-md`}>
+                <div className="">{React.createElement(menu?.icon, { size: "20" })}</div>
                 <h2
                   style={{ transitionDelay: `${i + 3}00ms`, }}
                   className={`whitespace-pre duration-500 ${ !open && "opacity-0 translate-x-28 overflow-hidden" }`}>
