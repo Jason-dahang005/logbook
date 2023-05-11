@@ -17,7 +17,7 @@ const CreateLogModal = ({ visible, onClose }) => {
   const handleSubmit = (e) => {
     e.preventDefault()
 
-    axiosInstance.post(`log-user/${location.state.id}`,
+    axiosInstance.post(`create-attendance-logbook/${location.state.id}`,
     JSON.stringify({
       firstname,
       lastname,
@@ -52,12 +52,6 @@ const CreateLogModal = ({ visible, onClose }) => {
           <div className="create-log-modal-body">
             <form onSubmit={handleSubmit}>
               <div className="">
-                {/* <div>
-                  <Webcam
-                    audio={false}
-
-                  />
-                </div> */}
                 <div className="pt-3">
                   <label  className='create-log-modal-form-label' htmlFor="name">First Name</label>
 
@@ -91,7 +85,7 @@ const CreateLogModal = ({ visible, onClose }) => {
                     name="description"
                     id="description"
                     cols="30"
-                    rows="5"
+                    rows="3"
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
                     className='create-log-modal-form-input'

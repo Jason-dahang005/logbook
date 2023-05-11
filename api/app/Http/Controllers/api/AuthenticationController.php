@@ -19,7 +19,7 @@ class AuthenticationController extends Controller
             'lastname'      => 'required|string',
             'email'     => 'required|email:rfc,dns|unique:users,email',
             'password'  => 'required|min:5',
-            'confirm_password'=> 'required|same:password'
+            
         ]);
 
         $input = $request->all();
@@ -44,7 +44,7 @@ class AuthenticationController extends Controller
         $request->validate([
             'email'     => 'required|email:rfc,dns',
             'password'  => 'required|min:5',
-            
+
         ]);
 
         $credential = $request->only('email', 'password');
@@ -68,7 +68,7 @@ class AuthenticationController extends Controller
         }
     }
     public function change_password(Request $request,$id)
-{ 
+{
     $user = User::find($id);
     $request->validate([
         'current_password' => ['required', function ($attribute, $value, $fail) use ($user) {
@@ -85,7 +85,7 @@ class AuthenticationController extends Controller
         'message'=> 'Password Change Successfully!',
     ]);
      }
-  
+
 
 
     public function logout(Request $request)

@@ -2,13 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Carbon\Carbon;
-use App\Models\Logbook;
+use App\Models\Attendance;
 use App\Models\Organization;
 use Illuminate\Http\Request;
-use Illuminate\Validation\Rules\Unique;
 
-class LogbookController extends Controller
+class AttendanceController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,10 +17,12 @@ class LogbookController extends Controller
     {
         Organization::find($id);
 
-        $log = Logbook::where('org_id', $id)->whereDate('created_at', $date)->orderBy('created_at', 'desc')->get();
+        $attendance = Attendance::where('org_id', $id)->whereDate('created_at', $date)->orderBy('created_at', 'desc')->get();
 
-        if($log){
-            return response()->json($log);
+        if($attendance){
+            return response()->json([
+                'Attendance' => $attendance
+            ]);
         } else {
             return response()->json([
                 'message' => 'no current logs'
@@ -56,35 +56,27 @@ class LogbookController extends Controller
 
         Organization::find($id);
 
-
-
-        $log = Logbook::create([
+        $attendance = Attendance::create([
             'firstname'     => ucwords($request->firstname),
             'lastname'      => ucwords($request->lastname),
             'description'   => ucwords($request->description),
             'org_id'        => $id,
-            // 'image'         => $path
         ]);
 
-        if($log){
-            return response()->json([
-                'status'    => 'success',
-                'log'       => $log,
-            ]);
-        } else {
-            return response()->json([
-                'message'   => 'Something went wrong!'
-            ]);
-        }
+        return response()->json([
+            'status'                => 'Success',
+            'Attendance logbook'    => $attendance,
+            'Message'               => 'Attendance logged succesfully!'
+        ]);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Logbook  $logbook
+     * @param  \App\Models\Attendance  $attendance
      * @return \Illuminate\Http\Response
      */
-    public function show(Logbook $logbook)
+    public function show(Attendance $attendance)
     {
         //
     }
@@ -92,10 +84,10 @@ class LogbookController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Logbook  $logbook
+     * @param  \App\Models\Attendance  $attendance
      * @return \Illuminate\Http\Response
      */
-    public function edit(Logbook $logbook)
+    public function edit(Attendance $attendance)
     {
         //
     }
@@ -104,26 +96,22 @@ class LogbookController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Logbook  $logbook
+     * @param  \App\Models\Attendance  $attendance
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,$id)
+    public function update(Request $request, Attendance $attendance)
     {
-       //
+        //
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Logbook  $logbook
+     * @param  \App\Models\Attendance  $attendance
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Attendance $attendance)
     {
-        $log = Logbook::find($id);
-        $log->delete();
-
-        return response()->json([
-            'meassage'=>'Logs Deleted Successfully!']);
+        //
     }
 }

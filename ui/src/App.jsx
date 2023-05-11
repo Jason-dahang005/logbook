@@ -15,6 +15,9 @@ import Auth from './api/adminAuth'
 import OrganizationList from './pages/admin/OrganizationList'
 import SecurityList from './pages/admin/SecurityList'
 import NewOrganization from './pages/guard/NewOrganization'
+import Profile from './components/admin/Profile'
+import OrgTable from './components/admin/OrgTable'
+import Welcome from './components/guard/Welcome'
 
 function App() {
 
@@ -22,8 +25,10 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route element={<Unauthenticated/>}>
-          <Route exact path="/" element={<Login/>} />
-          <Route path="/register" element={<Register/>} />
+          <Route element={<Welcome/>}>
+            <Route exact path="/" element={<Login/>} />
+            <Route path="/register" element={<Register/>} />
+          </Route>
         </Route>
         <Route element={<Authenticated/>}>
           <Route element={<Layout/>}>
@@ -33,6 +38,7 @@ function App() {
             <Route path="/search" element={<LogSearch/>} />
             <Route path="/history" element={<LogHistory/>} />
             <Route path='/new-organization' element={<NewOrganization/>} />
+            
           </Route>
         </Route>
         <Route element={<Auth/>}>
@@ -40,6 +46,8 @@ function App() {
             <Route path='/dashboard' element={<Dashboard/>} />
             <Route path='/organization-list' element={<OrganizationList/>}/>
             <Route path='/security-list' element={<SecurityList/>} />
+            <Route path='/orgtable' element={<OrgTable/>} />
+            <Route path='/profile' element={<Profile/>} />
           </Route>
         </Route>
       </Routes>
