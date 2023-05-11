@@ -51,9 +51,16 @@ class AdminOrganizationController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function show(User $user)
-    {
-        //
+    public function show(User $user,$id)
+    { 
+        $user= User::find($id);
+        $org = Organization::where('user_id', $id)->orderBy('created_at', 'desc')->get();
+
+    return response()->json([
+        "Security"=> $user,
+        'Organizations'=> $org
+        ], 200);
+
     }
 
     /**

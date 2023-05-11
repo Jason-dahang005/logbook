@@ -14,7 +14,9 @@ class Logbook extends Model
         'firstname',
         'lastname',
         'description',
+        // 'image',
         'org_id',
+        
 
     ];
 

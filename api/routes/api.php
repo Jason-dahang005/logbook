@@ -30,6 +30,10 @@ use App\Http\Controllers\AdminOrganizationController;
 // });
 
 // Authentication Routes
+// ngrok http 8000
+Route::get('test',function() {
+    return 'hello';
+});
 Route::controller(AuthenticationController::class)->group(function() {
     Route::post('register', 'register');
     Route::post('login', 'login');
@@ -43,6 +47,10 @@ Route::group(['middleware' => ['api', 'role:admin', 'auth:api']], function () {
     Route::controller(GuardListController::class)->group(function() {
         Route::get('guard-list', 'index');
     });
+    Route::controller(HistoryController::class)->group(function(){
+        Route::get('logsearch/{id}', 'loghistory');
+        Route::get('show-logdate/{id}', 'date_list');
+    });
 
     Route::controller(DashboardController::class)->group(function () {
         Route::get('dashboard', 'index');
@@ -50,6 +58,7 @@ Route::group(['middleware' => ['api', 'role:admin', 'auth:api']], function () {
 
     Route::controller(AdminOrganizationController::class)->group(function () {
         Route::get('admin-org-list', 'index');
+        Route::get('guard-org-list/{id}', 'show');
     });
 
     Route::post('admin-logout', [AuthenticationController::class, 'logout']);
