@@ -53,7 +53,7 @@ class GuardListController extends Controller
      */
     public function show($id)
     {
-        $guard = User::find($id);
+        $guard = User::with('organization')->find($id);
 
         return response()->json([
             'guard' => $guard

@@ -7,8 +7,8 @@ import { Link, useLocation } from 'react-router-dom'
 const Profile = () => {
 
     const location = useLocation()
-
     const [user, setUser] = useState('')
+    const [loading, setLoading] = useState(true)
 
     useEffect(() => {
         fetchSingleUser()
@@ -18,6 +18,7 @@ const Profile = () => {
         axiosInstance.get(`guard-list/${location.state.id}`)
         .then((response) => {
             setUser(response.data.guard)
+            setLoading(false)
             console.log(response.data.guard)
         })
         .catch((error) => {
@@ -41,9 +42,7 @@ const Profile = () => {
                         <div className="flex flex-col items-center">
                             <img src={user_img} className="w-32 h-32 bg-gray-300 rounded-full mb-4 shrink-0" />
                         </div>
-
                         <hr className="my-6 border-t border-gray-300" />
-                       
                         <div>
                             <table>
                                 <tbody>
@@ -73,18 +72,34 @@ const Profile = () => {
                             <table className='items-center bg-transparent w-full border-collapse'>
                                 <thead>
                                     <tr>
-                                        <th className='px-6 align-middle border w-3/12 py-3 text-xs border-l-0 border-r-0 whitespace-nowrap font-semibold text-left'>Name</th>
-                                        <th className='px-6 align-middle border w-7/12 py-3 text-xs border-l-0 border-r-0 whitespace-nowrap font-semibold text-left'>Description</th>
-                                        <th className='px-6 align-middle border w-1/12 py-3 text-xs border-l-0 border-r-0 whitespace-nowrap font-semibold text-left'>Status</th>
-                                        <th className='px-6 align-middle border w-1/12 py-3 text-xs border-l-0 border-r-0 whitespace-nowrap font-semibold text-left'>Action</th>
+                                        <th className='px-6 align-middle border w-3/12 py-3 text-sm border-l-0 border-r-0 whitespace-nowrap font-bold text-left'>Name</th>
+                                        <th className='px-6 align-middle border w-7/12 py-3 text-sm border-l-0 border-r-0 whitespace-nowrap font-bold text-left'>Description</th>
+                                        <th className='px-6 align-middle border w-1/12 py-3 text-sm border-l-0 border-r-0 whitespace-nowrap font-bold text-left'>Status</th>
+                                        <th className='px-6 align-middle border w-1/12 py-3 text-sm border-l-0 border-r-0 whitespace-nowrap font-bold text-left'>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td className='border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4'></td>
-                                        <td className='border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4'></td>
-                                        <td className='border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4'></td>
-                                    </tr>
+                                    {
+                                        loading ? (
+                                            <tr>
+                                                <td colSpan={4} className="text-center py-5">Loading...</td>
+                                            </tr>
+                                        ) : (
+                                            user.organization.length > 0 ? user.organization.map((item) => {
+                                                return (
+                                                    <tr key={item.id}>
+                                                        <td className='border-t-0 px-6 align-middle border-l-0 border-r-0 text-sm whitespace-nowrap p-4'>{item.name}</td>
+                                                        <td className='border-t-0 px-6 align-middle border-l-0 border-r-0 text-sm whitespace-nowrap p-4'>{item.description}</td>
+                                                        <td className='border-t-0 px-6 align-middle border-l-0 border-r-0 text-sm whitespace-nowrap p-4'></td>
+                                                    </tr>
+                                                )
+                                            }) : (
+                                                <tr>
+                                                    <td colSpan={4} className="text-xs text-center py-5">No Organization Found</td>
+                                                </tr>
+                                            )
+                                        )
+                                    }
                                 </tbody>
                             </table>
                         </div>

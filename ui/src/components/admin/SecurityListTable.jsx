@@ -29,7 +29,7 @@ const SecurityListTable = () => {
   return (
     <>
     <div className="w-full mb-12 xl:mb-0 px-4 mx-auto py-5">
-      <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded">
+      <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-[1px_1px_6px_2px_#00000024] rounded-lg p-3">
         <div className="rounded-t mb-0 px-4 py-3 border-0">
           <div className="relative w-full px-2 max-w-full flex-grow flex-1">
             <h3 className="font-bold text-xl text-blueGray-700">List of Security Guard</h3>
