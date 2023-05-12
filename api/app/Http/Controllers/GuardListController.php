@@ -53,8 +53,18 @@ class GuardListController extends Controller
      */
     public function show($id)
     {
-        $guard = User::find($id);
-        return response()->json($guard);
+        User::find($id);
+
+        $guard = User::where('user_id', $id)->get();
+        if($guard){
+            return response()->json([
+                'Attendance' => $guard
+            ]);
+        } else {
+            return response()->json([
+                'message' => 'no current logs'
+            ]);
+        }
     }
 
 
