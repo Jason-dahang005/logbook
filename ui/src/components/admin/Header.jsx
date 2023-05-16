@@ -35,7 +35,7 @@ const Header = () => {
   }
 
   return (
-    <div className="bg-white shadow-[1px_1px_6px_2px_#00000024] px-5 flex justify-between items-center py-3 text-slate-600">
+    <div className="bg-white shadow-[1px_1px_5px_0px_#00000024] px-5 flex justify-between items-center py-3 text-slate-600">
       <img src="" className="max-w-10 h-10"/> 
       <div className="flex items-center space-x-2 hover:cursor-pointer"  onClick={() => {setOpen(!open)}}>
         <div className="">

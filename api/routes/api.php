@@ -61,7 +61,6 @@ Route::group(['middleware' => ['api', 'role:admin', 'auth:api']], function () {
 
     Route::controller(DashboardController::class)->group(function () {
         Route::get('dashboard', 'index');
-
     });
 
     Route::controller(AdminOrganizationController::class)->group(function () {
@@ -69,13 +68,16 @@ Route::group(['middleware' => ['api', 'role:admin', 'auth:api']], function () {
         Route::get('admin-org-list/{id}', 'show');
     });
 
-
     Route::controller(AdminListAttendanceController::class)->group(function () {
         Route::get('adminlistattendance/{id}/{date}', 'index');
     });
 
     Route::controller(GuardProfileConrtoller::class)->group(function () {
         Route::get('guardprofile', 'index');
+    });
+
+    Route::controller(AttendanceController::class)->group(function () {
+        Route::get('attendance-logbook/{id}/{date}', 'index');
     });
 
     Route::post('admin-logout', [AuthenticationController::class, 'logout']);

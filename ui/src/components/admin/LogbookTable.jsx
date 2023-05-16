@@ -1,24 +1,20 @@
 import React from 'react'
 import DataContext from '../../context/DataContext'
 import { useContext } from 'react'
-import { AiFillEye } from 'react-icons/ai'
-import { useNavigate } from 'react-router-dom'
 
-const OrganizationListTable = () => {
+const LogbookTable = () => {
 
-  const nav = useNavigate()
-
-  const { loading, organization, filterData } = useContext(DataContext)
+  const { loading, attendance, filteredData } = useContext(DataContext)
 
   return (
     <div className='admin-table'>
       <table>
         <thead>
           <tr>
-            <th>Name</th>
+            <th>First Name</th>
+            <th>Last Name</th>
             <th>Description</th>
-            <th>Date created</th>
-            <th>Status</th>
+            <th>Time Logged</th>
             <th>Action</th>
           </tr>
         </thead>
@@ -26,28 +22,23 @@ const OrganizationListTable = () => {
           {
             loading ? (
               <tr>
-                <td className='' colSpan={6}>
+                <td colSpan={5}>
                   <div className="flex items-center justify-center h-32 border-b">
                     <div style={{borderTopColor: 'transparent'}} className="w-4 h-4 border-2 border-gray-600 rounded-full animate-spin" />
-                    <p className="ml-2 text-gray-600 font-sans text-sm">Loading organizations...</p>
+                    <p className="ml-2 text-gray-600 font-sans text-sm">Loading logbook...</p>
                   </div>
                 </td>
               </tr>
             ) : (
-              filterData.length > 0 ? filterData.map((item) => {
+              filteredData.length > 0 ? filteredData.map((item) => {
                 return (
-                  <tr key={item.id} className='border-b'>
-                    <td>{item.name}</td>
+                  <tr key={item.id}>
+                    <td>{item.firstname}</td>
+                    <td>{item.lastname}</td>
                     <td>{item.description}</td>
-                    <td>{new Date(item.created_at).toLocaleDateString()}</td>
+                    <td>{new Date(item.created_at).toLocaleTimeString()}</td>
                     <td>
-                      <span className='badge-success'>Active</span>
-                    </td>
-                    <td>
-                      <button onClick={() => nav('/logbook', {state: {id: item.id }})} className='btn-success flex items-center space-x-1'>
-                        <AiFillEye/>
-                        <span>Details</span>  
-                      </button>
+                      <button className='btn-success'>Details</button>
                     </td>
                   </tr>
                 )
@@ -55,7 +46,7 @@ const OrganizationListTable = () => {
                 <tr>
                   <td colSpan={5}>
                     <div className='text-gray-600 font-sans flex items-center justify-center text-sm py-5 border-b whitespace-nowrap h-32'>
-                      <h1>No organization found</h1>
+                      <h1>No data found</h1>
                     </div>
                   </td>
                 </tr>
@@ -68,4 +59,4 @@ const OrganizationListTable = () => {
   )
 }
 
-export default OrganizationListTable
+export default LogbookTable

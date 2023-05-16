@@ -46,6 +46,6 @@ class User extends Authenticatable
     ];
 
     public function organization(){
-        return $this->hasMany(Organization::class);
+        return $this->hasOne(Organization::class);
     }
 }

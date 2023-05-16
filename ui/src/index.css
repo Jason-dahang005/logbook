@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins&family=Roboto&family=Roboto+Slab&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -69,7 +72,7 @@
 
   /* LOGBOOK TABLE STYLE */
   .logbook-table table {
-    @apply w-full
+    @apply w-full font-[Roboto] 
   }
 
   .logbook-table table thead {
@@ -141,7 +144,112 @@
       text-gray-700
       hover:border-gray-700
       h-[40px]
-      
   }
+
+  /* Admin Tables */
+
+  .admin-table {
+    @apply
+      items-center
+      bg-transparent
+      w-full
+      border-collapse
+  }
+
+  .admin-table table {
+    @apply
+      items-center
+      bg-transparent
+      w-full
+      border-collapse
+  }
+
+  .admin-table table thead tr {
+    @apply
+      bg-gray-200
+  }
+
+  .admin-table table thead tr th {
+    @apply
+      px-6
+      align-middle
+      border
+      border-solid
+      py-3 text-sm
+      text-gray-600 
+      font-sans
+      border-l-0
+      border-r-0
+      whitespace-nowrap
+      font-bold
+      text-left
+      w-1/12
+  }
+
+  .admin-table table tbody tr {
+    @apply
+      border-b
+  }
+
+  .admin-table table tbody tr td {
+    @apply
+    border-t-0
+    px-6
+    py-2
+    align-middle
+    border-l-0
+    border-r-0
+    text-sm
+    text-gray-500
+    font-sans
+    font-normal
+    whitespace-nowrap
+  }
+
+  .badge-success {
+    @apply
+    text-[10px]
+    bg-green-500
+    text-white
+    rounded-full
+    px-[5px]
+    p-[1px]
+    font-bold
+  }
+
+  .badge-danger {
+    @apply
+      text-xs
+      bg-red-500
+      text-red-800
+      rounded-full
+      px-2
+      py-1
+      font-bold
+  }
+
+  .badge-info {
+    @apply
+      text-xs
+      bg-blue-5001
+      text-blue-800
+      rounded-full
+      px-2
+      py-1
+      font-bold
+  }
+
+  .btn-success {
+    @apply
+      bg-green-500
+      text-white
+      py-1
+      px-2
+      rounded
+      font-semibold
+      text-xs
+  }
+
+
 }
 

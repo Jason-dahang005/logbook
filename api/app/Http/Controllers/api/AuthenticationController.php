@@ -77,7 +77,7 @@ class AuthenticationController extends Controller
                 }
             }],
             'new_password'=>'required|min:5',
-        'confirm_password'=>'required|same:new_password'
+            'confirm_password'=>'required|same:new_password'
         ]);
         $user->password = bcrypt($request['confirm_password']);
         $user->save();

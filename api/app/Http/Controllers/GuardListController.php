@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Organization;
 use Illuminate\Http\Request;
 // use Spatie\Permission\Traits\HasRoles;
 
@@ -15,7 +16,7 @@ class GuardListController extends Controller
      */
     public function index(User $guard)
     {
-        $guard = User::role('user')->get();
+        $guard = User::role('user')->with('organization')->get();
 
         return response()->json([
             'guards' => $guard

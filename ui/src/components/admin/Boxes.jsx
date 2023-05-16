@@ -12,18 +12,18 @@ const Boxes = () => {
   const [dataCount, setDataCount] = useState('')
 
   useEffect(() => {
-    const countData = setInterval(() => {
-      axiosInstance.get(`dashboard`)
+    fetchDashboard()
+  }, [])
+
+  const fetchDashboard = () => {
+    axiosInstance.get(`dashboard`)
       .then((res) => {
-        //console.log(res.data)
         setDataCount(res.data)
       })
       .catch((err) => {
         console.log(err)
       })
-    }, 1000)
-    return () => clearInterval(countData)
-  }, [dataCount])
+  }
 
   return (
     <div className='grid grid-cols-2 p-5 gap-5'>
@@ -32,7 +32,7 @@ const Boxes = () => {
             <FaRegUser size={50} className='fill-blue-700'/>
             <div className="">
               <h1 className='text-xs text-slate-700 font-bold'>
-                No. of Security Guard
+                Users
               </h1>
               <h1 className='text-right text-2xl font-bold text-slate-700'>
                 {
@@ -54,7 +54,7 @@ const Boxes = () => {
               <VscOrganization size={50} className='fill-green-700 text-green-500'/>
               <div className="">
                 <h1 className='text-xs text-slate-700 font-bold'>
-                  No. of Organization
+                 Organizations
                 </h1>
                 <h1 className='text-right text-2xl font-bold text-slate-700'>
                   {

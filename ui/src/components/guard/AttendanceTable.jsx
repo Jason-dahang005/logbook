@@ -35,7 +35,7 @@ const AttendanceTable = () => {
   const fetchAttendance = () => {
     axiosInstance.get(`list-attendance-logbook/${location.state.id}/${formattedDate}`)
     .then((response) => {
-      setData(response.data.Attendance)
+      setData(response.data.attendance)
       setLoading(false)
     })
     .catch((error) => {
@@ -129,7 +129,7 @@ const AttendanceTable = () => {
                     </td>
                   </tr>
                 ) : (
-                  data.length > 0 ? filteredData.map((item) => {
+                  filteredData.length > 0 ? filteredData.map((item) => {
                     return (
                       <tr key={item.id}>
                         <td>{item.firstname}</td>

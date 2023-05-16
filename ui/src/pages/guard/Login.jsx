@@ -14,31 +14,37 @@ const Login = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState([])
+  const [loading, setLoading] = useState(false)
 
   const handleSubmit = (e) => {
     e.preventDefault()
 
-    axiosInstance.post('login', JSON.stringify({
-      email, password
-    })).then((response) => {
-      
-      localStorage.setItem('token', response.data.token)
-      localStorage.setItem('user', JSON.stringify(response.data.user))
-      localStorage.setItem('role', response.data.user.roles[0].name)
+    setLoading(true)
 
-      const role = localStorage.getItem('role')
-
-      if (role === 'user') {
-        nav('/home')
-      } else if (role === 'admin') {
-        nav('/dashboard')
-      }
-
-    }).catch(error => {
-      if(error.response.status === 422){
-        setError(error.response.data.errors)
-      }
-    })
+    setTimeout(() => {
+      axiosInstance.post('login', JSON.stringify({
+        email, password
+      })).then((response) => {
+        setLoading(false)
+        
+        localStorage.setItem('token', response.data.token)
+        localStorage.setItem('user', JSON.stringify(response.data.user))
+        localStorage.setItem('role', response.data.user.roles[0].name)
+  
+        const role = localStorage.getItem('role')
+  
+        if (role === 'user') {
+          nav('/home')
+        } else if (role === 'admin') {
+          nav('/dashboard')
+        }
+  
+      }).catch(error => {
+        if(error.response.status === 422){
+          setError(error.response.data.errors)
+        }
+      })
+    }, 2000);
   }
 
   return (
@@ -67,7 +73,18 @@ const Login = () => {
                 </div>
                 { error.password && <div className='text-red-400 text-sm'>{ error.password[0] }</div> }
 
-                <button type="submit" className="w-full py-3 mt-10 bg-blue-800 rounded-smfont-medium text-white uppercase focus:outline-none hover:bg-blue-700 hover:shadow-none">Login</button>
+                <button type="submit" disabled={loading} className="flex items-center justify-center w-full bg-blue-600 text-white h-10 rounded-md mt-3">
+                  {
+                    loading ? (
+                      <div className="flex items-center justify-center h-32 border-b">
+                        <div style={{borderTopColor: 'transparent'}} className="w-4 h-4 border-2 border-blue-900 rounded-full animate-spin" />
+                        <p className="ml-2 text-white font-sans text-sm">Loading</p>
+                      </div>
+                    ) : (
+                      'Login'
+                    )
+                  }
+                </button>
                 
                 <div className="sm:flex sm:flex-wrap mt-8 sm:mb-4 text-sm text-center">
                   <a href="#" className="flex-2 underline">Forgot password?</a>
