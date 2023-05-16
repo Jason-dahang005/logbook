@@ -6,7 +6,7 @@ import OrgList from '../../components/guard/OrgList'
 const Home = () => {
 
   return (
-    <div className='px-8 py-4'>
+    <div className='px-8 py-4 '>
       <LowerHeader/>
       <OrgList/>
     </div>

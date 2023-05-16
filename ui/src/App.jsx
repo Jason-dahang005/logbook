@@ -21,6 +21,9 @@ import History from './pages/admin/History'
 import Organizationsecurity from './pages/admin/Organizationsecutiry'
 import Status  from './pages/admin/Status';
 import Profile from './pages/admin/Profile'
+import Securityprofile from './pages/guard/Securityprofile';
+import Forgot from './pages/guard/Forgot';
+import Reset from './pages/guard/Reset';
 
 function App() {
 
@@ -30,6 +33,10 @@ function App() {
         <Route element={<Unauthenticated/>}>
           <Route exact path="/" element={<Login/>} />
           <Route path="/register" element={<Register/>} />
+           <Route path="/forgot" element={<Forgot/>} /> 
+           <Route path="/reset" element={<Reset/>} /> 
+
+
         </Route>
         <Route element={<Authenticated/>}>
           <Route element={<Layout/>}>
@@ -39,6 +46,7 @@ function App() {
             <Route path="/search" element={<LogSearch/>} />
             <Route path="/history" element={<LogHistory/>} />
             <Route path='/new-organization' element={<NewOrganization/>} />
+            <Route path='/Sprofile' element={<Securityprofile/>} />
             
           </Route>
         </Route>

@@ -29,6 +29,7 @@ const Login = () => {
       const role = localStorage.getItem('role')
 
       if (role === 'user') {
+       
         nav('/home')
       } else if (role === 'admin') {
         nav('/dashboard')
@@ -40,6 +41,7 @@ const Login = () => {
       }
     })
   }
+  
 
   return (
     <div className=' grid grid-cols-12'> 
@@ -75,7 +77,7 @@ const Login = () => {
                 <button type="submit" className="w-full py-3 mt-10 bg-gray-800 rounded-smfont-medium text-white uppercase focus:outline-none hover:bg-gray-700 hover:shadow-none">Login</button>
                 
                 <div className="sm:flex sm:flex-wrap mt-8 sm:mb-4 text-sm text-center">
-                  <a href="#" className="flex-2 underline">Forgot password?</a>
+                  <a href="/forgot" className="flex-2 underline">Forgot password?</a>
                   <p className="flex-1 text-gray-500 text-md mx-4 my-1 sm:my-auto">or</p>
                   <Link to='register' className='flex-2 underline'>Create an Account</Link>
                 </div>

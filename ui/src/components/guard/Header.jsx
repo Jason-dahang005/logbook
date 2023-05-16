@@ -15,6 +15,7 @@ import Dropwdown from '../Dropwdown'
 import OrgName from './OrgName'
 
 const Header = () => {
+  
   const locatoion = useLocation()
   const nav = useNavigate()
   const [open, setOpen] = useState(false)
@@ -61,10 +62,10 @@ const Header = () => {
             <div className="">
               <ul>
                 <li>
-                  <Link className='flex items-center space-x-3 rounded hover:bg-slate-300 p-2'>
+                  <Link to="/sprofile" className='flex items-center space-x-3 rounded hover:bg-slate-300 p-2'>
                     <FaUserAlt/>
                     <span>Profile</span>
-                  </Link>
+                  </Link >
                 </li>
               </ul>
             </div>

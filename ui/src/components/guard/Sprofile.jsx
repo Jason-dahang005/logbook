@@ -4,19 +4,16 @@ import axiosInstance from '../../api/axios'
 import { AiOutlineArrowLeft } from 'react-icons/ai'
 import { Link } from 'react-router-dom'
 
-
-
-const Osecurity = () => {
+const Sprofile= () => {
   const [showModal, setShowModal] = React.useState(false);
     const [user, setUser] = useState([])
     const [org, setOrg] = useState([])
 
-   useEffect(() => {
-    axiosInstance.get('admin-user').then((response) => {
-      setUser(response.data.user)
-    })
-  }, [])
-
+useEffect(() => {
+  axiosInstance.get('auth-user').then((response) => {
+    setUser(response.data.user)
+  })
+}, [])
     useEffect(() => {
         const getOrgList = setInterval(() => {
           axiosInstance.get(`org-list`)
@@ -29,11 +26,10 @@ const Osecurity = () => {
         }, 1000)
         return () => clearInterval(getOrgList)
       }, [org])
-
-    return (
-      <> 
+return (
+        <> 
             <div class="bg-gray-100 ">
-            <h1 className="text-5xl font-bold mb-4 pl-5 pt-5 flex flex-row"><Link to="/security-list"><AiOutlineArrowLeft className='rounded-full hover:bg-slate-300 p-1 mt-3'size={30}/></Link>Profile</h1>
+            <h1 className="text-5xl font-bold mb-4 pl-5 pt-5 flex flex-row"><Link to="/home"><AiOutlineArrowLeft className='rounded-full hover:bg-slate-300 p-1 mt-3'size={30}/></Link>Profile</h1>
                 <div class="container mx-auto py-8">
                     <div class="grid grid-cols-4 sm:grid-cols-12 gap-6 px-4">
                         <div class="col-span-4 sm:col-span-3">
@@ -169,6 +165,8 @@ const Osecurity = () => {
     </>
   ) : null}
         </>
-    );
-  }
-export default Osecurity
+    )
+}
+
+export default Sprofile
+
