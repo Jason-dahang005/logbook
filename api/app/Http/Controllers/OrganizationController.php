@@ -84,7 +84,7 @@ class OrganizationController extends Controller
      * @param  \App\Models\Organization  $organization
      * @return \Illuminate\Http\Response
      */
-    public function show(Organization $organization, $id)
+    public function show($id)
     {
          $org = Organization::find($id);
 

@@ -18,7 +18,6 @@ const Organization = () => {
   const fetchOrganization = () => {
     axiosInstance.get(`admin-org-list`)
     .then((res) => {
-      console.log(res.data.organization)
       setOrganzation(res.data.organization)
       setLoading(false)
     })

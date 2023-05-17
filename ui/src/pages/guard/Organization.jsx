@@ -21,9 +21,6 @@ const Organization = () => {
         <div className='p-2 flex justify-between items-center rounded-lg shadow-[1px_1px_6px_2px_#00000024]'>
           <BackBtn/>
           <OrgName/>
-          {/* {
-            location.state.id
-          } */}
           <div className="flex space-x-2">
             <button onClick={() => action(1)} className={`${tab === 1 ? 'bg-slate-700 text-white px-4 rounded-full text-sm font-semibold' : 'text-slate-700 bg-white border border-slate-700 px-4 rounded-full text-sm font-semibold'}`}>Attendance Log</button>
             <button onClick={() => action(2)} className={`${tab === 2 ? 'bg-slate-700 text-white px-4 rounded-full text-sm font-semibold' : 'text-slate-700 bg-white border border-slate-700 px-4 rounded-full text-sm font-semibold'}`}>Note Log</button>

@@ -6,25 +6,39 @@ import { useState, useEffect } from 'react'
 import axiosInstance from '../../api/axios'
 import AttendanceDatepicker from '../../components/admin/AttendanceDatepicker'
 import SearchFilter from '../../components/admin/SearchFilter'
+import OrganizationName from '../../components/admin/OrganizationName'
+import AdminAttendanceTable from '../../components/admin/AdminAttendanceTable'
+import AdminNoteTable from '../../components/admin/AdminNoteTable'
+import NoteDatePicker from '../../components/admin/NoteDatePicker'
 
 const Logbook = () => {
 
   const location = useLocation()
 
   const [attendance, setAttendance] = useState([])
+  const [note, setNote] = useState([])
   const [loading, setLoading] = useState(true)
-  const [selectedDate, setSelectedDate] = useState(new Date())
+  const [attendanceSelectedDate, setAttendanceSelectedDate] = useState(new Date())
+  const [noteSelectedDate, setNoteSelectedDate] = useState(new Date())
   const [searchQuery, setSearchQuery] = useState('')
+  const [org, setOrg] = useState([])
+  const [tab, setTab] = useState(1)
 
-  const date = selectedDate.toISOString().slice(0,10)
+
+  const attendanceDate = attendanceSelectedDate.toISOString().slice(0,10)
+  const noteDate = noteSelectedDate.toISOString().slice(0,10)
 
   useEffect(() => {
     setLoading(true)
     fetchAttendance()
-  }, [selectedDate])
+  }, [attendanceSelectedDate])
+
+  // useEffect(() => {
+  //   fetchNote()
+  // }, [])
 
   const fetchAttendance = () => {
-    axiosInstance.get(`attendance-logbook/${location.state.id}/${date}`)
+    axiosInstance.get(`attendance-logbook/${location.state.id}/${attendanceDate}`)
     .then((response) => {
       setLoading(false)
       setAttendance(response.data.attendance)
@@ -34,46 +48,58 @@ const Logbook = () => {
     })
   }
 
-  const handleSearch = (e) => {
-    setSearchQuery(e.target.value)
-  }
+  // const fetchNote = () => {
+  //   axiosInstance.get(`logbook-note/${location.state.id}/${'2023-05-17'}`)
+  //   .then((response) => {
+  //     console.log(response.data.note)
+  //   })
+  //   .catch((error) => {
+  //     console.log(error)
+  //   })
+  // }
 
-  const filteredData = attendance.filter((item) => {
-    return item.firstname.toLowerCase().includes(searchQuery.toLowerCase()) || item.lastname.toLowerCase().includes(searchQuery.toLowerCase()) || item.description.toLowerCase().includes(searchQuery.toLowerCase())
-  })
+  // const handleSearch = (e) => {
+  //   setSearchQuery(e.target.value)
+  // }
+
+  // const attendanceFilter = attendance.filter((item) => {
+  //   return item.firstname.toLowerCase().includes(searchQuery.toLowerCase()) || item.lastname.toLowerCase().includes(searchQuery.toLowerCase()) || item.description.toLowerCase().includes(searchQuery.toLowerCase())
+  // })
+
+  // const noteFilter = note.filter((item) => {
+  //   return item.description.toLowerCase().includes(searchQuery.toLowerCase())
+  // })
 
   const clearSearch = () => {
     setSearchQuery('')
   }
 
+  const action = (index) => {
+    setTab(index)
+  }
+
   return (
-    <DataContext.Provider value={{
-      selectedDate,
-      setSelectedDate,
-      attendance,
-      loading,
-      clearSearch,
-      handleSearch,
-      searchQuery,
-      filteredData
-      }}>
       <div className="w-full mb-12 xl:mb-0 mx-auto px-3 pt-3">
         <div className="relative flex flex-col min-w-0 break-words border bg-white w-full mb-6 rounded-lg p-3">
-          <div className="rounded-t mb-0 py-3 border-0">
-            <div className="flex justify-between items-center">
-              <div>
-                <h3 className="font-bold text-xl text-gray-600 font-sans">Logbook</h3>
-              </div>
-              <div className='flex space-x-2 '>
-                <SearchFilter/>
-                <AttendanceDatepicker/>
-              </div>
+          <div className="rounded-t mb-0 border-0">
+            <div className='border-b pb-1 mb-3'>
+              <OrganizationName/>
+            </div>
+            <div className=" flex justify-around">
+              <button onClick={() => action(1)} className={` ${tab === 1 ? 'border-b-2 border-gray-400 text-gray-500' : 'border-b-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500' } w-full text-xs font-semibold py-2`}>Attendance</button>
+              <button onClick={() => action(2)} className={` ${tab === 2 ? 'border-b-2 border-gray-400 text-gray-500' : 'border-b-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500' } w-full text-xs font-semibold py-2`}>Note</button>
             </div>
           </div>
-          <LogbookTable/>
+          <div className="mt-1">
+            <div className={`${tab === 1 ? 'block' : 'hidden'}`}>
+              <AdminAttendanceTable/>
+            </div>
+            <div className={`${tab === 2 ? 'block' : 'hidden'}`}>
+              <AdminNoteTable/>
+            </div>
+          </div>
         </div>
       </div>
-    </DataContext.Provider>
   )
 }
 

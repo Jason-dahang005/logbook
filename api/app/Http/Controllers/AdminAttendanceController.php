@@ -2,26 +2,33 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
+use App\Http\Controllers\Controller;
+use App\Models\Attendance;
 use App\Models\Organization;
 use Illuminate\Http\Request;
-use Illuminate\Pagination\Paginator;
 
-class AdminOrganizationController extends Controller
+class AdminAttendanceController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($id, $date)
     {
-        $organization = Organization::with('user')->get();
+        Organization::find($id);
 
-        return response()->json([
-            'status' => 200,
-            'organization' => $organization
-        ], 200);
+        $attendance = Attendance::where('org_id', $id)->whereDate('created_at', $date)->orderBy('created_at', 'desc')->get();
+
+        if($attendance){
+            return response()->json([
+                'attendance' => $attendance
+            ]);
+        } else {
+            return response()->json([
+                'message' => 'no current logs'
+            ]);
+        }
     }
 
     /**
@@ -48,25 +55,21 @@ class AdminOrganizationController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\User  $user
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
-        $org = Organization::with('user')->find($id);
-
-        return response()->json([
-           'org' => $org
-       ]);
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\User  $user
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(User $user)
+    public function edit($id)
     {
         //
     }
@@ -75,10 +78,10 @@ class AdminOrganizationController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\User  $user
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(Request $request, $id)
     {
         //
     }
@@ -86,10 +89,10 @@ class AdminOrganizationController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\User  $user
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user)
+    public function destroy($id)
     {
         //
     }

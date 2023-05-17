@@ -7,15 +7,15 @@ import format from "date-fns/format"
 import 'react-datepicker/dist/react-datepicker.css'
 import { FaCalendarAlt } from 'react-icons/fa'
 
-const AttendanceDatepicker = () => {
+const NoteDatePicker = () => {
 
-  const { attendanceSelectedDate, setAttendanceSelectedDate } = useContext(DataContext)
+  const { noteSelectedDate, setNoteSelectedDate } = useContext(DataContext)
 
   const [open, setOpen] = useState(false)
 
   const handleDate = (e) => {
     setOpen(!open)
-    setAttendanceSelectedDate(e)
+    setNoteSelectedDate(e)
   }
 
   const handleOpenCalendar = () => {
@@ -25,8 +25,8 @@ const AttendanceDatepicker = () => {
   return (
     <div className='relative'>
       <DatePicker
-        selected={attendanceSelectedDate}
-        value={format(attendanceSelectedDate, 'MM-dd-yyyy')}
+        selected={noteSelectedDate}
+        value={format(noteSelectedDate, 'MM-dd-yyyy')}
         className='border outline-none h-8 w-32 pl-3 rounded-md text-gray-600 text-sm font-semibold'
         disabled
       />
@@ -36,7 +36,7 @@ const AttendanceDatepicker = () => {
       {
         open && (
           <div className="absolute z-0 right-0 top-10">
-            <DatePicker selected={attendanceSelectedDate} onChange={handleDate} inline/>
+            <DatePicker selected={noteSelectedDate} onChange={handleDate} inline/>
           </div>
         )
       }
@@ -44,4 +44,4 @@ const AttendanceDatepicker = () => {
   )
 }
 
-export default AttendanceDatepicker
+export default NoteDatePicker
