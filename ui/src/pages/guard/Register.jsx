@@ -36,7 +36,7 @@ const Register = () => {
     
         <div className="flex flex-col mt-20">
           <div className="grid place-items-center">
-            <div className="p-10 lg:w-11/12  sm:px-10 bg-white rounded-lg shadow-2xl	box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25) border">
+            <div className="p-10 lg:w-10/12  sm:px-10 bg-white rounded-lg shadow-2xl	box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25) border">
               <h2 className="registration-page-header-text">Register</h2>
               <form className="mt-10" onSubmit={handleSubmit}>
                 <div className="flex flex-col space-y-2">

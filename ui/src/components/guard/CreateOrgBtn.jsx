@@ -13,9 +13,10 @@ const CreateOrgBtn = () => {
   return (
     <div>
       <button onClick={() => setCreateOrgModal(true)} className='bg-slate-800 hover:bg-slate-700 text-white px-2 py-1 rounded flex items-center space-x-1'>
-        <HiPlus/>
-        <span>Create Organization</span>
+        <HiPlus size={20}/>
+        <span >Create Organization</span>
       </button>
+    
 
       <CreateOrgModal onClose={close} visible={createOrgModal}/>
     </div>

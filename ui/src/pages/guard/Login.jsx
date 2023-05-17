@@ -6,6 +6,11 @@ import axiosInstance from '../../api/axios'
 import { MdEmail } from 'react-icons/md'
 import { AiFillLock } from 'react-icons/ai'
 
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+
+
 import draw_img from '../../assets/img/draw2.png'
 
 const Login = () => {
@@ -15,13 +20,18 @@ const Login = () => {
   const [password, setPassword] = useState('')
   const [error, setError] = useState([])
 
+  const notify = () => toast.success("Success!");
+
   const handleSubmit = (e) => {
     e.preventDefault()
-
+  
     axiosInstance.post('login', JSON.stringify({
       email, password
     })).then((response) => {
+      toast.error('error')
+    
       
+
       localStorage.setItem('token', response.data.token)
       localStorage.setItem('user', JSON.stringify(response.data.user))
       localStorage.setItem('role', response.data.user.roles[0].name)
@@ -37,6 +47,7 @@ const Login = () => {
     }).catch(error => {
       if(error.response.status === 422){
         setError(error.response.data.errors)
+        toast.error('error')
       }
     })
   }
@@ -45,7 +56,7 @@ const Login = () => {
       <>
         <div className="flex flex-col mt-20 mr-3">
           <div className="grid place-items-center">
-            <div className="p-10 lg:w-11/12  sm:px-10 bg-white rounded-lg shadow-2xl	box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25)   border">
+            <div className="p-10 lg:w-12/12  sm:px-10 bg-white rounded-lg shadow-2xl	box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25)   border">
               <h2 className="text-center font-semibold text-3xl lg:text-4xl text-gray-800">Login</h2>
               <form className="mt-10" onSubmit={handleSubmit}>
 
@@ -67,8 +78,8 @@ const Login = () => {
                 </div>
                 { error.password && <div className='text-red-400 text-sm'>{ error.password[0] }</div> }
 
-                <button type="submit" className="w-full py-3 mt-10 bg-blue-800 rounded-smfont-medium text-white uppercase focus:outline-none hover:bg-blue-700 hover:shadow-none">Login</button>
-                
+                <button type="submit" onClick={notify} className="w-full py-3 mt-10 bg-blue-800 rounded-smfont-medium text-white uppercase focus:outline-none hover:bg-blue-700 hover:shadow-none">Login</button>
+                <ToastContainer/>
                 <div className="sm:flex sm:flex-wrap mt-8 sm:mb-4 text-sm text-center">
                   <a href="#" className="flex-2 underline">Forgot password?</a>
                   <p className="flex-1 text-gray-500 text-md mx-4 my-1 sm:my-auto">or</p>
