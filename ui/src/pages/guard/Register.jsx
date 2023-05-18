@@ -5,6 +5,9 @@ import axiosInstance from '../../api/axios'
 import { FaUser } from 'react-icons/fa'
 import { MdEmail } from 'react-icons/md'
 import { AiFillLock } from 'react-icons/ai'
+import { ToastContainer, toast } from 'react-toastify';
+// import 'react-toastify/dist/ReactToastify.css';
+
 
 import draw_img from '../../assets/img/logo.png'
 
@@ -19,11 +22,13 @@ const Register = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
+    toast.success('Success')
 
     axiosInstance.post('register', JSON.stringify({
       firstname, lastname, email, password
     })).then((response) => {
       console.log(response.data)
+toast.success("Success")
       nav('/')
     }).catch(error => {
       if(error.response.status === 422){
@@ -32,6 +37,7 @@ const Register = () => {
     })
   }
 return (
+    <>  <ToastContainer/>
     <div className='grid grid-cols-12'>
       <div className='col-span-7 flex items-center justify-center'>
        <img src={draw_img} className="w-full" alt="" />
@@ -133,7 +139,7 @@ return (
                   </div>
 
                   <div className="registration-page-form-group">
-                    <button type="submit" className="w-full py-3 mt-4 bg-gray-800 rounded-sm font-medium text-white uppercase focus:outline-none hover:bg-gray-700 hover:shadow-none">Register</button>
+                    <button type="submit" onClick={handleSubmit} className="w-full py-3 mt-4 bg-gray-800 rounded-sm font-medium text-white uppercase focus:outline-none hover:bg-gray-700 hover:shadow-none">Register</button>
                   </div>
                   
                   <div className="sm:flex sm:flex-wrap sm:mb-3 text-sm justify-center">
@@ -146,6 +152,7 @@ return (
         </div>
       </div>
     </div>
+</>
   )
 }
 

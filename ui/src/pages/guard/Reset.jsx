@@ -2,6 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { MdEmail } from 'react-icons/md'
 import { AiFillLock } from 'react-icons/ai'
+import { AiOutlineArrowLeft } from 'react-icons/ai'
 
 import draw_img from '../../assets/img/logo.png'
 
@@ -14,13 +15,15 @@ const  Reset = () => {
        <img src={draw_img} className="w-full" alt="" />
       </div>
       <div className='col-span-5'>
+   
         <div className="flex flex-col mt-20 mr-3">
           <div className="grid place-items-center">
             <div className="p-10 lg:w-11/12  sm:px-10 bg-white rounded-lg shadow-2xl  box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25)   border">
               <h2 className="text-center font-semibold text-3xl lg:text-4xl text-gray-800"></h2>
               <body class="">
     <div class="">
-        <h1 class="text-4xl font-medium">Reset password</h1>
+    <h1 className="text-3xl font-bold mb-4  pt-5 flex flex-row"><Link to="/forgot"><AiOutlineArrowLeft className='rounded-full hover:bg-slate-300 p-1 mt-1'size={30}/></Link>Reset Password</h1>
+    
         
 
 

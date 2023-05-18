@@ -5,7 +5,8 @@ import { useNavigate } from 'react-router-dom'
 import axiosInstance from '../../api/axios'
 import { MdEmail } from 'react-icons/md'
 import { AiFillLock } from 'react-icons/ai'
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import draw_img from '../../assets/img/logo.png'
 
 const Login = () => {
@@ -16,6 +17,8 @@ const Login = () => {
   const [error, setError] = useState([])
 
   const handleSubmit = (e) => {
+    toast.success('Success')
+
     e.preventDefault()
 
     axiosInstance.post('login', JSON.stringify({
@@ -29,9 +32,9 @@ const Login = () => {
       const role = localStorage.getItem('role')
 
       if (role === 'user') {
-       
         nav('/home')
       } else if (role === 'admin') {
+        // toast.success("Success")
         nav('/dashboard')
       }
 
@@ -43,13 +46,16 @@ const Login = () => {
   }
   
 
-  return (
+  return ( 
+    <>
+    <ToastContainer/>
     <div className=' grid grid-cols-12'> 
       <div className='col-span-7 flex items-center justify-center'>
        <img src={draw_img} className="w-full" alt="" />
       </div>
 
       <div className='col-span-5'>
+
         <div className="flex flex-col mt-20 mr-3">
           <div className="grid place-items-center">
             <div className="p-10 lg:w-11/12  sm:px-10 bg-white rounded-lg shadow-2xl  box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25)   border">
@@ -74,7 +80,7 @@ const Login = () => {
                 </div>
                 { error.password && <div className='text-red-400 text-sm'>{ error.password[0] }</div> }
 
-                <button type="submit" className="w-full py-3 mt-10 bg-gray-800 rounded-smfont-medium text-white uppercase focus:outline-none hover:bg-gray-700 hover:shadow-none">Login</button>
+                <button type="submit" onClick={handleSubmit} className="w-full py-3 mt-10 bg-gray-800 rounded-smfont-medium text-white uppercase focus:outline-none hover:bg-gray-700 hover:shadow-none">Login</button>
                 
                 <div className="sm:flex sm:flex-wrap mt-8 sm:mb-4 text-sm text-center">
                   <a href="/forgot" className="flex-2 underline">Forgot password?</a>
@@ -88,6 +94,7 @@ const Login = () => {
       </div>
 
     </div>
+    </>
   )
 }
 
