@@ -21,7 +21,7 @@ class AttendanceController extends Controller
 
         if($attendance){
             return response()->json([
-                'Attendance' => $attendance
+                'attendance' => $attendance
             ]);
         } else {
             return response()->json([

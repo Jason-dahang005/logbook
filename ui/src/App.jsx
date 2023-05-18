@@ -17,13 +17,10 @@ import Auth from './api/adminAuth'
 import OrganizationList from './pages/admin/OrganizationList'
 import SecurityList from './pages/admin/SecurityList'
 import NewOrganization from './pages/guard/NewOrganization'
-import History from './pages/admin/History'
-import Organizationsecurity from './pages/admin/Organizationsecutiry'
-import Status  from './pages/admin/Status';
-import Profile from './pages/admin/Profile'
-import Securityprofile from './pages/guard/Securityprofile';
-import Forgot from './pages/guard/Forgot';
-import Reset from './pages/guard/Reset';
+import Profile from './components/admin/Profile'
+import OrgTable from './components/admin/OrgTable'
+import Welcome from './components/guard/Welcome'
+import Logbook from './pages/admin/Logbook'
 
 function App() {
 
@@ -31,12 +28,10 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route element={<Unauthenticated/>}>
-          <Route exact path="/" element={<Login/>} />
-          <Route path="/register" element={<Register/>} />
-           <Route path="/forgot" element={<Forgot/>} /> 
-           <Route path="/reset" element={<Reset/>} /> 
-
-
+          <Route element={<Welcome/>}>
+            <Route exact path="/" element={<Login/>} />
+            <Route path="/register" element={<Register/>} />
+          </Route>
         </Route>
         <Route element={<Authenticated/>}>
           <Route element={<Layout/>}>
@@ -46,7 +41,6 @@ function App() {
             <Route path="/search" element={<LogSearch/>} />
             <Route path="/history" element={<LogHistory/>} />
             <Route path='/new-organization' element={<NewOrganization/>} />
-            <Route path='/Sprofile' element={<Securityprofile/>} />
             
           </Route>
         </Route>
@@ -55,11 +49,9 @@ function App() {
             <Route path='/dashboard' element={<Dashboard/>} />
             <Route path='/organization-list' element={<OrganizationList/>}/>
             <Route path='/security-list' element={<SecurityList/>} />
-            <Route path='/log' element={<History/>} />
-            <Route path='/Osecurity' element={<Organizationsecurity/>} />
-            <Route path='/status' element={<Status/>} />
+            <Route path='/orgtable' element={<OrgTable/>} />
             <Route path='/profile' element={<Profile/>} />
-          
+            <Route path='/logbook' element={<Logbook/>} />
           </Route>
         </Route>
       </Routes>

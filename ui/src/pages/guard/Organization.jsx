@@ -5,9 +5,10 @@ import CreateLogBtn from '../../components/guard/CreateLogBtn'
 import AttendanceTable from '../../components/guard/AttendanceTable'
 import { useState } from 'react'
 import NoteTable from '../../components/guard/NoteTable'
+import { useLocation } from 'react-router-dom'
 
 const Organization = () => {
-
+  const location = useLocation()
   const [tab, setTab] = useState(1)
 
   const action = (index) => {

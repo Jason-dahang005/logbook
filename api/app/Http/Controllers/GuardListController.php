@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Organization;
 use Illuminate\Http\Request;
-//use Spatie\Permission\Traits\HasRoles;
+// use Spatie\Permission\Traits\HasRoles;
 
 class GuardListController extends Controller
 {
@@ -13,16 +14,16 @@ class GuardListController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(User $guard)
     {
-        $guard = User::role('user')
-        
-        ->get();
+        $guard = User::role('user')->with('organization')->get();
 
         return response()->json([
             'guards' => $guard
         ]);
     }
+
+
 
     /**
      * Show the form for creating a new resource.
@@ -51,9 +52,13 @@ class GuardListController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function show(User $user)
+    public function show($id)
     {
-        //
+        $guard = User::with('organization')->find($id);
+
+        return response()->json([
+            'guard' => $guard
+        ]);
     }
 
     /**
