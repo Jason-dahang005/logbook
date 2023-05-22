@@ -52,20 +52,32 @@ class LogbookController extends Controller
             'firstname'     => 'required',
             'lastname'      => 'required',
             'description'   => 'required',
-        ]);
+            'image'         => 'required',
+          ]);
 
         Organization::find($id);
 
+        $img =  $request->get('image');
+        $folderPath = "uploads/";
+        $image_parts = explode(";base64,", $img);
 
+        foreach ($image_parts as $key => $image){
+            $image_base64 = base64_decode($image);
+        }
 
+        $fileName = uniqid() . '.png';
+        $file = $folderPath . $fileName;
+        file_put_contents($file, $image_base64);
+      
         $log = Logbook::create([
             'firstname'     => ucwords($request->firstname),
             'lastname'      => ucwords($request->lastname),
             'description'   => ucwords($request->description),
+            'image'         => ($request->image), 
             'org_id'        => $id,
-            // 'image'         => $path
+            'image'         => $fileName
         ]);
-
+        $log->save();
         if($log){
             return response()->json([
                 'status'    => 'success',
