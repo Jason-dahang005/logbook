@@ -2,8 +2,7 @@ import React from 'react'
 import { GrOrganization } from 'react-icons/gr'
 import { FaRegUser, FaInfoCircle } from 'react-icons/fa'
 import { VscOrganization } from 'react-icons/vsc'
-import { useState } from 'react'
-import { useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import axiosInstance from '../../api/axios'
 import { Link } from 'react-router-dom'
 
@@ -32,7 +31,7 @@ const Boxes = () => {
             <FaRegUser size={50} className='fill-blue-700'/>
             <div className="">
               <h1 className='text-xs text-slate-700 font-bold'>
-                Users
+                Security guards
               </h1>
               <h1 className='text-right text-2xl font-bold text-slate-700'>
                 {

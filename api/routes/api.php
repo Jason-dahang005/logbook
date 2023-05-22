@@ -6,7 +6,6 @@ use Illuminate\Support\Facades\Route;
 // Controllers
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AttendanceController;
-use App\Http\Controllers\AdminAttendanceController;
 use App\Http\Controllers\Admin_AttendanceController;
 use App\Http\Controllers\AdminListAttendanceController;
 use App\Http\Controllers\NoteController;
@@ -17,8 +16,16 @@ use App\Http\Controllers\api\AuthenticationController;
 use App\Http\Controllers\GuardListController;
 use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\AdminOrganizationController;
+
 use App\Http\Controllers\GuardProfileConrtoller;
+
+// Admin Controllers
+use App\Http\Controllers\AdminOrganizationController;
+use App\Http\Controllers\AdminAttendanceController;
+use App\Http\Controllers\AdminNoteController;
+
+
+// Guard Controllers
 
 /*
 |--------------------------------------------------------------------------
@@ -66,7 +73,7 @@ Route::group(['middleware' => ['api', 'role:admin', 'auth:api']], function () {
 
     Route::controller(AdminOrganizationController::class)->group(function () {
         Route::get('admin-org-list', 'index');
-        Route::get('admin-org-list/{id}', 'show');
+        Route::get('admin-org/{id}', 'show');
     });
 
     Route::controller(AdminListAttendanceController::class)->group(function () {
@@ -77,12 +84,22 @@ Route::group(['middleware' => ['api', 'role:admin', 'auth:api']], function () {
         Route::get('guardprofile', 'index');
     });
 
-    Route::controller(AttendanceController::class)->group(function () {
+    Route::controller(AdminAttendanceController::class)->group(function () {
         Route::get('attendance-logbook/{id}/{date}', 'index');
+    });
+
+    Route::controller(AdminNoteController::class)->group(function () {
+        Route::get('note-logbook/{id}/{date}', 'index');
+    });
+
+    Route::controller(OrganizationController::class)->group(function () {
+        Route::get('org-name/{id}', 'show');
     });
 
     Route::post('admin-logout', [AuthenticationController::class, 'logout']);
 });
+
+
 
 // Users Routes
 Route::group(['middleware' => ['api', 'role:user', 'auth:api']], function () {

@@ -41,7 +41,7 @@ const SecurityListTable = () => {
           <div className="rounded-t mb-0 py-3 border-0">
             <div className="flex justify-between items-center">
               <div>
-                <h3 className="font-bold text-xl text-gray-600 font-sans">List of users</h3>
+                <h3 className="font-bold text-xl text-gray-600 font-sans">List of Security guards</h3>
               </div>
               <div className='relative'>
                 <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">

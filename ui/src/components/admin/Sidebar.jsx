@@ -10,7 +10,7 @@ const Sidebar = () => {
     const menus = [
         { name: "Dashboard", link: "/dashboard", icon: MdOutlineDashboard },
         { name: "Organizations", link: "/organization-list", icon: VscOrganization },
-        { name: "Users ", link: "/security-list", icon: AiOutlineUser },
+        { name: "Security guards ", link: "/security-list", icon: AiOutlineUser },
         // { name: "Setting", link: "/datepicker", icon: RiSettings4Line },
       ];
       const [open, setOpen] = useState(true);
