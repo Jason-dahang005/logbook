@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 const Sidebar = () => {
     const menus = [
         { name: "Dashboard", link: "/dashboard", icon: MdOutlineDashboard },
-        { name: "Organizations", link: "/organization-list", icon: VscOrganization },
+        { name: "Organizations", link: "/organizations", icon: VscOrganization },
         { name: "Security guards ", link: "/security-list", icon: AiOutlineUser },
         // { name: "Setting", link: "/datepicker", icon: RiSettings4Line },
       ];

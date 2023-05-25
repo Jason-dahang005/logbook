@@ -11,6 +11,7 @@ import 'react-datepicker/dist/react-datepicker.css'
 import { AiFillEye } from 'react-icons/ai'
 import { BiSearch } from 'react-icons/bi'
 import { GrFormClose } from 'react-icons/gr'
+import NoteViewModal from './NoteViewModal'
 
 const NoteTable = () => {
   const location = useLocation()
@@ -21,6 +22,8 @@ const NoteTable = () => {
   const [viewModal, setViewModal] = useState(false)
   const [modalContent, setModalContent] = useState([])
   const [searchQuery, setSearchQuery] = useState('')
+
+  const close = () => setViewModal(false)
 
   useEffect(() => {
     setLoading(true)
@@ -48,6 +51,12 @@ const NoteTable = () => {
   const handleChange = (e) => {
     setIsOpen(!isOpen);
     setSelectedDate(e);
+  }
+
+  const onCheck = (id) => {
+    console.log(id)
+    setViewModal(true)
+    setModalContent(id)
   }
 
   const handleSearch = (e) => {
@@ -88,7 +97,7 @@ const NoteTable = () => {
               </button>
               {
               isOpen && (
-                <div className="absolute right-[32px] top-[260px] z-50">
+                <div className="absolute z-50">
                   <DatePicker selected={selectedDate} onChange={handleChange} inline />
                 </div>
                 )
@@ -124,7 +133,7 @@ const NoteTable = () => {
                         <td>{ item.description }</td>
                         <td>{ new Date(item.created_at).toLocaleTimeString() }</td>
                         <td>
-                          <button type="button">
+                          <button type="button" onClick={() => onCheck(item)}>
                             <AiFillEye/>
                             <span>View</span>
                           </button>
@@ -147,6 +156,7 @@ const NoteTable = () => {
           </table>
         </div>
       </div>
+      <NoteViewModal open={viewModal} onClose={close} content={modalContent}/>
     </div>
   )
 }

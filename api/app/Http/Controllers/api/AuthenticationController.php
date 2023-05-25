@@ -23,6 +23,8 @@ class AuthenticationController extends Controller
         ]);
 
         $input = $request->all();
+        $input['firstname'] =ucwords($input['firstname']);
+        $input['lastname'] =ucwords($input['lastname']);
         $input['password'] = bcrypt($input['password']);
         $user = User::create($input);
 

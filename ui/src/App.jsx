@@ -12,13 +12,13 @@ import LogSearch from './components/guard/LogSearch'
 import Master from './components/admin/Master'
 import Dashboard from './pages/admin/Dashboard'
 import Auth from './api/adminAuth'
-import OrganizationList from './pages/admin/OrganizationList'
+
 import SecurityList from './pages/admin/SecurityList'
 import NewOrganization from './pages/guard/NewOrganization'
 import Profile from './components/admin/Profile'
 import OrgTable from './components/admin/OrgTable'
 import Welcome from './components/guard/Welcome'
-import Logbook from './pages/admin/Logbook'
+import AdminOrganization from './pages/admin/AdminOrganization'
 
 function App() {
 
@@ -45,11 +45,10 @@ function App() {
         <Route element={<Auth/>}>
           <Route element={<Master/>}>
             <Route path='/dashboard' element={<Dashboard/>} />
-            <Route path='/organization-list' element={<OrganizationList/>}/>
+            <Route path='/organizations' element={<AdminOrganization/>} />
             <Route path='/security-list' element={<SecurityList/>} />
             <Route path='/orgtable' element={<OrgTable/>} />
             <Route path='/profile' element={<Profile/>} />
-            <Route path='/logbook' element={<Logbook/>} />
           </Route>
         </Route>
       </Routes>

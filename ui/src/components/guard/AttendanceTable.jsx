@@ -97,7 +97,7 @@ const AttendanceTable = () => {
               </button>
               {
               isOpen && (
-                <div className="absolute right-[212px] top-[240px] z-50">
+                <div className="absolute right-[200px] top-[220px] z-50">
                   <DatePicker selected={selectedDate} onChange={handleChange} inline />
                 </div>
                 )

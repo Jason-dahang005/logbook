@@ -19,7 +19,6 @@ const Master = () => {
                     </div>
                 </div>
             </div>
-            
         </div>
     )
 }

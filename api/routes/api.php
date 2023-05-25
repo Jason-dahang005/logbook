@@ -20,7 +20,8 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\GuardProfileConrtoller;
 
 // Admin Controllers
-use App\Http\Controllers\AdminOrganizationController;
+use App\Http\Controllers\admin\AdminOrganizationController;
+use App\Http\Controllers\admin\AdminGuardListController;
 use App\Http\Controllers\AdminAttendanceController;
 use App\Http\Controllers\AdminNoteController;
 
@@ -57,6 +58,16 @@ Route::controller(AuthenticationController::class)->group(function() {
 Route::group(['middleware' => ['api', 'role:admin', 'auth:api']], function () {
     Route::get('admin-user', [UserController::class, 'index']);
 
+    Route::controller(AdminOrganizationController::class)->group(function () {
+        Route::get('admin-list-organization', 'index');
+        Route::post('admin-create-organization', 'store');
+        Route::get('admin-org/{id}', 'show');
+    });
+
+    Route::controller(AdminGuardListController::class)->group(function () {
+        Route::get('assigned-guard-list', 'index');
+    });
+
     Route::controller(GuardListController::class)->group(function() {
         Route::get('guard-list', 'index');
         Route::get('guard-list/{id}', 'show');
@@ -68,11 +79,6 @@ Route::group(['middleware' => ['api', 'role:admin', 'auth:api']], function () {
 
     Route::controller(DashboardController::class)->group(function () {
         Route::get('dashboard', 'index');
-    });
-
-    Route::controller(AdminOrganizationController::class)->group(function () {
-        Route::get('admin-org-list', 'index');
-        Route::get('admin-org/{id}', 'show');
     });
 
     Route::controller(AdminListAttendanceController::class)->group(function () {
