@@ -6,9 +6,11 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Exeption;
+use Illuminate\Support\Str;
+use Carbon\Carbon;
+use App\Notifications\PasswordResetRequest;
+use App\Notifications\PasswordResetSuccess;
+use App\Models\PasswordReset;
 
 class AuthenticationController extends Controller
 {
@@ -44,7 +46,7 @@ class AuthenticationController extends Controller
     public function login(Request $request)
     {
         $request->validate([
-            'email'     => 'required|email:rfc,dns',
+            'email'     => 'required|email',
             'password'  => 'required|min:5',
 
         ]);
@@ -69,28 +71,64 @@ class AuthenticationController extends Controller
             ], 401);
         }
     }
-    public function change_password(Request $request,$id)
+    public function create(Request $request)
     {
-        $user = User::find($id);
         $request->validate([
-            'current_password' => ['required', function ($attribute, $value, $fail) use ($user) {
-                if (!Hash::check($value, $user->password)) {
-                    return $fail(('The current password is incorrect!'));
-                }
-            }],
-            'new_password'=>'required|min:5',
-            'confirm_password'=>'required|same:new_password'
+        'email' => 'required|string|email:rfc,dns',
         ]);
-        $user->password = bcrypt($request['confirm_password']);
-        $user->save();
+        $user = User::where('email', $request->email)->first();
+        if (!$user)
+            return response()->json([
+                'message' => 'We cant find a user with that e-mail address.'
+            ], 404);
+        $passwordReset = PasswordReset::updateOrCreate(
+            ['email' => $user->email],
+            [
+                'email' => $user->email,
+                'token' => Str::random(15),
+                'created_at' => Carbon::now()
+                ]
+        );
+        if ($user && $passwordReset)
+            $user->notify(
+                new PasswordResetRequest($passwordReset->token)
+            );
         return response()->json([
-            'message'=> 'Password Change Successfully!',
+            'message' => 'We have e-mailed your password reset link!'
         ]);
-     }
-
-
-
-    public function logout(Request $request)
+    }
+    
+    public function reset(Request $request)
+    {
+        $request->validate([
+            'token' => 'required|string',
+            'password' => 'required|string|confirmed',
+            
+        ]);
+        $passwordReset = PasswordReset::where([
+            ['token', $request->token],
+            ['email', $request->email]
+        ])->first();
+        if (!$passwordReset)
+            return response()->json([
+                'message' => 'This password reset token is invalid.'
+            ], 404);
+        $user = User::where('email', $passwordReset->email)->first();
+        if (!$user)
+            return response()->json([
+                'message' => 'We cant find a user with that e-mail address.'
+            ], 404);
+        $user->password = bcrypt($request->password);
+        $user->save();
+        $passwordReset->delete();
+        $user->notify(new PasswordResetSuccess($passwordReset));
+        return response()->json([
+            'message'=> 'New Password Created Successfully',
+            
+        ]);
+    }
+    
+     public function logout(Request $request)
     {
         $user = Auth::user();
         $user->tokens()->delete();

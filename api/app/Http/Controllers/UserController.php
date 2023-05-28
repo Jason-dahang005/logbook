@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -21,6 +22,26 @@ class UserController extends Controller
             'user' => $user
         ], 200);
     }
+
+    public function change_password(Request $request,$id)
+    {
+        $user = User::find($id);
+        $request->validate([
+            'current_password' => ['required', function ($attribute, $value, $fail) use ($user) {
+                if (!Hash::check($value, $user->password)) {
+                    return $fail(('The current password is incorrect!'));
+                }
+            }],
+            'new_password'=>'required|min:5',
+            'confirm_password'=>'required|same:new_password'
+        ]);
+        $user->password = bcrypt($request['confirm_password']);
+        $user->save();
+        return response()->json([
+            'message'=> 'Password Change Successfully!',
+        ]);
+     }
+
 
     /**
      * Show the form for creating a new resource.
