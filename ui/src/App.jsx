@@ -19,6 +19,7 @@ import Profile from './components/admin/Profile'
 import OrgTable from './components/admin/OrgTable'
 import Welcome from './components/guard/Welcome'
 import AdminOrganization from './pages/admin/AdminOrganization'
+import Logbook from './pages/admin/Logbook'
 
 function App() {
 
@@ -49,6 +50,7 @@ function App() {
             <Route path='/security-list' element={<SecurityList/>} />
             <Route path='/orgtable' element={<OrgTable/>} />
             <Route path='/profile' element={<Profile/>} />
+            <Route path='/logbook' element={<Logbook/> } />
           </Route>
         </Route>
       </Routes>

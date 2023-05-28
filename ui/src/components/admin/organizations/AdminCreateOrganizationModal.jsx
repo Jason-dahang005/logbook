@@ -8,11 +8,9 @@ const AdminCreateOrganizationModal = () => {
 
   const { isModalOpen, closeModal, guard, name, setName, user_id, setUser_id, description, setDescription, handleCreateOrganization } = useContext(AdminOrganizationContext)
 
-  useEffect(() => {
-    console.log(guard)
-  }, [guard])
-
-  const guardArray = Array.isArray(guard) ? guard : [guard]
+  // useEffect(() => {
+  //   console.log(guard)
+  // }, [guard])
 
   if(!isModalOpen) {
     return null
@@ -38,14 +36,13 @@ const AdminCreateOrganizationModal = () => {
               <div className="form-group">
                 <label className='create-log-modal-form-label' htmlFor="">Security guard</label>
                 <select name="guard" className='create-log-modal-form-input' id="" value={user_id} onChange={(e) => setUser_id(e.target.value)}>
+                  <option value="">Select guard</option>
                  {
-                  guardArray > 0 ? guardArray.map((item) => {
+                  guard.map((item) =>{
                     return (
-                      <option key={item.id} value={item.id}>{ item.firstname } { item.lastname }</option>
+                      <option value={item.id} key={item.id}>{item.firstname}</option>
                     )
-                  }) : (
-                    <option value='' disabled>No guards</option>
-                  )
+                  })
                  }
                 </select>
               </div>

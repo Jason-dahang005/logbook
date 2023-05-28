@@ -82,7 +82,7 @@ Route::group(['middleware' => ['api', 'role:admin', 'auth:api']], function () {
     });
 
     Route::controller(AdminListAttendanceController::class)->group(function () {
-        Route::get('adminlistattendance/{id}/{date}', 'index');
+        Route::get('admin-list-attendance/{id}/{date}', 'index');
     });
 
     Route::controller(GuardProfileConrtoller::class)->group(function () {
