@@ -8,7 +8,7 @@ export const AdminOrganizationContext = createContext()
 
 const AdminOrganizationProvider = ({ children }) => {
 
-  const [organization, setOrganization] = useState([])
+  const [organization, setOrganization] = useState('')
   const [loading, setLoading] = useState(true)
   const [guard, setGuard] = useState([])
   const [isModalOpen, setIsModalOpen] = useState(false)

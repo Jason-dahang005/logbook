@@ -6,6 +6,7 @@ export const AdminLogbookContext = createContext()
 
 const AdminLogbookProvider = ({ children }) => {
 
+  const [org, setOrg] = useState([])
   const [attendance, setAttendance] = useState([])
   const [notes, setNotes] = useState([])
   const [search, setSearch] = useState('')
@@ -53,6 +54,18 @@ const AdminLogbookProvider = ({ children }) => {
     })
   }
 
+  useEffect(() => {
+    orgName()
+  }, [])
+
+  const orgName = () => {
+    axiosInstance.get(`admin-org/${location.state.id}`)
+    .then((response) => {
+      console.log(response.data.org)
+      setOrg(response.data.org)
+    })
+  }
+
   const handleSearch = (e) => {
     setSearch(e.target.value)
   }
@@ -82,7 +95,8 @@ const AdminLogbookProvider = ({ children }) => {
         noteSearch,
         search,
         handleSearch,
-        clearSearch
+        clearSearch,
+        org
       }}>
       { children }
     </AdminLogbookContext.Provider>
