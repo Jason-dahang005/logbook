@@ -76,6 +76,7 @@ const AdminOrganizationProvider = ({ children }) => {
       });
       setName('')
       setDescription('')
+      fetchAttendance()
 
     } catch (error) {
       toast.error('Something went wrong!', {

@@ -22,6 +22,12 @@ const ViewModal = ({ open, onClose, content }) => {
           <table className='table-full'>
             <tbody>
               <tr>
+                <th className='border p-2'>Signature</th>
+                <td className='border px-5 py-2 w-full whitespace-pre-line'>
+                 <img src={'http://127.0.0.1:8000/storage/' + content.signature} alt="" className='max-w-[100px]' />
+                </td>
+              </tr>
+              <tr>
                 <th className='border p-2'>First Name:</th>
                 <td className='border px-5 py-2 w-full whitespace-pre-line'>{ content.firstname }</td>
               </tr>

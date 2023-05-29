@@ -1,5 +1,5 @@
 import React from 'react'
-import DataContext from '../../context/DataContext'
+import DataContext from '../../../context/DataContext'
 import { useContext, useState } from 'react'
 
 import DatePicker from 'react-datepicker'
