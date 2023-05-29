@@ -19,6 +19,16 @@ const SecurityListTable = () => {
       fetchGuard()
   }, [])
 
+  const fetchGuard = () => {
+    axiosInstance.get(`guard-list`)
+    .then((res) => {
+      setGuard(res.data.guards)
+      setLoading(false)
+    })
+    .catch((error) => {
+      console.log(error)
+    })
+  }
 
   const filterData = guard.filter((item) => {
     return item.firstname.toLowerCase().includes(search.toLowerCase()) || item.lastname.toLowerCase().includes(search.toLowerCase()) || item.email.toLowerCase().includes(search.toLowerCase())
