@@ -1,9 +1,14 @@
 import React from 'react'
 import { useState } from 'react'
-import { HiPlus } from 'react-icons/hi'
+import { AiOutlinePlusCircle } from 'react-icons/ai'
 import { useLocation } from 'react-router-dom'
 import { IoMdClose } from 'react-icons/io'
 import axiosInstance from '../../api/axios'
+import { useRef } from 'react'
+import Webcam from 'react-webcam'
+
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 const CreateNewAttendance = (props) => {
 
@@ -13,6 +18,7 @@ const CreateNewAttendance = (props) => {
   const [lastname, setLastname] = useState('')
   const [description, setDescription] = useState('')
   const [error, setError] = useState([])
+  const webcamRef = useRef(null)
 
   const openModal = () => {
     setOpen(true)
@@ -28,12 +34,17 @@ const CreateNewAttendance = (props) => {
   const handleSubmit = (e) => {
     e.preventDefault()
 
+    const imageSrc = webcamRef.current.getScreenshot()
+
+    const base64Image = imageSrc.split(',')[1]
+
     axiosInstance.post(`create-attendance-logbook/${location.state.id}`,
-    JSON.stringify({
+    {
       firstname,
       lastname,
-      description
-    }))
+      description,
+      signature: base64Image
+    })
     .then((response) => {
       console.log(response.data)
       setFirstname('')
@@ -53,9 +64,9 @@ const CreateNewAttendance = (props) => {
 
   return (
     <>
-      <button type='button' onClick={openModal} className='flex items-center filter-item'>
-        <HiPlus/>
-        <span>Add New Attendance</span>
+      <button type='button' onClick={openModal} className='flex items-center p-2 h-[30px] text-sm font-semibold rounded-md space-x-1 bg-slate-700 text-white hover:bg-slate-800'>
+        <AiOutlinePlusCircle size={20}/>
+        <span className='text-xs'>Add New Attendance</span>
       </button>
 
       {
@@ -64,7 +75,7 @@ const CreateNewAttendance = (props) => {
             <div className='create-log-modal-wrapper'>
               <div className="create-log-modal-container">
                 <div className="create-log-modal-header">
-                  <h3 className='create-log-modal-title'>Create New Note</h3>
+                  <h3 className='create-log-modal-title'>Create New Attendance</h3>
                   <IoMdClose
                     className='create-log-modal-header-icon'
                     size={20}
@@ -73,7 +84,14 @@ const CreateNewAttendance = (props) => {
                 </div>
                 <div className="create-log-modal-body">
                   <form onSubmit={handleSubmit}>
-                    <div className="input-group">
+                    <div className='grid grid-cols-2'>
+                      <div className='pr-3 flex items-center'>
+                        <div className="input-group">
+                          <Webcam width={300} audio={false} ref={webcamRef} className='rounded-lg' screenshotFormat="image/jpeg"/>
+                        </div>
+                      </div>
+                      <div className=''>
+                      <div className="input-group">
                       <label  className='create-log-modal-form-label' htmlFor="firstname">First Name</label>
                       <input
                         type="text"
@@ -121,7 +139,7 @@ const CreateNewAttendance = (props) => {
                         name="description"
                         id="description"
                         cols="30"
-                        rows="4"
+                        rows="2"
                         value={description}
                         onChange={(e) => setDescription(e.target.value)}
                         className={`create-log-modal-form-input ${ error.description ? 'border-red-500' : 'border'}`}
@@ -137,6 +155,9 @@ const CreateNewAttendance = (props) => {
                         )
                       }
                     </div>
+                      </div>
+                    </div>
+                    
                     <div className="create-log-modal-footer">
                       <button className='create-log-modal-btn-submit' type='submit'>Submit</button>
                     </div>

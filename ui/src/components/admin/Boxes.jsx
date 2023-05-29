@@ -2,8 +2,7 @@ import React from 'react'
 import { GrOrganization } from 'react-icons/gr'
 import { FaRegUser, FaInfoCircle } from 'react-icons/fa'
 import { VscOrganization } from 'react-icons/vsc'
-import { useState } from 'react'
-import { useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import axiosInstance from '../../api/axios'
 import { Link } from 'react-router-dom'
 
@@ -12,18 +11,18 @@ const Boxes = () => {
   const [dataCount, setDataCount] = useState('')
 
   useEffect(() => {
-    const countData = setInterval(() => {
-      axiosInstance.get(`dashboard`)
+    fetchDashboard()
+  }, [])
+
+  const fetchDashboard = () => {
+    axiosInstance.get(`dashboard`)
       .then((res) => {
-        //console.log(res.data)
         setDataCount(res.data)
       })
       .catch((err) => {
         console.log(err)
       })
-    }, 1000)
-    return () => clearInterval(countData)
-  }, [dataCount])
+  }
 
   return (
     <div className='grid grid-cols-2 p-5 gap-5'>
@@ -32,7 +31,7 @@ const Boxes = () => {
             <FaRegUser size={50} className='fill-blue-700'/>
             <div className="">
               <h1 className='text-xs text-slate-700 font-bold'>
-                No. of Security Guard
+                Security guards
               </h1>
               <h1 className='text-right text-2xl font-bold text-slate-700'>
                 {
@@ -54,7 +53,7 @@ const Boxes = () => {
               <VscOrganization size={50} className='fill-green-700 text-green-500'/>
               <div className="">
                 <h1 className='text-xs text-slate-700 font-bold'>
-                  No. of Organization
+                 Organizations
                 </h1>
                 <h1 className='text-right text-2xl font-bold text-slate-700'>
                   {

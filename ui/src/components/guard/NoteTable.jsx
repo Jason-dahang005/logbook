@@ -11,6 +11,7 @@ import 'react-datepicker/dist/react-datepicker.css'
 import { AiFillEye } from 'react-icons/ai'
 import { BiSearch } from 'react-icons/bi'
 import { GrFormClose } from 'react-icons/gr'
+import NoteViewModal from './NoteViewModal'
 
 const NoteTable = () => {
   const location = useLocation()
@@ -22,9 +23,16 @@ const NoteTable = () => {
   const [modalContent, setModalContent] = useState([])
   const [searchQuery, setSearchQuery] = useState('')
 
+  const close = () => setViewModal(false)
+
   useEffect(() => {
-    const fetchNote = () => {
-      const formattedDate = selectedDate.toISOString().slice(0,10)
+    setLoading(true)
+    fetchNote()
+  }, [selectedDate])
+
+  const formattedDate = selectedDate.toISOString().slice(0,10)
+
+  const fetchNote = () => {
       axiosInstance.get(`list-note-logbook/${location.state.id}/${formattedDate}`)
       .then((response) => {
         setNote(response.data.note)
@@ -35,11 +43,6 @@ const NoteTable = () => {
       })
     }
 
-    const displayNote = setTimeout(fetchNote, 1000)
-
-    return () => clearTimeout(displayNote)
-  }, [selectedDate])
-
   const handleClick = (e) => {
     e.preventDefault();
     setIsOpen(!isOpen);
@@ -48,6 +51,12 @@ const NoteTable = () => {
   const handleChange = (e) => {
     setIsOpen(!isOpen);
     setSelectedDate(e);
+  }
+
+  const onCheck = (id) => {
+    console.log(id)
+    setViewModal(true)
+    setModalContent(id)
   }
 
   const handleSearch = (e) => {
@@ -64,7 +73,7 @@ const NoteTable = () => {
 
   return (
     <div className='flex items-center justify-center'>
-      <div className="rounded-xl border p-5 shadow-md w-full bg-white">
+      <div className="rounded-xl p-5 shadow-[1px_1px_6px_2px_#00000024] w-full bg-white">
         <div className="flex w-full items-center justify-between border-b pb-3">
           <div className="flex items-center space-x-3">
             <div className="text-lg font-bold text-slate-700">Note Logbook</div>
@@ -76,25 +85,25 @@ const NoteTable = () => {
               </div>
               <input type="text" value={searchQuery} onChange={handleSearch} className='border border-gray-400 pl-8 p-2 outline-none rounded-lg text-sm font-semibold focus:border-gray-700 text-gray-700' placeholder='Search'/>
               <div className="absolute inset-y-0 right-0 flex items-center pr-3">
-                <GrFormClose size={20} className='text-slate-700 hover:cursor-pointer z-50'/>
+                <GrFormClose size={20} onClick={clearSearch} className='text-slate-700 hover:cursor-pointer z-50 hover:bg-gray-200 rounded-full'/>
               </div>
             </div>
             <div className=''>
               <button onClick={handleClick} className='flex items-center space-x-1 hover:cursor-pointer filter-item'>
                 <MdCalendarMonth size={20}/>
                 <div>
-                  <h1 className='font-semibold text-sm'>{ format(selectedDate, "dd-MM-yyyy") }</h1>
+                  <h1 className='font-semibold text-xs'>{ format(selectedDate, "dd-MM-yyyy") }</h1>
                 </div>
               </button>
               {
               isOpen && (
-                <div className="absolute right-[32px] top-[260px] z-50">
+                <div className="absolute z-50">
                   <DatePicker selected={selectedDate} onChange={handleChange} inline />
                 </div>
                 )
               }
             </div>
-            <CreateNewNote/>
+            <CreateNewNote fetchNote={fetchNote}/>
           </div>
         </div>
         <div className="logbook-table">
@@ -124,7 +133,7 @@ const NoteTable = () => {
                         <td>{ item.description }</td>
                         <td>{ new Date(item.created_at).toLocaleTimeString() }</td>
                         <td>
-                          <button type="button">
+                          <button type="button" onClick={() => onCheck(item)}>
                             <AiFillEye/>
                             <span>View</span>
                           </button>
@@ -147,6 +156,7 @@ const NoteTable = () => {
           </table>
         </div>
       </div>
+      <NoteViewModal open={viewModal} onClose={close} content={modalContent}/>
     </div>
   )
 }

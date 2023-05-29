@@ -10,6 +10,8 @@ import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { IoMdArrowDropdown } from 'react-icons/io'
 import { BiLogOut } from 'react-icons/bi'
 import { FaCog, FaUserAlt } from 'react-icons/fa'
+
+// Component Imports
 import axiosInstance from '../../api/axios'
 import Dropwdown from '../Dropwdown'
 import OrgName from './OrgName'
@@ -37,11 +39,15 @@ const Header = () => {
 
   return (
     <header>
-      <nav className='py-5 bg-slate-800 px-4 lg:px-6'>
+      <nav className='py-5 bg-slate-800 px-4 lg:px-6 shadow-[0px_2px_14px_6px_#00000024]'>
         <div className="flex justify-between items-center mx-auto">
-          <div className="">
-            <h5 className='text-2xl'>
-            </h5>
+          <div className="flex">
+            <div>
+              
+            </div>
+            <div>
+              <h5 className='text-2xl'></h5>
+            </div>
             
           </div>
           <div className="flex items-center space-x-2 hover:cursor-pointer"  onClick={() => {setOpen(!open)}}>
@@ -49,7 +55,7 @@ const Header = () => {
               <img src={user_img} className="w-8 rounded-full" alt="" />
             </div>
             <span className='flex items-center'>
-              <span className='text-white'>{ user.name }</span>
+              <span className='text-white'>{ user.firstname }</span>
               <IoMdArrowDropdown className='fill-white'/>
             </span>
           </div>

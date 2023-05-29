@@ -84,7 +84,7 @@ class OrganizationController extends Controller
      * @param  \App\Models\Organization  $organization
      * @return \Illuminate\Http\Response
      */
-    public function show(Organization $organization, $id)
+    public function show($id)
     {
          $org = Organization::find($id);
 
@@ -119,8 +119,8 @@ class OrganizationController extends Controller
 
         ]);
         $org = Organization::find($id);
-        $org->name =  $request->input('name');
-        $org->description = $request->input('description');
+        $org->name =  ucwords($request->input('name'));
+        $org->description = ucwords($request->input('description'));
         $org->save();
 
         return response()->json([

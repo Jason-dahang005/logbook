@@ -4,8 +4,7 @@ import OrgNameFilter from './OrgNameFilter'
 
 const LowerHeader = () => {
   return (
-    <div className='w-full flex justify-end items-center space-x-3 pb-4'>
-      {/* <input type="date" className='border'/> */}
+    <div className='border flex items-center p-3 justify-end space-x-2'>
       <OrgNameFilter/>
       <CreateOrgBtn/>
     </div>

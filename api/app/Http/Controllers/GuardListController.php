@@ -4,8 +4,9 @@ namespace App\Http\Controllers;
 
 
 use App\Models\User;
+use App\Models\Organization;
 use Illuminate\Http\Request;
-//use Spatie\Permission\Traits\HasRoles;
+// use Spatie\Permission\Traits\HasRoles;
 
 class GuardListController extends Controller
 {
@@ -14,9 +15,8 @@ class GuardListController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(User $guard)
     {
-        
         $guard = User::role('user')->get();
 
         return response()->json([
@@ -55,27 +55,10 @@ class GuardListController extends Controller
      */
     public function show($id)
     {
-        User::find($id);
-
-        $guard = User::where('user_id', $id)->get();
-        if($guard){
-            return response()->json([
-                'Attendance' => $guard
-            ]);
-        } else {
-            return response()->json([
-                'message' => 'no current logs'
-            ]);
-        }
+        $guard = User::find($id);
+        return response()->json($guard);
     }
 
-
-    //     $user = User::find($id);
-    //     if(!$user) {
-    //         return response()->json(['message'=> 'user not exist'], 404);
-    //     }
-    //     return response()->json(['data' => $user], 200);
-    // }
     /**
      * Show the form for editing the specified resource.
      *

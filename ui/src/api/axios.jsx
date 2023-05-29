@@ -1,14 +1,14 @@
-import axios from "axios";
+ import axios from "axios";
 
-  const axiosInstance = axios.create({
-    baseURL: 'http://127.0.0.1:8000/api/'
-  })
+//   const axiosInstance = axios.create({
+//     baseURL: 'https://d4cc-202-137-119-4.ngrok-free.app/api/'
+//   })
 
-  axiosInstance.interceptors.request.use((config) => {
-    config.headers.Authorization = `Bearer ${localStorage.getItem('token')}`
-    config.headers['Content-Type'] = 'application/json';
-    return config
-  })
+//   axiosInstance.interceptors.request.use((config) => {
+//     config.headers.Authorization = `Bearer ${localStorage.getItem('token')}`
+//     config.headers['Content-Type'] = 'application/json';
+//     return config
+//   })
 
 
   export default axiosInstance

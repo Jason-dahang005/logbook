@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins&family=Roboto&family=Roboto+Slab&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -31,7 +34,7 @@
   }
 
   .create-log-modal-container {
-    @apply bg-white rounded drop-shadow-md w-[450px]
+    @apply bg-white rounded drop-shadow-md w-[600px]
   }
 
   .create-log-modal-header {
@@ -69,7 +72,7 @@
 
   /* LOGBOOK TABLE STYLE */
   .logbook-table table {
-    @apply w-full
+    @apply w-full font-[Roboto] 
   }
 
   .logbook-table table thead {
@@ -77,15 +80,15 @@
   }
 
   .logbook-table table thead tr th {
-    @apply font-bold py-3 text-start pl-5 border-slate-300 text-white;
+    @apply font-bold py-3 text-start pl-5 text-white text-sm;
   }
 
   .logbook-table table tbody tr {
-    @apply even:bg-slate-200
+    @apply odd:bg-slate-100
   }
 
   .logbook-table table tbody tr td {
-    @apply text-slate-600 max-h-2 overflow-hidden px-5 py-2 whitespace-pre text-ellipsis
+    @apply text-slate-600 max-h-2 overflow-hidden px-5 py-2 whitespace-pre text-ellipsis text-sm
   } 
 
   .logbook-table table tbody tr td button {
@@ -140,7 +143,114 @@
       bg-white
       text-gray-700
       hover:border-gray-700
-      
+      h-[30px]
   }
+
+  /* Admin Tables */
+
+  .admin-table {
+    @apply
+      items-center
+      bg-transparent
+      w-full
+      border-collapse
+  }
+
+  .admin-table table {
+    @apply
+      items-center
+      bg-transparent
+      w-full
+      border-collapse
+  }
+
+  .admin-table table thead tr {
+    @apply
+      bg-gray-200
+  }
+
+  .admin-table table thead tr th {
+    @apply
+      px-6
+      align-middle
+      border
+      border-solid
+      py-3
+      text-xs
+      text-gray-600 
+      font-sans
+      border-l-0
+      border-r-0
+      whitespace-nowrap
+      font-bold
+      text-left
+      w-1/12
+  }
+
+  .admin-table table tbody tr {
+    @apply
+      border-b
+  }
+
+  .admin-table table tbody tr td {
+    @apply
+    border-t-0
+    px-6
+    py-2
+    align-middle
+    border-l-0
+    border-r-0
+    text-xs
+    text-gray-500
+    font-sans
+    font-normal
+    whitespace-nowrap
+  }
+
+  .badge-success {
+    @apply
+    text-[10px]
+    bg-green-500
+    text-white
+    rounded-full
+    px-[5px]
+    p-[1px]
+    font-bold
+  }
+
+  .badge-danger {
+    @apply
+      text-xs
+      bg-red-500
+      text-red-800
+      rounded-full
+      px-2
+      py-1
+      font-bold
+  }
+
+  .badge-info {
+    @apply
+      text-xs
+      bg-blue-5001
+      text-blue-800
+      rounded-full
+      px-2
+      py-1
+      font-bold
+  }
+
+  .btn-success {
+    @apply
+      bg-green-500
+      text-white
+      py-1
+      px-2
+      rounded
+      font-semibold
+      text-xs
+  }
+
+
 }
 

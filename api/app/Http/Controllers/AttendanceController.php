@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Attendance;
 use App\Models\Organization;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class AttendanceController extends Controller
 {
@@ -21,7 +22,7 @@ class AttendanceController extends Controller
 
         if($attendance){
             return response()->json([
-                'Attendance' => $attendance
+                'attendance' => $attendance
             ]);
         } else {
             return response()->json([
@@ -52,7 +53,14 @@ class AttendanceController extends Controller
             'firstname'     => 'required',
             'lastname'      => 'required',
             'description'   => 'required',
+            'signature'     => 'required'
         ]);
+
+        $imageData = $request->input('signature');
+
+        $decodeImage = base64_decode($imageData);
+        $filename = uniqid().'.jpg';
+        Storage::disk('public')->put($filename, $decodeImage);
 
         Organization::find($id);
 
@@ -61,6 +69,7 @@ class AttendanceController extends Controller
             'lastname'      => ucwords($request->lastname),
             'description'   => ucwords($request->description),
             'org_id'        => $id,
+            'signature'     => $filename
         ]);
 
         return response()->json([

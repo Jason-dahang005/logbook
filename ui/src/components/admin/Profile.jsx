@@ -1,11 +1,8 @@
 import React, { useEffect, useState }  from "react"
 import user_img from '../../assets/img/user-img.png'
 import axiosInstance from '../../api/axios'
-import { AiOutlineArrowLeft } from 'react-icons/ai'
+import { IoIosArrowBack } from 'react-icons/io'
 import { Link, useLocation } from 'react-router-dom'
-
-
-
 
 const Profile = () => {
 
@@ -89,7 +86,7 @@ const Profile = () => {
                     </div>
                 </div>
             </div>
-        </>
+        </div>
     )
 }
 
