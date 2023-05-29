@@ -73,9 +73,13 @@ class AdminOrganizationController extends Controller
      * @param  \App\Models\Organization  $organization
      * @return \Illuminate\Http\Response
      */
-    public function show(Organization $organization)
+    public function show($id)
     {
-        //
+        $org = Organization::with('user')->find($id);
+
+        return response()->json([
+            'org' => $org
+        ], 200);
     }
 
     /**
