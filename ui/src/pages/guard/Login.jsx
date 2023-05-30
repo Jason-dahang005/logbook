@@ -6,12 +6,10 @@ import axiosInstance from '../../api/axios'
 import { MdEmail } from 'react-icons/md'
 import { AiFillLock } from 'react-icons/ai'
 
-import { toast, ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+
+import draw_img from '../../assets/img/logo.png'
 
 
-
-import draw_img from '../../assets/img/draw2.png'
 
 const Login = () => {
 
@@ -24,6 +22,8 @@ const Login = () => {
   const notify = () => toast.success("Success!");
 
   const handleSubmit = (e) => {
+    
+
     e.preventDefault()
 
     setLoading(true)
@@ -53,9 +53,11 @@ const Login = () => {
       })
     }, 2000);
   }
+  
 
   return (
-      <>
+      <div>
+      
         <div className="flex flex-col mt-20 mr-3">
           <div className="grid place-items-center">
             <div className="p-10 lg:w-12/12  sm:px-10 bg-white rounded-lg shadow-2xl	box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25)   border">
@@ -102,7 +104,7 @@ const Login = () => {
             </div>
           </div>
         </div>
-      </>
+    </div>
  
   )
 }

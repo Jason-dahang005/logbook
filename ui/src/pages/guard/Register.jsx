@@ -6,34 +6,44 @@ import { FaUser } from 'react-icons/fa'
 import { MdEmail } from 'react-icons/md'
 import { AiFillLock } from 'react-icons/ai'
 
-import draw_img from '../../assets/img/draw2.png'
+
+
+import draw_img from '../../assets/img/logo.png'
+
 
 const Register = () => {
 
-  const nav = useNavigate()
-  const [firstname, setFirstname] = useState('')
-  const [lastname, setLastname] = useState('')
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [error, setError] = useState([])
+  const nav = useNavigate()
+  const [firstname, setFirstname] = useState('')
+  const [lastname, setLastname] = useState('')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [error, setError] = useState([])
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
+  const handleSubmit = (e) => {
+    e.preventDefault()
+  
 
-    axiosInstance.post('register', JSON.stringify({
-      firstname, lastname, email, password
-    })).then((response) => {
-      console.log(response.data)
-      nav('/')
-    }).catch(error => {
-      if(error.response.status === 422){
-        setError(error.response.data.errors)
-      }
-    })
-  }
+    axiosInstance.post('register', JSON.stringify({
+      firstname, lastname, email, password
+    })).then((response) => {
+      console.log(response.data)
+
+      nav('/')
+    }).catch(error => {
+      if(error.response.status === 422){
+        setError(error.response.data.errors)
+      }
+    })
+  }
+
+  
 
   return (
-    
+  
+    <div>
+  
+       
         <div className="flex flex-col mt-20">
           <div className="grid place-items-center">
             <div className="p-10 lg:w-10/12  sm:px-10 bg-white rounded-lg shadow-2xl	box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25) border">
@@ -139,6 +149,9 @@ const Register = () => {
             </div>
           </div>
         </div>
+        </div>
+     
+       
   
   )
 }

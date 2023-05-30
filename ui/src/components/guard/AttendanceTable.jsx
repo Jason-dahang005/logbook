@@ -76,7 +76,7 @@ const AttendanceTable = () => {
       <div className="rounded-xl p-5 shadow-[1px_1px_6px_2px_#00000024] w-full bg-white">
         <div className="flex w-full items-center justify-between -b pb-3">
           <div className="flex items-center space-x-3">
-            <div className="text-lg font-bold text-slate-700">Attendance Logbook</div>
+            <div className="text-lg font-bold text-slate-700"> Attendance Logbook</div>
           </div>
           <div className="flex items-center space-x-2">
             <div className='relative borde'>
@@ -106,7 +106,7 @@ const AttendanceTable = () => {
             <CreateNewAttendance fetchAttendance={fetchAttendance}/>
           </div>
         </div>
-        <div className="logbook-table">
+        <div className="logbook-table overflow-y-scroll max-h-80">
           <table>
             <thead>
               <tr>

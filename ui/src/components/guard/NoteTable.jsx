@@ -106,7 +106,7 @@ const NoteTable = () => {
             <CreateNewNote fetchNote={fetchNote}/>
           </div>
         </div>
-        <div className="logbook-table">
+        <div className="logbook-table overflow-y-scroll max-h-80 ">
           <table>
             <thead>
               <tr>
@@ -160,5 +160,4 @@ const NoteTable = () => {
     </div>
   )
 }
-
-export default NoteTable
+export default NoteTable 

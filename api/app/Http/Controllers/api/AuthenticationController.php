@@ -19,7 +19,7 @@ class AuthenticationController extends Controller
         $request->validate([
             'firstname'     => 'required|string',
             'lastname'      => 'required|string',
-            'email'     => 'required|email',
+            'email'     => 'required|email:rfc,dns|unique:users,email',
             'password'  => 'required|min:5',
 
         ]);
