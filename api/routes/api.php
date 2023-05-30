@@ -20,7 +20,8 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\GuardProfileConrtoller;
 
 // Admin Controllers
-use App\Http\Controllers\AdminOrganizationController;
+use App\Http\Controllers\admin\AdminOrganizationController;
+use App\Http\Controllers\admin\AdminGuardListController;
 use App\Http\Controllers\AdminAttendanceController;
 use App\Http\Controllers\AdminNoteController;
 
@@ -44,18 +45,29 @@ use App\Http\Controllers\AdminNoteController;
 
 // Authentication Routes
 // ngrok http 8000
-Route::get('test',function() {
-    return 'hello';
-});
+
+
 Route::controller(AuthenticationController::class)->group(function() {
     Route::post('register', 'register');
     Route::post('login', 'login');
-    Route::put('change-password/{id}', 'change_password');
+    Route::post('password-create','create');
+    Route::post('password-reset', 'reset');
 });
 
 // Admin Routes
 Route::group(['middleware' => ['api', 'role:admin', 'auth:api']], function () {
     Route::get('admin-user', [UserController::class, 'index']);
+   
+
+    Route::controller(AdminOrganizationController::class)->group(function () {
+        Route::get('admin-list-organization', 'index');
+        Route::post('admin-create-organization', 'store');
+        Route::get('admin-org/{id}', 'show');
+    });
+
+    Route::controller(AdminGuardListController::class)->group(function () {
+        Route::get('assigned-guard-list', 'index');
+    });
 
     Route::controller(GuardListController::class)->group(function() {
         Route::get('guard-list', 'index');
@@ -70,13 +82,8 @@ Route::group(['middleware' => ['api', 'role:admin', 'auth:api']], function () {
         Route::get('dashboard', 'index');
     });
 
-    Route::controller(AdminOrganizationController::class)->group(function () {
-        Route::get('admin-org-list', 'index');
-        Route::get('admin-org/{id}', 'show');
-    });
-
     Route::controller(AdminListAttendanceController::class)->group(function () {
-        Route::get('adminlistattendance/{id}/{date}', 'index');
+        Route::get('admin-list-attendance/{id}/{date}', 'index');
     });
 
     Route::controller(GuardProfileConrtoller::class)->group(function () {
@@ -103,6 +110,7 @@ Route::group(['middleware' => ['api', 'role:admin', 'auth:api']], function () {
 // Users Routes
 Route::group(['middleware' => ['api', 'role:user', 'auth:api']], function () {
     Route::get('auth-user', [UserController::class, 'index']);
+    Route::put('change-password/{id}',  [UserController::class,'change_password']);
 
     Route::controller(OrganizationController::class)->group(function() {
         Route::post('create-org', 'store');

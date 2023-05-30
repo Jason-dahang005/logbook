@@ -56,7 +56,7 @@ const Header = () => {
               <img src={user_img} className="w-8 rounded-full" alt="" />
             </div>
             <span className='flex items-center'>
-              <span className='text-white'>{ user.name }</span>
+              <span className='text-white'>{ user.firstname }</span>
               <IoMdArrowDropdown className='fill-white'/>
             </span>
           </div>

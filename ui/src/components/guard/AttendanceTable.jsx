@@ -97,7 +97,7 @@ const AttendanceTable = () => {
               </button>
               {
               isOpen && (
-                <div className="absolute right-[212px] top-[240px] z-50">
+                <div className="absolute right-[200px] top-[220px] z-50">
                   <DatePicker selected={selectedDate} onChange={handleChange} inline />
                 </div>
                 )
@@ -110,9 +110,10 @@ const AttendanceTable = () => {
           <table>
             <thead>
               <tr>
+                <th scope='col' className='w-2/12'>Signature</th>
                 <th scope="col" className='w-2/12'>Firstname</th>
                 <th scope="col" className='w-2/12'>Lastname</th>
-                <th scope="col" className='w-6/12'>Description</th>
+                <th scope="col" className='w-4/12'>Description</th>
                 <th scope="col" className='w-1/12'>Time</th>
                 <th scope="col" className='w-1/12'>Action</th>
               </tr>
@@ -121,7 +122,7 @@ const AttendanceTable = () => {
               {
                 loading ? (
                   <tr>
-                    <td className='text-center py-5' colSpan={5}>
+                    <td className='text-center py-5' colSpan={6}>
                       <div className='flex justify-center items-center space-x-2 py-5'>
                         <div style={{borderTopColor: 'transparent'}} className="w-6 h-6 border-4 border-slate-700 border-double rounded-full animate-spin" />
                         <h1 className='font-bold text-sm text-slate-700'>Loading</h1>
@@ -132,6 +133,9 @@ const AttendanceTable = () => {
                   filteredData.length > 0 ? filteredData.map((item) => {
                     return (
                       <tr key={item.id}>
+                        <td>
+                          <img src={'http://127.0.0.1:8000/storage/' + item.signature} alt="" className='max-w-[50px]' />
+                        </td>
                         <td>{item.firstname}</td>
                         <td>{item.lastname}</td>
                         <td>{item.description}</td>
@@ -146,8 +150,8 @@ const AttendanceTable = () => {
                     )
                   }) : (
                     <tr>
-                      <td colSpan={5}>
-                        <div className='flex flex-col justify-center items-center pt-4 '>
+                      <td colSpan={6}>
+                        <div className='flex flex-col justify-center items-center pt-4'>
                           <ImFileEmpty size={30}/>
                           <h1 className='font-bold text-sm text-slate-700 py-5'>Table is empty</h1>
                         </div>

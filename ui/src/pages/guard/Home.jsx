@@ -38,7 +38,7 @@ const Home = () => {
 
   return (
     <div className='flex flex-col space-y-3 p-3'>
-      <div className='flex justify-end items-center space-x-2 p-3 shadow-[1px_1px_6px_2px_#00000024] rounded-lg'>
+      {/* <div className='flex justify-end items-center space-x-2 p-3 shadow-[1px_1px_6px_2px_#00000024] rounded-lg'>
         <div className='relative'>
           <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
             <BiSearch className='text-slate-400'/>
@@ -49,7 +49,7 @@ const Home = () => {
           </div>
         </div>
         <CreateOrgBtn getOrgList={getOrgList}/>
-      </div>
+      </div> */}
       {
         loading ? (
           <div className='flex justify-center items-center h-[200px]'>

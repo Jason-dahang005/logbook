@@ -119,8 +119,8 @@ class OrganizationController extends Controller
 
         ]);
         $org = Organization::find($id);
-        $org->name =  $request->input('name');
-        $org->description = $request->input('description');
+        $org->name =  ucwords($request->input('name'));
+        $org->description = ucwords($request->input('description'));
         $org->save();
 
         return response()->json([

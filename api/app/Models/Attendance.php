@@ -14,6 +14,7 @@ class Attendance extends Model
         'lastname',
         'description',
         'org_id',
+        'signature'
     ];
 
     public function organization(){
