@@ -38,18 +38,6 @@ const Home = () => {
 
   return (
     <div className='flex flex-col space-y-3 p-3'>
-      {/* <div className='flex justify-end items-center space-x-2 p-3 shadow-[1px_1px_6px_2px_#00000024] rounded-lg'>
-        <div className='relative'>
-          <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-            <BiSearch className='text-slate-400'/>
-          </div>
-          <input type="text" value={searchOrg} onChange={(e) => setSearchOrg(e.target.value)} className='border border-slate-400 pl-8 pr-2 py-1 outline-none rounded text-slate-700' placeholder='Search' />
-          <div className='absolute inset-y-0 right-0 flex items-center pr-3'>
-            <GrFormClose size={20} onClick={() => setSearchOrg('')} className='text-slate-700 hover:cursor-pointer z-50 hover:bg-gray-200 rounded-full'/>
-          </div>
-        </div>
-        <CreateOrgBtn getOrgList={getOrgList}/>
-      </div> */}
       {
         loading ? (
           <div className='flex justify-center items-center h-[200px]'>

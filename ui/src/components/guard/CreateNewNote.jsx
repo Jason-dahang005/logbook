@@ -5,6 +5,9 @@ import { IoMdClose } from 'react-icons/io'
 import axiosInstance from '../../api/axios'
 import { useLocation } from 'react-router-dom'
 
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+
 const CreateNewNote = (props) => {
   const location = useLocation()
   const [open, setOpen] = useState(false)
@@ -30,6 +33,16 @@ const CreateNewNote = (props) => {
       setDescription('')
       setOpen(false)
       props.fetchNote()
+      toast.success('Organization created!', {
+        position: "top-right",
+        autoClose: 1000,
+        hideProgressBar: true,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: false,
+        progress: undefined,
+        theme: "colored",
+      });
     })
   }
 

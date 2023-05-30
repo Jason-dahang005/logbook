@@ -26,12 +26,11 @@ const Logbook = () => {
       <div className="w-full mb-12 xl:mb-0 mx-auto px-3 pt-3">
         <div className="relative flex flex-col min-w-0 break-words border bg-white w-full mb-6 rounded-lg p-3">
           <div className="rounded-t mb-0 border-0">
-            <div className='border-b flex item-center justify-between pb-2'>
+            <div className='border-b flex item-center justify-between'>
               <div className='flex item-center'>
                 <AiOutlineArrowLeft onClick={() => nav('/organizations')} size={20} className='hover:cursor-pointer'/>
                 <OrganizationNameAndGuard/>
               </div>
-
               <div className="flex justify-around">
                 <button onClick={() => action(1)} className={` ${tab === 1 ? 'text-slate-700' : 'text-gray-400 hover:bg-gray-100 hover:text-gray-500' } text-xs font-semibold py-2 w-28`}>Attendance</button>
                 <button onClick={() => action(2)} className={` ${tab === 2 ? 'text-slate-700' : 'text-gray-400 hover:bg-gray-100 hover:text-gray-500' } text-xs font-semibold py-2 w-28`}>Note</button>

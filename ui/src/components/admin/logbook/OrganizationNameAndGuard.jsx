@@ -11,8 +11,7 @@ const OrganizationNameAndGuard = () => {
   const { org } = useContext(AdminLogbookContext)
   return (
     <div className='flex flex-col'>
-      <span className='font-semibold text-md'>{ org.name }</span>
-      <span className='text-[10px]'>{org.user.firstname} {org.user.lastname} </span>
+      <span className='font-bold text-md pl-5'>{ org.name }</span>
     </div>
   )
 }
